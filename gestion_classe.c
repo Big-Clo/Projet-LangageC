@@ -17,10 +17,6 @@ int code_existe(int x){
         }
     }
     fclose(fichier_classe);
-<<<<<<< HEAD
-=======
-    
->>>>>>> 449b2b1 (codes des fonctions de gestion classes)
     return 0;
 }
 
