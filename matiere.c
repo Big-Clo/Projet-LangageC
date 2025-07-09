@@ -76,7 +76,7 @@ int lister_matiere() {
         fclose(file);
         return 0;
     } else {
-        perror("Le fichier n'a pas pu etre ouvert");
+        printf("Le fichier n'a pas pu etre ouvert");
         return 1;
     }
 }
