@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "matiere.h"
 
 int reference_existe(int x){
@@ -20,20 +22,20 @@ int reference_existe(int x){
 int ajout_matiere(){
     int a;
     matiere mat;
-    printf("Veuillez saisir la reference de la matiere :\n");
+    printf("Veuillez saisir la reference de la matiere : ");
     scanf("%d",&mat.reference);
     a=reference_existe(mat.reference);
     while (a==1)
     {
-        printf("Cette reference a deja ete utilise\nVeuillez ressaisir une nouvelle reference :");
+        printf("Cette reference a deja ete utilise\nVeuillez ressaisir une nouvelle reference : ");
         scanf("%d",&mat.reference);
         a=reference_existe(mat.reference);
     }
     
-    printf("Veuillez saisir le libelle de la matiere :\n");
+    printf("Veuillez saisir le libelle de la matiere : ");
     scanf("%s",mat.libelle);
 
-    printf("Veuillez saisir le coefficient de la matiere :\n");
+    printf("Veuillez saisir le coefficient de la matiere : ");
     scanf("%d",&mat.coefficient);
 
     FILE *file=fopen("matiere.csv","a");
@@ -41,7 +43,40 @@ int ajout_matiere(){
         printf("Le fichier n'a pas pu etre ouvert");
         return 1;
     }
-    fprintf(file,"%d - %s - %d\n",mat.reference,mat.libelle,mat.coefficient);
+    fprintf(file,"%d;%s;%d\n",mat.reference,mat.libelle,mat.coefficient);
     fclose(file);
     return 0;
+}
+
+int lister_matiere() {
+    FILE *file = fopen("matiere.csv", "r");
+    if (file != NULL) {
+        char ligne[100];
+        char lib[15];
+        int ref, coef;
+
+        while (fgets(ligne, sizeof(ligne), file)) {
+            ligne[strcspn(ligne, "\n")] = '\0'; 
+
+            char *valeur = strtok(ligne, ";");
+            
+            ref = atoi(valeur);
+
+            valeur = strtok(NULL, ";");
+            
+            strcpy(lib, valeur);
+
+            valeur = strtok(NULL, ";");
+            
+            coef = atoi(valeur);
+
+            printf("Reference : %d, Libelle : %s, Coefficient : %d\n", ref, lib, coef);
+        }
+
+        fclose(file);
+        return 0;
+    } else {
+        perror("Le fichier n'a pas pu etre ouvert");
+        return 1;
+    }
 }
