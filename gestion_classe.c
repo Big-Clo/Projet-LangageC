@@ -17,7 +17,6 @@ int code_existe(int x){
         }
     }
     fclose(fichier_classe);
-    printf("c'est");
     return 0;
 }
 
