@@ -17,10 +17,8 @@ int code_existe(int x){
         }
     }
     fclose(fichier_classe);
-<<<<<<< HEAD
-=======
-    
->>>>>>> 449b2b1 (codes des fonctions de gestion classes)
+
+
     return 0;
 }
 
@@ -74,6 +72,8 @@ int ajout_classe(){
     fclose(fichier_classe);
     return 0;
 }
+
+
 void afficher_classe(){
     FILE *fichier_classe = fopen("classe.csv", "r");
     if (fichier_classe == NULL){
@@ -87,4 +87,51 @@ void afficher_classe(){
         printf("code: %d, nom: %s, niveau: %s\n", code, nom, niveau);
     }
     fclose(fichier_classe);
+}
+
+int recherche_classe(int x){
+    int code;
+    char nom[30], niveau[10];
+    FILE *fichier_classe = fopen("classe.csv", "r");
+    if (fichier_classe == NULL){
+        printf("le fichier n' a pas pu etre ouvert");
+        fclose(fichier_classe);
+        return 1;
+    }
+    while (fscanf(fichier_classe, "%d - %s - %s\n", &code, nom, niveau) != -1){
+        if (x == code){
+            printf("L'element est present.\n ");
+            printf("code: %d, nom: %s, niveau: %s\n", code, nom, niveau);
+            return 0;
+        }
+    }
+    printf ("L'element est absent");
+    return 1;
+}
+
+
+void supprimer_classe(int code_a_supprimer) {
+    FILE *fichier = fopen("classe.csv", "r");
+    FILE *temp = fopen("temp.csv", "w");
+    if (fichier == NULL || temp == NULL) {
+        printf("Le fichier n' a pas pu etre ouvert,\n");
+        exit(1);
+    }
+
+    char nom[30], niveau[10];
+    int code, trouve = 0;
+
+    while (fscanf(fichier, "%d - %s - %s\n", &code, nom, niveau) != -1) {
+        if (code != code_a_supprimer) {
+            fprintf(temp, "%d - %s - %s\n", code, nom, niveau);
+        } else {
+            trouve = 1;
+        }
+    }
+
+    fclose(fichier);
+    fclose(temp);
+    remove("classe.csv");
+    rename("temp.csv", "classe.csv");
+    printf("Classe supprimee avec succes.\n");
 }

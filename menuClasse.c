@@ -7,9 +7,11 @@ void menuClasse()
     int choix, a;
 
     do {
-    printf("\t\tBienvenue dans notre programme.\n");
+    printf("\n\n\t\tBienvenue dans notre programme.\n");
     printf("1. Pour ajouter un classe\n");
-    printf("2. Pour afficher la liste des classe\n");
+    printf("2. Pour afficher la liste des classes\n");
+    printf("3. Pour rechercher une classe\n");
+    printf("4. Pour supprimer une classe\n");
     printf("0. Pour quitter\n");
     printf("Renseigner votre choix\n");
     scanf("%d", &choix);
@@ -19,7 +21,7 @@ void menuClasse()
     case 1:
         a = ajout_classe();
         if (a ==0)
-            printf("\n L'ajout a reussi\n"); 
+            printf("\n L'ajout a réussi\n"); 
         else
             printf ("\nL'ajout a echoue\n");
             break;
@@ -27,10 +29,21 @@ void menuClasse()
         printf("Voici la liste des classes\n");
         afficher_classe();
         break;
+    case 3:
+        printf("Veuillez saisir le code de la classe a rechercher\t");
+        scanf("%d", &a);
+        recherche_classe(a);
+        break;
+    case 4:
+        printf("Veuillez saisir le code de la classe a supprimer\t");
+        scanf("%d", &a);
+        supprimer_classe(a);
+        break;
+    case 0: printf("Menu precedent\n"); break; 
     
     default:
         printf("Nous ne pouvons pas encore gerer cette option\n");
-        break;
+        
     }
     
     
