@@ -15,4 +15,5 @@ typedef struct {
 int ajout_classe();
 int code_existe(int x);
 void afficher_classe();
+void menuClasse();
 #endif 
