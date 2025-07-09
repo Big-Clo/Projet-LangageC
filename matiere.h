@@ -9,5 +9,6 @@ typedef struct
 }matiere;
 int reference_existe(int x);
 int ajout_matiere();
+int lister_matiere();
 
 #endif
