@@ -16,4 +16,11 @@ int ajout_classe();
 int code_existe(int x);
 void afficher_classe();
 void menuClasse();
+int recherche_classe(int x);
+void supprimer_classe(int code_a_supprimer);
+
+
+
+
+
 #endif 

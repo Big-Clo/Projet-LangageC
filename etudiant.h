@@ -21,6 +21,7 @@ void modifierEtudiant();
 void supprimerEtudiant();
 void rechercherEtudiant();
 void afficherListeEtudiants();
+void menuEtudiant();
 
 int chargerEtudiants(Etudiant tab[], int max);
 int sauvegarderEtudiants(Etudiant tab[], int n);
