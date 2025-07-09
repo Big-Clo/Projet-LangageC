@@ -17,8 +17,11 @@ int code_existe(int x){
         }
     }
     fclose(fichier_classe);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 21bece1b00fbf1674b2b36a704c4451e490f7610
     return 0;
 }
 
