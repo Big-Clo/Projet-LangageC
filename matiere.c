@@ -8,7 +8,7 @@ int reference_existe(int x){
     int reference,coefficient;
     FILE  *file = 
     fopen ("matiere.csv", "r");
-    while (fscanf(file, "%d - %s - %d\n", &reference,libelle,&coefficient) != -1){
+    while (fscanf(file, "%d;%s;%d\n", &reference,libelle,&coefficient) != -1){
         if (x == reference){
             fclose(file);
             return 1;
