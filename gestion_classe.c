@@ -40,7 +40,7 @@ int ajout_classe(){
         printf("L'ajout a ete annule");
         return 1;
     }
-    printf ("\n Le nom de la classe:\t");
+    printf ("\n Le nom de la classe:\t\n");
     scanf ("%s", classe.nom);
     printf ("\nVeuillez tapez 1 si vous etes en license et 2 si vous etes en master:\t");
     scanf("%d", &level);
