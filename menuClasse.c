@@ -7,14 +7,13 @@ void menuClasse()
     int choix, a;
 
     do {
-    printf("\n\n\t\tBienvenue dans notre programme.\n");
-    printf("1. Pour ajouter un classe\n");
-    printf("2. Pour afficher la liste des classes\n");
-    printf("3. Pour rechercher une classe\n");
-    printf("4. Pour supprimer une classe\n");
-    printf("5. Pour modifier une classe\n");
-    printf("0. Pour quitter\n");
-    printf("Renseigner votre choix\n");
+    printf("\t1. Pour ajouter un classe\n");
+    printf("\t2. Pour afficher la liste des classes\n");
+    printf("\t3. Pour rechercher une classe\n");
+    printf("\t4. Pour supprimer une classe\n");
+    printf("\t5. Pour modifier une classe\n");
+    printf("\t0. Pour quitter\n");
+    printf("\tRenseigner votre choix: ");
     scanf("%d", &choix);
 
     switch (choix)
