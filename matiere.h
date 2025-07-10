@@ -10,8 +10,9 @@ typedef struct
 int reference_existe(int x);
 int ajout_matiere();
 int lister_matiere();
+char* chercher(int a,char *trouve);
 int supprimer_matiere(char line_sup[100]);
 int chercher_matiere();
-int modifier_matiere();
+int modifier_matiere(char line_modif[100]);
 
 #endif
