@@ -17,11 +17,6 @@ int code_existe(int x){
         }
     }
     fclose(fichier_classe);
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 21bece1b00fbf1674b2b36a704c4451e490f7610
     return 0;
 }
 
@@ -138,3 +133,52 @@ void supprimer_classe(int code_a_supprimer) {
     rename("temp.csv", "classe.csv");
     printf("Classe supprimee avec succes.\n");
 }
+
+
+void modifier_classe(int code_a_modifier) {
+    FILE *fichier = fopen("classe.csv", "r");
+    FILE *temp = fopen("temp.csv", "w");
+
+    if (fichier == NULL || temp == NULL) {
+        printf("Le fichier n'a pas pu etre ouvert.\n");
+        exit(1);
+    }
+
+    char nom[50], niveau[20];
+    int code;
+
+
+    while (fscanf(fichier, "%d - %s - %s\n", &code, nom, niveau) != -1) {
+        if (code == code_a_modifier) {
+            printf("Entrez les nouvelles informations.\n");
+
+            char nouveau_nom[30];
+            int nouveau_niveau;
+
+            printf("Nouveau nom : ");
+            scanf(" %s", nouveau_nom);
+            printf("Veuillez entrez 1 si tu etes en License et 2 si vous etes en Master : ");
+            scanf("%d", &nouveau_niveau);
+            while (nouveau_niveau != 1 && nouveau_niveau !=2){
+                printf("Vous pouvez saisir que 1 pour License et 2 pour Master. Veuillez saisir");
+                scanf("%d", &nouveau_niveau);
+            }
+            if (nouveau_niveau ==1)
+            fprintf(temp, "%d - %s - License\n", code_a_modifier, nouveau_nom);
+            else
+            fprintf(temp, "%d - %s - Master\n", code_a_modifier, nouveau_nom);
+
+        } else {
+            fprintf(temp, "%d - %s - %s\n", code, nom, niveau);
+        }
+    }
+
+    fclose(fichier);
+    fclose(temp);
+
+    remove("classe.csv");
+    rename("temp.csv", "classe.csv");
+
+    printf(" Classe modifiee avec succes.\n");
+}
+
