@@ -7,7 +7,7 @@ void menuClasse()
     int choix, a;
 
     do {
-    printf("\t1. Pour ajouter un classe\n");
+    printf("\t1. Pour ajouter une classe\n");
     printf("\t2. Pour afficher la liste des classes\n");
     printf("\t3. Pour rechercher une classe\n");
     printf("\t4. Pour supprimer une classe\n");
