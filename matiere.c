@@ -48,6 +48,39 @@ int ajout_matiere(){
     return 0;
 }
 
+int supprimer_matiere(char line_sup[100]) {
+    FILE *file = fopen("matiere.csv", "r");
+    FILE *temp = fopen("temp.csv", "w");
+
+    if (file == NULL || temp == NULL) {
+        printf("Le fichier n'a pas pu etre ouvert");
+        return 1;
+    }
+
+    char line[100];
+    int trouve = 0;
+
+    while (fgets(line, sizeof(line), file)) {
+        
+        line[strcspn(line, "\n")] = 0;
+        line_sup[strcspn(line_sup, "\n")] = 0;
+
+        if (strcmp(line, line_sup) != 0) {
+            fprintf(temp, "%s\n", line);
+        } else {
+            trouve = 1; 
+        }
+    }
+
+    fclose(file);
+    fclose(temp);
+
+    remove("matiere.csv");
+    rename("temp.csv", "matiere.csv");
+
+    return trouve ? 0 : 2;;
+}
+
 int lister_matiere() {
     FILE *file = fopen("matiere.csv", "r");
     if (file != NULL) {
