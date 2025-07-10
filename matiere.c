@@ -80,3 +80,15 @@ int lister_matiere() {
         return 1;
     }
 }
+
+
+int modifier_matiere(){
+
+    return 0;
+}
+
+
+
+int chercher_matiere(){
+    return 0;
+}
