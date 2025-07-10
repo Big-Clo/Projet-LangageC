@@ -14,14 +14,13 @@ char* chercher(int a, char *trouve) {
 
     char line[100];
     while (fgets(line, sizeof(line), file)) {
-        // On fait une copie avant modification
         char copie[100];
         strcpy(copie, line);
-        copie[strcspn(copie, "\r\n")] = 0;  // Nettoyer saut de ligne
+        copie[strcspn(copie, "\r\n")] = 0;  
 
         char *valeur = strtok(line, ";");
         if (valeur != NULL && atoi(valeur) == a) {
-            strcpy(trouve, copie);  // On copie la ligne complète et propre
+            strcpy(trouve, copie);  
             break;
         }
     }
@@ -159,6 +158,140 @@ int modifier_matiere(char line_modif[100]){
 
 
 
-int chercher_matiere(){
+int rech_ref(int a){
+    FILE *file=fopen("matiere.csv","r");
+    if(file==NULL){printf("Le fichier n'a pas pu etre ouvert");return 1;}
+    char ligne[100];
+    char lib[15];
+    int ref, coef;
+    while (fgets(ligne, sizeof(ligne), file)) {
+            char copie[100];
+            strcpy(copie, ligne);
+            ligne[strcspn(ligne, "\n")] = '\0'; 
+
+            char *valeur = strtok(ligne, ";");
+            
+            ref = atoi(valeur);
+
+            valeur = strtok(NULL, ";");
+            
+            strcpy(lib, valeur);
+
+            valeur = strtok(NULL, ";");
+            
+            coef = atoi(valeur);
+            if (a==ref)
+            {
+                printf("%s",copie);
+            }
+       
+}
+fclose(file);
+return 0;
+}
+
+int rech_lib(char a[15]){
+    FILE *file=fopen("matiere.csv","r");
+    if(file==NULL){printf("Le fichier n'a pas pu etre ouvert");return 1;}
+    char ligne[100];
+    char lib[15];
+    int ref, coef;
+    while (fgets(ligne, sizeof(ligne), file)) {
+            char copie[100];
+            strcpy(copie, ligne);
+            ligne[strcspn(ligne, "\n")] = '\0'; 
+
+            char *valeur = strtok(ligne, ";");
+            
+            ref = atoi(valeur);
+
+            valeur = strtok(NULL, ";");
+            
+            strcpy(lib, valeur);
+
+            valeur = strtok(NULL, ";");
+            
+            coef = atoi(valeur);
+            if (strcmp(a,lib)==0)
+            {
+                printf("%s",copie);
+            }
+       
+}
+    fclose(file);
     return 0;
+}
+
+int rech_coef(int a){
+    FILE *file=fopen("matiere.csv","r");
+    if(file==NULL){printf("Le fichier n'a pas pu etre ouvert");return 1;}
+    char ligne[100];
+    char lib[15];
+    int ref, coef;
+    while (fgets(ligne, sizeof(ligne), file)) {
+            char copie[100];
+            strcpy(copie, ligne);
+            ligne[strcspn(ligne, "\n")] = '\0'; 
+
+            char *valeur = strtok(ligne, ";");
+            
+            ref = atoi(valeur);
+
+            valeur = strtok(NULL, ";");
+            
+            strcpy(lib, valeur);
+
+            valeur = strtok(NULL, ";");
+            
+            coef = atoi(valeur);
+            if (a==coef)
+            {
+                printf("%s",copie);
+            }
+       
+}
+fclose(file);
+    return 0;
+}
+
+void menuRecherche_matiere(){
+    int option;
+    do
+    {
+        printf("A partir de quel element voulez vous faire une recherche?\n\n\n");
+        printf("1. Reference\n");
+        printf("2. Libelle\n");
+        printf("3. Coefficient\n");
+        printf("0. Quitter\n");
+        printf("Renseignez votre choix : ");
+        scanf("%d",&option);
+        switch (option)
+        {
+        case 1 :
+            int a;
+            printf("Quelle reference voulez vous rechercher ?");
+            scanf("%d",&a);
+            rech_ref(a);
+            break;
+
+         case 2 :
+            char b[15];
+            printf("Quelle libelle voulez vous rechercher ? ");
+            scanf("%s",&b);
+            rech_lib(b);
+            break;
+        
+        case 3 :
+            int c;
+            printf("Quelle coefficient voulez vous rechercher ? ");
+            scanf("%d",&c);
+            rech_coef(c);
+            break;
+
+        default:
+            break;
+        }
+
+    } while (option!=0);
+    
 }

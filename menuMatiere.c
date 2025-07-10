@@ -16,7 +16,7 @@ void menuMatiere()
     printf("4. Pour supprimer une matiere\n");
     printf("5. Pour modifier une matiere\n");
     printf("0. Pour quitter\n");
-    printf("Renseigner votre choix\n");
+    printf("Renseigner votre choix : ");
     scanf("%d", &choix);
 
     switch (choix)
@@ -33,13 +33,7 @@ void menuMatiere()
         lister_matiere();
         break;
     case 3:
-        printf("Veuillez saisir la reference de la matiere a rechercher\t");
-        scanf("%d", &a);
-        if (reference_existe(a)){
-            printf("Il n'y a pas de matiere avec cette reference");
-            exit(1);
-        }
-        chercher_matiere(a);
+        menuRecherche_matiere();
         break;
     case 4:
         printf("Veuillez saisir la reference de la matiere a supprimer\t");
