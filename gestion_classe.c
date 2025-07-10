@@ -146,7 +146,7 @@ void modifier_classe(int code_a_modifier) {
 
     char nom[50], niveau[20];
     int code;
-    int trouve = 0;
+
 
     while (fscanf(fichier, "%d - %s - %s\n", &code, nom, niveau) != -1) {
         if (code == code_a_modifier) {
@@ -167,7 +167,7 @@ void modifier_classe(int code_a_modifier) {
             fprintf(temp, "%d - %s - License\n", code_a_modifier, nouveau_nom);
             else
             fprintf(temp, "%d - %s - Master\n", code_a_modifier, nouveau_nom);
-            trouve = 1;
+
         } else {
             fprintf(temp, "%d - %s - %s\n", code, nom, niveau);
         }
