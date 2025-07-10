@@ -8,4 +8,10 @@ typedef struct{
     int noteDS;
 }NOTE;
 
+
+int ajout_note();
+int numero_existe(int x);
+int reference_existe(int x);
+void menuNotes();
+
 #endif
