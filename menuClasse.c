@@ -12,6 +12,7 @@ void menuClasse()
     printf("2. Pour afficher la liste des classes\n");
     printf("3. Pour rechercher une classe\n");
     printf("4. Pour supprimer une classe\n");
+    printf("5. Pour modifier une classe\n");
     printf("0. Pour quitter\n");
     printf("Renseigner votre choix\n");
     scanf("%d", &choix);
@@ -37,7 +38,20 @@ void menuClasse()
     case 4:
         printf("Veuillez saisir le code de la classe a supprimer\t");
         scanf("%d", &a);
+        if (code_existe(a)){
+            printf("Il n'y a pas de classe avec ce code");
+            exit(1);
+        }
         supprimer_classe(a);
+        break;
+    case 5:
+        printf("Veuillez saisir le code de la classe a modifier\t");
+        scanf("%d", &a);
+        if (!code_existe(a)){
+            printf("Il n'y a pas de classe avec ce code");
+            exit(1);
+        }
+        modifier_classe(a);
         break;
     case 0: printf("Menu precedent\n"); break; 
     
