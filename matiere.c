@@ -8,7 +8,7 @@ int reference_existe(int x){
     int reference,coefficient;
     FILE  *file = 
     fopen ("matiere.csv", "r");
-    while (fscanf(file, "%d;%s;%d\n", &reference,libelle,&coefficient) != -1){
+    while (fscanf(file, "%d - %s - %d\n", &reference,libelle,&coefficient) != -1){
         if (x == reference){
             fclose(file);
             return 1;
@@ -43,7 +43,7 @@ int ajout_matiere(){
         printf("Le fichier n'a pas pu etre ouvert");
         return 1;
     }
-    fprintf(file,"%d;%s;%d\n",mat.reference,mat.libelle,mat.coefficient);
+    fprintf(file,"%d - %s - %d\n",mat.reference,mat.libelle,mat.coefficient);
     fclose(file);
     return 0;
 }
@@ -91,15 +91,15 @@ int lister_matiere() {
         while (fgets(ligne, sizeof(ligne), file)) {
             ligne[strcspn(ligne, "\n")] = '\0'; 
 
-            char *valeur = strtok(ligne, ";");
+            char *valeur = strtok(ligne, "-");
             
             ref = atoi(valeur);
 
-            valeur = strtok(NULL, ";");
+            valeur = strtok(NULL, "-");
             
             strcpy(lib, valeur);
 
-            valeur = strtok(NULL, ";");
+            valeur = strtok(NULL, "-");
             
             coef = atoi(valeur);
 
