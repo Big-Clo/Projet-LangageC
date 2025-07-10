@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "matiere.h"
 
-void menuClasse()
+void menuMatiere()
 {
     int choix, a;
     char tab[100];
@@ -67,7 +67,3 @@ void menuClasse()
 
 }
 
-int main(){
-    menuClasse();
-    return 0;
-}

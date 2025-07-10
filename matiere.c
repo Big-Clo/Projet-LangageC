@@ -2,22 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "matiere.h"
+#include "gestion_note.h"
 
-int reference_existe(int x){
-    char libelle[15];
-    int reference,coefficient;
-    FILE  *file = 
-    fopen ("matiere.csv", "r");
-    while (fscanf(file, "%d;%s;%d\n", &reference,libelle,&coefficient) != -1){
-        if (x == reference){
-            fclose(file);
-            return 1;
-            
-        }
-    }
-    fclose(file);
-    return 0;
-}
 
 char* chercher(int a, char *trouve) {
     FILE* file = fopen("matiere.csv", "r");
@@ -165,7 +151,7 @@ int modifier_matiere(char line_modif[100]){
         printf("Le fichier n'a pas pu etre ouvert");
         return 1;
     }
-    fprintf(file,"%d;%s;%d\n",mat.reference,mat.libelle,mat.coefficient);
+    fprintf(file,"%d - %s - %d\n",mat.reference,mat.libelle,mat.coefficient);
     fclose(file);
     return 0;
 }
