@@ -1,0 +1,9 @@
+1;LangageC;3
+2;Algorithmique;4
+3;Anglais;2
+4;FrontEnd;2
+4;SE;2
+6;Mathematiques;4
+7;Techno;3
+4;Reseau;2
+9;Reseau;4

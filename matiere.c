@@ -98,7 +98,9 @@ int lister_matiere() {
         char ligne[100];
         char lib[15];
         int ref, coef;
-
+        printf("\t+-----------+-----------------+-------------+\n");
+        printf("\t| Reference |     Libelle     | Coefficient |\n");
+        printf("\t+-----------+-----------------+-------------+\n");
         while (fgets(ligne, sizeof(ligne), file)) {
             ligne[strcspn(ligne, "\n")] = '\0'; 
 
@@ -114,7 +116,9 @@ int lister_matiere() {
             
             coef = atoi(valeur);
 
-            printf("Reference : %d, Libelle : %s, Coefficient : %d\n", ref, lib, coef);
+            
+            printf("\t| %9d | %15s | %11d |\n",ref,lib,coef);      
+            printf("\t+-----------+-----------------+-------------+\n");
         }
 
         fclose(file);

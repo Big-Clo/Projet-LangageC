@@ -16,7 +16,6 @@ int rech_ref(int a);
 int rech_lib(char a[15]);
 int rech_coef(int a);
 void menuRecherche_matiere();
-int chercher_matiere();
 void menuMatiere();
 int modifier_matiere(char line_modif[100]);
 
