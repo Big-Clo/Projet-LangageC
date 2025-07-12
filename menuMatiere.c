@@ -74,7 +74,8 @@ void menuMatiere()
     case 0: printf("Menu précédent\n\n"); break; 
     
     default:
-        printf("Nous ne pouvons pas encore gérer cette option\n\n");
+        printf("Cette option n'existe pas\n\n");
+        system("pause");
         break;
     }
     

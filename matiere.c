@@ -16,7 +16,7 @@ void saisie_ligne(char *dest, int taille) {
             }
 
             if (strchr(dest, ';') != NULL) {
-                printf("Erreur : le caractère ';' est interdit. Veuillez ressaisir :\n");
+                printf("Le caractère ';' est interdit. Veuillez ressaisir :\n");
                 continue;
             }
 
