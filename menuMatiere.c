@@ -82,7 +82,3 @@ void menuMatiere()
 
 }
 
-int main(){
-    menuMatiere();
-    return 0;
-}
