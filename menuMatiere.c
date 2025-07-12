@@ -9,6 +9,9 @@ void menuMatiere()
     char tab[100];
 
     do {
+
+    system("cls");
+
     printf("\n\n\t\tBienvenue dans notre programme.\n");
     printf("1. Pour ajouter un matiere\n");
     printf("2. Pour afficher la liste des matieres\n");
@@ -27,43 +30,53 @@ void menuMatiere()
             printf("\n L'ajout a réussi\n"); 
         else
             printf ("\nL'ajout a echoue\n");
-            break;
+        system("pause");
+        break;
     case 2:
         printf("Voici la liste des matieres\n");
         lister_matiere();
+        system("pause");
         break;
     case 3:
         menuRecherche_matiere();
+        system("pause");
         break;
     case 4:
         printf("Veuillez saisir la reference de la matiere a supprimer\t");
         scanf("%d", &a);
         if (!reference_existe(a)){
             printf("Il n'y a pas de matiere avec cette reference");
-            exit(1);
+            system("pause");
+            break;
         }
         chercher(a,tab);
         supprimer_matiere(tab);
+        printf("La matiere a ete supprimer avec succes.");
+        system("pause");
         break;
     case 5:
         printf("Veuillez saisir la reference de la matiere a modifier\t");
         scanf("%d", &a);
         if (!reference_existe(a)){
             printf("Il n'y a pas de matiere avec cette reference");
-            exit(1);
+            system("pause");
+            break;
         }
-        chercher(a,tab);
-        modifier_matiere(tab);
+        menuModifier_matiere(a);
+        system("pause");
         break;
     case 0: printf("Menu precedent\n"); break; 
     
     default:
         printf("Nous ne pouvons pas encore gerer cette option\n");
-        
+        break;
     }
-    
     
     } while (choix !=0);
 
 }
 
+int main(){
+    menuMatiere();
+    return 0;
+}
