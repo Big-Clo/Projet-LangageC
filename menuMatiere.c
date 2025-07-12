@@ -20,7 +20,7 @@ void menuMatiere()
     printf("5. Pour modifier une matière\n");
     printf("0. Pour quitter\n\n");
     printf("Renseigner votre choix : ");
-    scanf("%d", &choix);
+    choix = saisie_entier();
     printf("\n\n");
 
     switch (choix)
@@ -48,7 +48,7 @@ void menuMatiere()
     case 4:
         system("cls");
         printf("Veuillez saisir la référence de la matière à supprimer : ");
-        scanf("%d", &a);
+        a = saisie_entier();
         if (!reference_existe(a)){
             printf("Il n'y a pas de matière avec cette référence\n\n");
             system("pause");
@@ -62,7 +62,7 @@ void menuMatiere()
     case 5:
         system("cls");
         printf("Veuillez saisir la référence de la matière a modifier : ");
-        scanf("%d", &a);
+        a = saisie_entier();
         if (!reference_existe(a)){
             printf("Il n'y a pas de matière avec cette référence\n\n");
             system("pause");

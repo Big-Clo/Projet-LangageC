@@ -4,7 +4,41 @@
 #include "matiere.h"
 #include "gestion_note.h"
 
+void saisie_ligne(char *dest, int taille) {
+    while (1) {
+        if (fgets(dest, taille, stdin) != NULL) {
+            size_t len = strlen(dest);
+            if (len > 0 && dest[len - 1] == '\n') {
+                dest[len - 1] = '\0';
+            } else {
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF);
+            }
 
+            if (strchr(dest, ';') != NULL) {
+                printf("Erreur : le caractère ';' est interdit. Veuillez ressaisir :\n");
+                continue;
+            }
+
+            break;
+        }
+    }
+}
+
+int saisie_entier() {
+    int valeur;
+    char buffer[100];
+
+    while (1) {
+        if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+            if (sscanf(buffer, "%d", &valeur) == 1) {
+                return valeur;
+            } else {
+                printf("Entrée invalide. Veuillez saisir un entier valide : \n");
+            }
+        }
+    }
+}
 
 char* chercher(int a, char *trouve) {
     FILE* file = fopen("matiere.csv", "r");
@@ -35,7 +69,7 @@ int ajout_matiere(){
     int a;
     matiere mat;
     printf("Veuillez saisir la référence de la matière : ");
-    scanf("%d",&mat.reference);
+    mat.reference = saisie_entier();
     a=reference_existe(mat.reference);
     while (a==1)
     {
@@ -45,10 +79,10 @@ int ajout_matiere(){
     }
     
     printf("Veuillez saisir le libellé de la matière : ");
-    scanf("%s",mat.libelle);
+    saisie_ligne(mat.libelle,sizeof(mat.libelle));
 
     printf("Veuillez saisir le coefficient de la matière : ");
-    scanf("%d",&mat.coefficient);
+    mat.coefficient = saisie_entier();
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
@@ -137,20 +171,20 @@ int modifier_matiere(char line_modif[100]){
     int a;
     matiere mat;
     printf("Veuillez saisir la nouvelle référence de la matière : ");
-    scanf("%d",&mat.reference);
+    mat.reference = saisie_entier();
     a=reference_existe(mat.reference);
     while (a==1)
     {
         printf("Cette référence a déjà été utilisé\nVeuillez ressaisir une nouvelle référence : ");
-        scanf("%d",&mat.reference);
+        mat.reference = saisie_entier();
         a=reference_existe(mat.reference);
     }
     
     printf("Veuillez saisir le nouveau libellé de la matière : ");
-    scanf("%s",mat.libelle);
+    saisie_ligne(mat.libelle,sizeof(mat.libelle));
 
     printf("Veuillez saisir le nouveau coefficient de la matière : ");
-    scanf("%d",&mat.coefficient);
+    mat.coefficient = saisie_entier();
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
@@ -184,12 +218,12 @@ int modifier_ref(char ligne_modif[100]){
     int a;
     matiere mat;
     printf("Veuillez saisir la nouvelle référence de la matière : ");
-    scanf("%d",&mat.reference);
+    mat.reference = saisie_entier();
     a=reference_existe(mat.reference);
     while (a==1)
     {
         printf("Cette référence a déjà été utilisé\nVeuillez ressaisir une nouvelle référence : ");
-        scanf("%d",&mat.reference);
+        mat.reference = saisie_entier();
         a=reference_existe(mat.reference);
     }
     
@@ -231,7 +265,7 @@ int modifier_lib(char ligne_modif[100]){
     mat.reference = ref;    
     
     printf("Veuillez saisir le nouveau libellé de la matiere : ");
-    scanf("%s",mat.libelle);
+    saisie_ligne(mat.libelle,sizeof(mat.libelle));
 
     mat.coefficient = coef;
 
@@ -272,7 +306,7 @@ int modifier_coef(char ligne_modif[100]){
     strcpy(mat.libelle,lib);
 
     printf("Veuillez saisir le nouveau coefficient de la matière : ");
-    scanf("%d",&mat.coefficient); 
+    mat.coefficient = saisie_entier(); 
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
@@ -296,7 +330,7 @@ void menuModifier_matiere(int a)
         printf("4. Tout\n");
         printf("0. Annuler\n\n");
         printf("Renseignez votre choix : ");
-        scanf("%d", &choix);
+        choix = saisie_entier();
         printf("\n\n");
         system("cls");
 
@@ -451,15 +485,15 @@ void menuRecherche_matiere(){
         printf("3. Coefficient\n");
         printf("0. Quitter\n\n");
         printf("Renseignez votre choix : ");
-        scanf("%d",&option);
-        printf("\n\n");
+        option = saisie_entier();
+        printf("\n");
         switch (option)
         {
         case 1 :
             int a;
             system("cls");
             printf("Quelle référence voulez vous rechercher ?");
-            scanf("%d",&a);
+            a = saisie_entier();
             rech_ref(a);
             system("pause");
             break;
@@ -468,7 +502,7 @@ void menuRecherche_matiere(){
             char b[15];
             system("cls");
             printf("Quelle libellé voulez vous rechercher ? ");
-            scanf("%s",&b);
+            saisie_ligne(b,sizeof(b));
             rech_lib(b);
             system("pause");
             break;
@@ -477,16 +511,17 @@ void menuRecherche_matiere(){
             int c;
             system("cls");
             printf("Quelle coefficient voulez vous rechercher ? ");
-            scanf("%d",&c);
+            c = saisie_entier();
             rech_coef(c);
             system("pause");
             break;
         
         case 0:
-            printf("\nMenu précédent\n\n");
+            printf("Menu précédent\n\n");
             break;
         default:
             printf("Nous ne pouvons pas encore gérer cette option\n");
+            system("pause");
             break;
         }
 

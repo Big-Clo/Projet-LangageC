@@ -7,6 +7,8 @@ typedef struct
     char libelle[15];
     short coefficient;
 }matiere;
+void saisie_ligne(char *dest, int taille);
+int saisie_entier();
 int reference_existe(int x);
 int ajout_matiere();
 int lister_matiere();
