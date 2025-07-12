@@ -9,7 +9,7 @@
 char* chercher(int a, char *trouve) {
     FILE* file = fopen("matiere.csv", "r");
     if (file == NULL) {
-        printf("Le fichier n'a pas pu etre ouvert");
+        printf("Le fichier n'a pas pu être ouvert");
         return NULL;
     }
 
@@ -34,25 +34,25 @@ char* chercher(int a, char *trouve) {
 int ajout_matiere(){
     int a;
     matiere mat;
-    printf("Veuillez saisir la reference de la matiere : ");
+    printf("Veuillez saisir la référence de la matière : ");
     scanf("%d",&mat.reference);
     a=reference_existe(mat.reference);
     while (a==1)
     {
-        printf("Cette reference a deja ete utilise\nVeuillez ressaisir une nouvelle reference : ");
+        printf("Cette référence a déjà été utilisé\nVeuillez ressaisir une nouvelle référence : ");
         scanf("%d",&mat.reference);
         a=reference_existe(mat.reference);
     }
     
-    printf("Veuillez saisir le libelle de la matiere : ");
+    printf("Veuillez saisir le libellé de la matière : ");
     scanf("%s",mat.libelle);
 
-    printf("Veuillez saisir le coefficient de la matiere : ");
+    printf("Veuillez saisir le coefficient de la matière : ");
     scanf("%d",&mat.coefficient);
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
-        printf("Le fichier n'a pas pu etre ouvert");
+        printf("Le fichier n'a pas pu être ouvert");
         return 1;
     }
     fprintf(file,"%d;%s;%d\n",mat.reference,mat.libelle,mat.coefficient);
@@ -65,7 +65,7 @@ int supprimer_matiere(char line_sup[100]) {
     FILE *temp = fopen("temp.csv", "w");
 
     if (file == NULL || temp == NULL) {
-        printf("Le fichier n'a pas pu etre ouvert");
+        printf("Le fichier n'a pas pu être ouvert");
         return 1;
     }
 
@@ -100,7 +100,7 @@ int lister_matiere() {
         char lib[15];
         int ref, coef;
         printf("\t+-----------+-----------------+-------------+\n");
-        printf("\t| Reference |     Libelle     | Coefficient |\n");
+        printf("\t| Référence |     Libellé     | Coefficient |\n");
         printf("\t+-----------+-----------------+-------------+\n");
         while (fgets(ligne, sizeof(ligne), file)) {
             ligne[strcspn(ligne, "\n")] = '\0'; 
@@ -126,7 +126,7 @@ int lister_matiere() {
         fclose(file);
         return 0;
     } else {
-        printf("Le fichier n'a pas pu etre ouvert");
+        printf("Le fichier n'a pas pu être ouvert");
         return 1;
     }
 }
@@ -136,25 +136,25 @@ int modifier_matiere(char line_modif[100]){
     supprimer_matiere(line_modif);
     int a;
     matiere mat;
-    printf("Veuillez saisir la nouvelle reference de la matiere : ");
+    printf("Veuillez saisir la nouvelle référence de la matière : ");
     scanf("%d",&mat.reference);
     a=reference_existe(mat.reference);
     while (a==1)
     {
-        printf("Cette reference a deja ete utilise\nVeuillez ressaisir une nouvelle reference : ");
+        printf("Cette référence a déjà été utilisé\nVeuillez ressaisir une nouvelle référence : ");
         scanf("%d",&mat.reference);
         a=reference_existe(mat.reference);
     }
     
-    printf("Veuillez saisir le nouveau libelle de la matiere : ");
+    printf("Veuillez saisir le nouveau libellé de la matière : ");
     scanf("%s",mat.libelle);
 
-    printf("Veuillez saisir le nouveau coefficient de la matiere : ");
+    printf("Veuillez saisir le nouveau coefficient de la matière : ");
     scanf("%d",&mat.coefficient);
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
-        printf("Le fichier n'a pas pu etre ouvert");
+        printf("Le fichier n'a pas pu être ouvert");
         return 1;
     }
     fprintf(file,"%d;%s;%d\n",mat.reference,mat.libelle,mat.coefficient);
@@ -183,12 +183,12 @@ int modifier_ref(char ligne_modif[100]){
     
     int a;
     matiere mat;
-    printf("Veuillez saisir la nouvelle reference de la matiere : ");
+    printf("Veuillez saisir la nouvelle référence de la matière : ");
     scanf("%d",&mat.reference);
     a=reference_existe(mat.reference);
     while (a==1)
     {
-        printf("Cette reference a deja ete utilise\nVeuillez ressaisir une nouvelle reference : ");
+        printf("Cette référence a déjà été utilisé\nVeuillez ressaisir une nouvelle référence : ");
         scanf("%d",&mat.reference);
         a=reference_existe(mat.reference);
     }
@@ -198,7 +198,7 @@ int modifier_ref(char ligne_modif[100]){
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
-        printf("Le fichier n'a pas pu etre ouvert");
+        printf("Le fichier n'a pas pu être ouvert");
         return 1;
     }
     fprintf(file,"%d;%s;%d\n",mat.reference,mat.libelle,mat.coefficient);
@@ -230,14 +230,14 @@ int modifier_lib(char ligne_modif[100]){
 
     mat.reference = ref;    
     
-    printf("Veuillez saisir le nouveau libelle de la matiere : ");
+    printf("Veuillez saisir le nouveau libellé de la matiere : ");
     scanf("%s",mat.libelle);
 
     mat.coefficient = coef;
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
-        printf("Le fichier n'a pas pu etre ouvert");
+        printf("Le fichier n'a pas pu être ouvert");
         return 1;
     }
     fprintf(file,"%d;%s;%d\n",mat.reference,mat.libelle,mat.coefficient);
@@ -271,12 +271,12 @@ int modifier_coef(char ligne_modif[100]){
 
     strcpy(mat.libelle,lib);
 
-    printf("Veuillez saisir le nouveau coefficient de la matiere : ");
+    printf("Veuillez saisir le nouveau coefficient de la matière : ");
     scanf("%d",&mat.coefficient); 
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
-        printf("Le fichier n'a pas pu etre ouvert");
+        printf("Le fichier n'a pas pu être ouvert");
         return 1;
     }
     fprintf(file,"%d;%s;%d\n",mat.reference,mat.libelle,mat.coefficient);
@@ -286,59 +286,57 @@ int modifier_coef(char ligne_modif[100]){
 
 void menuModifier_matiere(int a)
     {int choix;
-    do{
+    
         char ligne_modif[100];
         system("cls");
-        printf("Quel element voulez vous modifier ?\n\n\n");
-        printf("1. Reference\n");
-        printf("2. Libelle\n");
+        printf("Quel élément voulez vous modifier ?\n\n\n");
+        printf("1. Référence\n");
+        printf("2. Libellé\n");
         printf("3. Coefficient\n");
         printf("4. Tout\n");
-        printf("0. Annuler\n");
+        printf("0. Annuler\n\n");
         printf("Renseignez votre choix : ");
         scanf("%d", &choix);
+        printf("\n\n");
+        system("cls");
 
         switch (choix)
         {
         case 1 :
             chercher(a,ligne_modif);
-            modifier_ref(ligne_modif);
-            system("pause"); 
+            modifier_ref(ligne_modif); 
             break;
         case  2 :
             chercher(a,ligne_modif);
-            modifier_lib(ligne_modif);
-            system("pause"); 
+            modifier_lib(ligne_modif); 
             break;
         case 3 :
             chercher(a,ligne_modif);
-            modifier_coef(ligne_modif);
-            system("pause"); 
+            modifier_coef(ligne_modif); 
             break;
         case 4 :
             chercher(a,ligne_modif);
-            modifier_matiere(ligne_modif);
-            system("pause"); 
+            modifier_matiere(ligne_modif); 
             break;
         case 0:
-            printf("Menu precedent\n");
+            printf("Menu précédent\n\n");
             break;
         default:
-            printf("Nous ne pouvons pas encore gerer cette option\n");
-            system("pause"); 
+            printf("Nous ne pouvons pas encore gérer cette option\n"); 
             break;
         }
-    }while(choix!=0);
+        printf("\n\n");
+    
 }
 
 int rech_ref(int a){
     FILE *file=fopen("matiere.csv","r");
-    if(file==NULL){printf("Le fichier n'a pas pu etre ouvert");return 1;}
+    if(file==NULL){printf("Le fichier n'a pas pu être ouvert");return 1;}
     char ligne[100];
     char lib[15];
     int ref, coef;
     printf("\t+-----------+-----------------+-------------+\n");
-    printf("\t| Reference |     Libelle     | Coefficient |\n");
+    printf("\t| Référence |     Libellé     | Coefficient |\n");
     printf("\t+-----------+-----------------+-------------+\n");
     while (fgets(ligne, sizeof(ligne), file)) {
             char copie[100];
@@ -370,12 +368,12 @@ return 0;
 
 int rech_lib(char a[15]){
     FILE *file=fopen("matiere.csv","r");
-    if(file==NULL){printf("Le fichier n'a pas pu etre ouvert");return 1;}
+    if(file==NULL){printf("Le fichier n'a pas pu être ouvert");return 1;}
     char ligne[100];
     char lib[15];
     int ref, coef;
     printf("\t+-----------+-----------------+-------------+\n");
-    printf("\t| Reference |     Libelle     | Coefficient |\n");
+    printf("\t| Référence |     Libellé     | Coefficient |\n");
     printf("\t+-----------+-----------------+-------------+\n");
     while (fgets(ligne, sizeof(ligne), file)) {
             char copie[100];
@@ -407,12 +405,12 @@ int rech_lib(char a[15]){
 
 int rech_coef(int a){
     FILE *file=fopen("matiere.csv","r");
-    if(file==NULL){printf("Le fichier n'a pas pu etre ouvert");return 1;}
+    if(file==NULL){printf("Le fichier n'a pas pu être ouvert");return 1;}
     char ligne[100];
     char lib[15];
     int ref, coef;
     printf("\t+-----------+-----------------+-------------+\n");
-    printf("\t| Reference |     Libelle     | Coefficient |\n");
+    printf("\t| Référence |     Libellé     | Coefficient |\n");
     printf("\t+-----------+-----------------+-------------+\n");
     while (fgets(ligne, sizeof(ligne), file)) {
             char copie[100];
@@ -448,17 +446,19 @@ void menuRecherche_matiere(){
     {
         system("cls");
         printf("A partir de quel element voulez vous faire une recherche?\n\n\n");
-        printf("1. Reference\n");
-        printf("2. Libelle\n");
+        printf("1. Référence\n");
+        printf("2. Libellé\n");
         printf("3. Coefficient\n");
-        printf("0. Annuler\n");
+        printf("0. Quitter\n\n");
         printf("Renseignez votre choix : ");
         scanf("%d",&option);
+        printf("\n\n");
         switch (option)
         {
         case 1 :
             int a;
-            printf("Quelle reference voulez vous rechercher ?");
+            system("cls");
+            printf("Quelle référence voulez vous rechercher ?");
             scanf("%d",&a);
             rech_ref(a);
             system("pause");
@@ -466,7 +466,8 @@ void menuRecherche_matiere(){
 
          case 2 :
             char b[15];
-            printf("Quelle libelle voulez vous rechercher ? ");
+            system("cls");
+            printf("Quelle libellé voulez vous rechercher ? ");
             scanf("%s",&b);
             rech_lib(b);
             system("pause");
@@ -474,6 +475,7 @@ void menuRecherche_matiere(){
         
         case 3 :
             int c;
+            system("cls");
             printf("Quelle coefficient voulez vous rechercher ? ");
             scanf("%d",&c);
             rech_coef(c);
@@ -481,10 +483,10 @@ void menuRecherche_matiere(){
             break;
         
         case 0:
-            printf("Menu precedent\n");
+            printf("\nMenu précédent\n\n");
             break;
         default:
-            printf("Nous ne pouvons pas encore gerer cette option\n");
+            printf("Nous ne pouvons pas encore gérer cette option\n");
             break;
         }
 
