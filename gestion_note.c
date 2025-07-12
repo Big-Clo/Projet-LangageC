@@ -90,7 +90,11 @@ int ajout_note(){
     printf("Veuillez saisir la reference de la matiere: ");
     scanf ("%d", &note.reference);
     if (!reference_existe(note.reference)){
-        printf("Il n'existe pas de matiere avec cette reference");
+        printf("Il n'existe pas de matiere avec cette reference\n");
+        return 1;
+    }
+    if (numero_note_existe(note.numero, note.reference)){
+        printf("Cette eleve a deja des notes dans cette matiere vous pouvez les modifier\n");
         return 1;
     }
     printf("Veuillez saisir la note de cc ");
@@ -266,7 +270,8 @@ int recherche_note_eleve_matiere(){
     FILE *fichier_matiere = fopen("matiere.csv", "r");
     if (fichier_matiere == NULL) {
         printf("Erreur : impossible d’ouvrir matiere.csv\n");
-        return 0;
+        fclose(fichier_matiere);
+        return 1;
     }
     while (fgets(ligne, sizeof(ligne), fichier_matiere)) {
         if (sscanf(ligne, "%d;%[^;];%d", &ref, libelle, &coefficient) == 3) {
@@ -298,3 +303,89 @@ int recherche_note_eleve_matiere(){
     fclose(fichier);
     return 1;
 }
+
+int recherche_note_eleve(){
+
+    NOTE note;
+    int numero, reference, noteCC, noteDS, quitter;
+
+    quitter = 0;
+    printf("Veuillez saisir le saisir le numero de l' etudiant dont vous chercher la note: ");
+    scanf("%d", &note.numero);
+    while(!numero_existe(note.numero) && note.numero != -1){
+        printf("Il n'y a pas d'etudiant avec ce numero. Veuillez ressaisir le numero de l'etudiant  ou -1 pour annuler la recherche.\n");
+        scanf("%d" ,&note.numero);
+    }
+    if(note.numero == -1){
+        printf("Annulation de la recherche");
+        return 1;
+    }
+
+    char ligne[200];
+    char nom[30], prenom[30], email[50], date_str[15];
+    int num, codeClasse;
+    Date date_naissance;
+
+    FILE *fichier_etudiants= fopen("etudiants.csv", "r");
+    if (fichier_etudiants== NULL){
+        printf("Erreur : impossible d’ouvrir etudiants.csv\n");
+        
+        fclose(fichier_etudiants);
+        return 1;
+    }
+
+    while (fgets(ligne, sizeof(ligne), fichier_etudiants)) {
+        
+        if (sscanf(ligne, "%d,%[^,],%[^,],%[^,],%[^,],%d", &num, nom, prenom, email, date_str, &codeClasse) == 6) {
+            
+            sscanf(date_str, "%d/%d/%d", &date_naissance.jour, &date_naissance.mois, &date_naissance.annee);
+
+            if (note.numero == num) {
+                fclose(fichier_etudiants);
+                
+                break;
+            }
+        }
+    }
+
+    fclose(fichier_etudiants);
+
+    char libelle[30];
+    int ref, coefficient;
+
+
+    FILE *fichier = fopen("note.csv", "r");
+    if (fichier == NULL) {
+        printf("Le fichier n'a pas pu etre ouvert.\n");
+        fclose(fichier);
+        return 1;
+    }
+
+    printf("Voici les notes de %s %s :\n ", prenom, nom, libelle);
+
+    while (fscanf(fichier, "%d - %d - %d - %d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
+        if ((note.numero == numero)) {
+            FILE *fichier_matiere = fopen("matiere.csv", "r");
+            if (fichier_matiere == NULL) {
+                printf("Erreur : impossible d’ouvrir matiere.csv\n");
+                return 1;
+            }
+            while (fgets(ligne, sizeof(ligne), fichier_matiere)) {
+                if (sscanf(ligne, "%d;%[^;];%d", &ref, libelle, &coefficient) == 3) {
+                    if (reference == ref) {
+                        printf("En %s:\n\tnote CC: %d \t note DS: %d\n",libelle, noteCC, noteDS); 
+                    }
+                }
+            }
+            fclose(fichier_matiere);           
+            
+            
+        }
+        
+    }
+    fclose(fichier);
+    return 0;
+}
+
+
+
