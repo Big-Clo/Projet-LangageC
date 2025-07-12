@@ -6,7 +6,7 @@ void menuNotes(){
     int choix;
     do{
     
-        printf("\n\nMenu de Notes\n 1. Ajouter les notes\n 2. Modifier les notes\n 3.Recherche notes etudiant dans une matiere\n 4.Pour affichicher toutes les notes d'un eleve\n 0.Pour retourner au menu precedent\n");
+        printf("\n\nMenu de Notes\n 1. Ajouter les notes\n 2. Modifier les notes\n 3.Recherche notes etudiant dans une matiere\n 4.Pour affichicher toutes les notes d'un eleve\n 5.Pour supprimer les notes d'un eleves\n 0.Pour retourner au menu precedent\n");
         scanf("%d", &choix);
         switch (choix)
         {
@@ -26,7 +26,7 @@ void menuNotes(){
 
         case 2:
             if(!modifier_note())
-                printf("Notes modifiees avec succees\n");
+                printf("Notes modifiees avec succes\n");
                 
             else{
                 printf("Erreur dans la modification des notes\n");
@@ -53,6 +53,13 @@ void menuNotes(){
                 printf("Erreur dans la recherche");
             }
 
+        case 5:
+            if(!supprimer_note()){
+                printf("Suppression effectuee avec succes");
+            }
+            else{
+                printf("Erreur dans la suppression");
+            }
         case 0:
             printf("Menu precedent\n");
             break;

@@ -16,6 +16,7 @@ void menuNotes();
 int modifier_note();
 int recherche_note_eleve_matiere();
 int recherche_note_eleve();
+int supprimer_note();
 
 
 

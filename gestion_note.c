@@ -387,5 +387,71 @@ int recherche_note_eleve(){
     return 0;
 }
 
+int supprimer_note(){
+    NOTE note;
+    int numero, reference, noteCC, noteDS, quitter;
+
+    do {
+        printf("Veuillez saisir le numero de l'eleve dont vous voulez supprimer les notes: ");
+        scanf("%d", &note.numero);
+        while (!numero_existe(note.numero) && note.numero != -1) {
+            printf("Il n'y a pas d'etudiant avec ce numero. Veuillez ressaisir ou -1 pour annuler :\n");
+            scanf("%d", &note.numero);
+        }
+        if (note.numero == -1) {
+            printf("Annulation des suppressions\n");
+            return 1;
+        }
+
+        printf("Veuillez saisir la reference de la matiere : ");
+        scanf("%d", &note.reference);
+        while (!reference_existe(note.reference) && note.reference != -1) {
+            printf("Reference invalide. Ressaisir ou -1 pour annuler :\n");
+            scanf("%d", &note.reference);
+        }
+        if (note.reference == -1) {
+            printf("Annulation des suppressions\n");
+            return 1;
+        }
+
+        if (!numero_note_existe(note.numero, note.reference)) {
+            printf("Cet eleve n'a pas de note dans cette matiere. 0 pour annuler, 1 pour ressaisir :\n");
+            scanf("%d", &quitter);
+            while (quitter != 0 && quitter != 1) {
+                printf("Choix invalide. Entrez 0 ou 1 :\n");
+                scanf("%d", &quitter);
+            }
+        } else {
+            quitter = 0;
+        }
+    } while ((!numero_note_existe(note.numero, note.reference)) || (quitter == 1));
+
+    FILE *fichier = fopen("note.csv", "r");
+    FILE *temp = fopen("temp.csv", "w");
+    if (fichier == NULL || temp == NULL) {
+        printf("Le fichier n'a pas pu être ouvert.\n");
+        if (fichier) fclose(fichier);
+        if (temp) fclose(temp);
+        return 1;
+    }
+
+    while (fscanf(fichier, "%d - %d - %d - %d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
+        if (note.numero == numero && note.reference == reference) {
+            fprintf(temp, "%d - %d - %d - %d\n", numero, reference, noteCC, noteDS);
+        } 
+    }
+
+    fclose(fichier);
+    fclose(temp);
+
+    remove("note.csv");
+    rename("temp.csv", "note.csv");
+
+    
+
+    
+    return 0;
+}
+
 
 
