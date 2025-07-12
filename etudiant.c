@@ -7,7 +7,7 @@ int chargerEtudiants(Etudiant tab[], int max) {
     FILE *f = fopen("etudiants.csv", "r");
     if (!f) return 0;
     int i = 0;
-    while (i < max && fscanf(f, "%d,%29[^,],%29[^,],%49[^,],%d/%d/%d,%d\n",
+    while (i < max && fscanf(f, "%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d\n",
            &tab[i].numero,
            tab[i].nom,
            tab[i].prenom,
@@ -29,7 +29,7 @@ int sauvegarderEtudiants(Etudiant tab[], int n) {
     int i;
 
     for (i = 0; i < n; i++) {
-        fprintf(f, "%d,%s,%s,%s,%02d/%02d/%04d,%d\n",
+        fprintf(f, "%d;%s;%s;%s;%02d/%02d/%04d;%d\n",
                 tab[i].numero,
                 tab[i].nom,
                 tab[i].prenom,
