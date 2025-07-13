@@ -9,7 +9,7 @@ int code_existe(int x){
     int code;
     FILE  *fichier_classe = 
     fopen ("classe.csv", "r");
-    while (fscanf(fichier_classe, "%d - %s - %s\n", &code, nom, niveau) != -1){
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
         if (x == code){
             fclose(fichier_classe);
             return 1;
@@ -62,9 +62,9 @@ int ajout_classe(){
         return 1;
     }
     if (level == 1)
-        fprintf(fichier_classe,"\n%d - %s - License",classe.code, classe.nom);
+        fprintf(fichier_classe,"%d;%s;License\n",classe.code, classe.nom);
     else
-        fprintf(fichier_classe,"\n%d - %s - Master",classe.code, classe.nom);
+        fprintf(fichier_classe,"%d;%s;Master\n",classe.code, classe.nom);
     
 
     fclose(fichier_classe);
@@ -81,7 +81,7 @@ void afficher_classe(){
     }
     int code;
     char nom[30], niveau[10];
-    while (fscanf(fichier_classe, "%d - %s - %s\n", &code, nom, niveau) != -1){
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
         printf("code: %d, nom: %s, niveau: %s\n", code, nom, niveau);
     }
     fclose(fichier_classe);
@@ -96,7 +96,7 @@ int recherche_classe(int x){
         fclose(fichier_classe);
         return 1;
     }
-    while (fscanf(fichier_classe, "%d - %s - %s\n", &code, nom, niveau) != -1){
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
         if (x == code){
             printf("L'element est present.\n ");
             printf("code: %d, nom: %s, niveau: %s\n", code, nom, niveau);
@@ -117,14 +117,12 @@ void supprimer_classe(int code_a_supprimer) {
     }
 
     char nom[30], niveau[10];
-    int code, trouve = 0;
+    int code;
 
-    while (fscanf(fichier, "%d - %s - %s\n", &code, nom, niveau) != -1) {
+    while (fscanf(fichier, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3) {
         if (code != code_a_supprimer) {
-            fprintf(temp, "%d - %s - %s\n", code, nom, niveau);
-        } else {
-            trouve = 1;
-        }
+            fprintf(temp, "%d;%s;%s\n", code, nom, niveau);
+        } 
     }
 
     fclose(fichier);
@@ -148,7 +146,7 @@ void modifier_classe(int code_a_modifier) {
     int code;
 
 
-    while (fscanf(fichier, "%d - %s - %s\n", &code, nom, niveau) != -1) {
+    while (fscanf(fichier, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3) {
         if (code == code_a_modifier) {
             printf("Entrez les nouvelles informations.\n");
 
@@ -164,12 +162,12 @@ void modifier_classe(int code_a_modifier) {
                 scanf("%d", &nouveau_niveau);
             }
             if (nouveau_niveau ==1)
-            fprintf(temp, "%d - %s - License\n", code_a_modifier, nouveau_nom);
+            fprintf(temp, "%d;%s;License\n", code_a_modifier, nouveau_nom);
             else
-            fprintf(temp, "%d - %s - Master\n", code_a_modifier, nouveau_nom);
+            fprintf(temp, "%d;%s;Master\n", code_a_modifier, nouveau_nom);
 
         } else {
-            fprintf(temp, "%d - %s - %s\n", code, nom, niveau);
+            fprintf(temp, "%d;%s;%s\n", code, nom, niveau);
         }
     }
 
