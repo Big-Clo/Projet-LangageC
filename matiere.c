@@ -74,7 +74,7 @@ int ajout_matiere(){
     while (a==1)
     {
         printf("Cette référence a déjà été utilisé\nVeuillez ressaisir une nouvelle référence : ");
-        scanf("%d",&mat.reference);
+        mat.reference=saisie_entier();
         a=reference_existe(mat.reference);
     }
     
