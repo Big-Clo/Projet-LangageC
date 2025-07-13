@@ -4,6 +4,7 @@
 void menuEtudiant() {
     int choix;
     do {
+        system("cls");
         printf("\t\t\n===== MENU ÉTUDIANTS =====\n");
         printf("\n");
         printf("\t1. Ajouter un étudiant\n");
@@ -16,12 +17,12 @@ void menuEtudiant() {
         scanf("%d", &choix);
 
         switch (choix) {
-            case 1: ajouterEtudiant(); break;
-            case 2: modifierEtudiant(); break;
-            case 3: rechercherEtudiant(); break;
-            case 4: supprimerEtudiant(); break;
-            case 5: afficherListeEtudiants(); break;
-            case 0: printf("Au revoir !\n"); break;
+            case 1:system("cls"); ajouterEtudiant(); system("pause");break;
+            case 2:system("cls"); modifierEtudiant(); system("pause");break;
+            case 3:system("cls"); rechercherEtudiant(); system("pause");break;
+            case 4:system("cls"); supprimerEtudiant(); system("pause");break;
+            case 5:system("cls"); afficherListeEtudiants(); system("pause");break;
+            case 0:printf("Au revoir !\n"); system("pause");break;
             default: printf("Choix invalide.\n");
         }
 

@@ -7,6 +7,7 @@ void menuClasse()
     int choix, a;
 
     do {
+    system("cls");
     printf("\t1. Pour ajouter une classe\n");
     printf("\t2. Pour afficher la liste des classes\n");
     printf("\t3. Pour rechercher une classe\n");
@@ -20,22 +21,29 @@ void menuClasse()
     switch (choix)
     {
     case 1:
+        system("cls");
         a = ajout_classe();
         if (a ==0)
             printf("\n L'ajout a réussi\n"); 
         else
             printf ("\nL'ajout a echoue\n");
+            system("pause");
             break;
     case 2:
+        system("cls");
         printf("Voici la liste des classes\n");
         afficher_classe();
+        system("pause");
         break;
     case 3:
+        system("cls");
         printf("Veuillez saisir le code de la classe a rechercher\t");
         scanf("%d", &a);
         recherche_classe(a);
+        system("pause");
         break;
     case 4:
+        system("cls");
         printf("Veuillez saisir le code de la classe a supprimer\t");
         scanf("%d", &a);
         if (code_existe(a)){
@@ -43,8 +51,10 @@ void menuClasse()
             exit(1);
         }
         supprimer_classe(a);
+        system("pause");
         break;
     case 5:
+        system("cls");
         printf("Veuillez saisir le code de la classe a modifier\t");
         scanf("%d", &a);
         if (!code_existe(a)){
@@ -52,8 +62,15 @@ void menuClasse()
             exit(1);
         }
         modifier_classe(a);
+        system("pause");
         break;
-    case 0: printf("Menu precedent\n"); break; 
+    case 6:
+        system("cls");
+        matiere_classe();
+        system("pause");
+        break;
+       
+    case 0: printf("Menu precedent\n");system("pause"); break; 
     
     default:
         printf("Nous ne pouvons pas encore gerer cette option\n");

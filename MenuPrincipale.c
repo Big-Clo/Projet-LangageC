@@ -7,6 +7,7 @@
 int main () {
     int menu;
     do {
+        system("cls");
         printf("MINI-LOGIECIEL DE GESTION DES NOTES\n");
         printf("\t1. Gestion des Etudiants\n");
         printf("\t2. Gestions des Classes\n");
@@ -17,11 +18,11 @@ int main () {
         scanf("%d", &menu);
 
         switch (menu) {
-            case 1: menuEtudiant(); break;
-            case 2: menuClasse(); break;
-            case 3: menuMatiere(); break;
-            case 4: menuNotes(); break;
-            case 0: printf("Au revoir!!!\n"); break; 
+            case 1:system("cls"); menuEtudiant(); system("pause");break;
+            case 2:system("cls"); menuClasse(); system("pause");break;
+            case 3:system("cls"); menuMatiere(); system("pause");break;
+            case 4:system("cls"); menuNotes(); system("pause");break;
+            case 0:printf("Au revoir!!!\n"); system("pause");break; 
             default: printf("Choix Invalide");
         }
 
