@@ -13,12 +13,12 @@ void menuMatiere()
     system("cls");
 
     printf("\n\n\t\tMenu matière\n");
-    printf("1. Pour ajouter un matière\n");
-    printf("2. Pour afficher la liste des matières\n");
-    printf("3. Pour rechercher une matière\n");
-    printf("4. Pour supprimer une matière\n");
-    printf("5. Pour modifier une matière\n");
-    printf("0. Pour quitter\n\n");
+    printf("1. Ajouter un matière\n");
+    printf("2. Afficher la liste des matières\n");
+    printf("3. Rechercher une matière\n");
+    printf("4. Supprimer une matière\n");
+    printf("5. Modifier une matière\n");
+    printf("0. Quitter\n\n");
     printf("Renseigner votre choix : ");
     choix = saisie_entier();
     printf("\n\n");

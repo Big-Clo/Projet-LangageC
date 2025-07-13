@@ -551,4 +551,3 @@ int recherche_note_matiere(){
     fclose(fichier);
     return 1;
 }
-

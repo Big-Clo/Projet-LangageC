@@ -1,4 +1,5 @@
 #include "gestion_classe.h"
+#include "matiere.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -71,7 +72,6 @@ int ajout_classe(){
     return 0;
 }
 
-
 void afficher_classe(){
     FILE *fichier_classe = fopen("classe.csv", "r");
     if (fichier_classe == NULL){
@@ -132,6 +132,71 @@ void supprimer_classe(int code_a_supprimer) {
     printf("Classe supprimee avec succes.\n");
 }
 
+int ajouter_matiere_classe(int r, int c){
+    char ligne[100];
+    int code,ref;
+    FILE*file=fopen("matiere-classe.csv","a+");
+    if(file == NULL){
+        printf("Le fichier n'a pas pu être ouvert\n");
+        return 1;
+    } 
+    while(fgets(ligne,sizeof(ligne),file)){
+        if (sscanf(ligne,"%d;%d",&ref,&code)==2)
+        {
+            if (r == ref && c ==code)
+            {
+                fclose(file);
+                return 1;
+            }
+            
+        }
+        
+    }  
+    
+    fprintf(file,"%d;%d\n",r,c);
+    fclose(file);
+
+    return 0;
+}
+
+int retirer_matiere_classe(int r, int c) {
+    char ligne[100];
+    int ref, code;
+    int trouve = 0;
+
+    FILE *file = fopen("matiere-classe.csv", "r");
+    FILE *temp = fopen("temp.csv", "w");
+
+    if (file == NULL || temp == NULL) {
+        printf("Erreur : impossible d'ouvrir les fichiers.\n");
+        return 1;
+    }
+
+    while (fgets(ligne, sizeof(ligne), file)) {
+        if (sscanf(ligne, "%d;%d", &ref, &code) == 2) {
+            // On ne copie que les lignes qui NE correspondent PAS à (r, c)
+            if (ref != r || code != c) {
+                fprintf(temp, "%d;%d\n", ref, code);
+            } else {
+                trouve = 1; // On a trouvé la ligne à supprimer
+            }
+        }
+    }
+
+    fclose(file);
+    fclose(temp);
+
+    if (!trouve) {
+        // Rien trouvé à supprimer, on supprime juste le fichier temporaire
+        remove("temp.csv");
+        return 2; // Pas trouvé
+    }
+
+    // Remplace l'ancien fichier par le nouveau
+    remove("matiere-classe.csv");
+    rename("temp.csv", "matiere-classe.csv");
+    return 0; // Suppression réussie
+}
 
 void modifier_classe(int code_a_modifier) {
     FILE *fichier = fopen("classe.csv", "r");
@@ -180,3 +245,118 @@ void modifier_classe(int code_a_modifier) {
     printf(" Classe modifiee avec succes.\n");
 }
 
+void matiere_classe(){
+    int choix;
+    do
+    {
+        system("cls");
+        printf("Quelle action voulez vous effectuer ?\n");
+        printf("1. Ajouter une matiere a une classe\n");
+        printf("2. Retirer une matiere a une classe\n");
+        printf("3. Afficher les matieres d'une classe\n");
+        printf("4. Afficher les classes associees a une matiere\n");
+        printf("Renseignez votre choix : ");
+        choix = saisie_entier();
+
+        int code,ref,existe;
+        char ligne[20];
+        
+        switch (choix)
+        {
+        case 1 :
+            printf("Quel est la référence de la matière que vous voulez ajouter ? ");
+            ref = saisie_entier();
+            existe = reference_existe(ref);
+            while(existe == 0){
+                printf("Cette référence n'existe pas. Entrez une référence valide ou entrez -1 pour annuler l'operation : ");
+                ref = saisie_entier();
+                if (ref == -1) break;
+                existe= reference_existe(ref);
+            }
+            
+            if (ref == -1){
+                printf("L'operation a été annulé.");
+                break;
+            }
+
+            printf("Entrez le code de la classe a laquelle vous voulez ajouter la matiere : ");
+            code = saisie_entier();
+            existe = code_existe(code);
+            while(existe == 0){
+                printf("Ce code n'existe pas. Entrez un code valide ou entrez -1 pour annuler l'operation : ");
+                code = saisie_entier();
+                if (code == -1) break;
+                existe= code_existe(code);
+            }
+            
+            if (code == -1){
+                printf("L'operation a été annulé.");
+                break;
+            }
+            ajouter_matiere_classe(ref,code);
+            break;
+        
+        case 2 :
+            printf("Quel est la référence de la matière que vous voulez retirer ? ");
+            ref = saisie_entier();
+            existe = reference_existe(ref);
+            while(existe == 0){
+                printf("Cette référence n'existe pas. Entrez une référence valide ou entrez -1 pour annuler l'operation : ");
+                ref = saisie_entier();
+                if (ref == -1) break;
+                existe= reference_existe(ref);
+            }
+
+            if (ref == -1){
+                printf("L'operation a été annulé.");
+                break;
+            }
+
+            printf("Entrez le code de la classe a laquelle vous voulez retirer la matiere : ");
+            code = saisie_entier();
+            existe = code_existe(code);
+            while(existe == 0){
+                printf("Ce code n'existe pas. Entrez un code valide ou entrez -1 pour annuler l'operation : ");
+                code = saisie_entier();
+                if (code == -1) break;
+                existe= code_existe(code);
+            }
+
+            if (code == -1){
+                printf("L'operation a été annulé.");
+                break;
+            }
+            retirer_matiere_classe(ref,code);
+            break;
+        
+        case 3 :
+            printf("Quel est la classe dont vous voulez connaitre les matieres ? ");
+            existe=saisie_entier();
+            FILE*file=fopen("matiere-classe.csv","r");
+            printf("\t+-----------+-----------------+-------------+\n");
+            printf("\t| Référence |     Libellé     | Coefficient |\n");
+            printf("\t+-----------+-----------------+-------------+\n");
+            while(fgets(ligne,sizeof(ligne),file))
+            {
+                sscanf(ligne,"%d;%d",&ref,&code);
+                if (code == existe)
+                {
+                    rech_ref(ref);
+                }
+                
+            }
+            fclose(file);
+            break;
+
+        case 4 :
+            printf("Quel est la matiere dont vous voulez connaitre les classes ? ");
+            existe=saisie_entier();
+            break;
+
+        default:
+            break;
+        }
+
+    } while (choix!=0);
+    
+}
