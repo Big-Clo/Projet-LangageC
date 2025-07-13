@@ -44,7 +44,7 @@ int numero_note_existe(int x, int y){
         return 1;
     }
 
-   while (fscanf(fichier_note, "%d - %d - %d - %d\n", &numero, &reference, &noteCC, &noteDS) != -1){
+   while (fscanf(fichier_note, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1){
         if ((x == numero) && (y = reference))    {
             fclose(fichier_note);
             return 1;
@@ -97,10 +97,18 @@ int ajout_note(){
         printf("Cette eleve a deja des notes dans cette matiere vous pouvez les modifier\n");
         return 1;
     }
-    printf("Veuillez saisir la note de cc ");
+    printf("Veuillez saisir la note de CC ");
     scanf ("%d", &note.noteCC);
-    printf("Veuillez saisir la note de ds ");
+    while(note.noteCC < 0 || note.noteCC > 20){
+        printf("La note doit etre comprise entre 0 et 20. Veuillez ressaisir la note de CC");
+        scanf ("%d", &note.noteCC);
+    }
+    printf("Veuillez saisir la note de DS ");
     scanf ("%d", &note.noteDS);
+    while(note.noteDS < 0 || note.noteDS > 20){
+        printf("La note doit etre comprise entre 0 et 20. Veuillez ressaisir la note de DS");
+        scanf ("%d", &note.noteDS);
+    }
 
     FILE *fichier_note = fopen("note.csv", "a");
     if (fichier_note == NULL){
@@ -108,7 +116,7 @@ int ajout_note(){
        
         return 1;
     }
-    fprintf(fichier_note, "%d - %d - %d - %d\n", note.numero, note.reference, note.noteCC, note.noteDS);
+    fprintf(fichier_note, "%d;%d;%d;%d\n", note.numero, note.reference, note.noteCC, note.noteDS);
 
     fclose(fichier_note);
     return 0;
@@ -162,15 +170,15 @@ int modifier_note() {
         return 1;
     }
 
-    while (fscanf(fichier, "%d - %d - %d - %d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
+    while (fscanf(fichier, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
         if (note.numero == numero && note.reference == reference) {
             printf("Veuillez saisir la nouvelle note de CC: ");
             scanf("%d", &note.noteCC);
             printf("Veuillez saisir la nouvelle note de DS: ");
             scanf("%d", &note.noteDS);
-            fprintf(temp, "%d - %d - %d - %d\n", note.numero, note.reference, note.noteCC, note.noteDS);
+            fprintf(temp, "%d;%d;%d;%d\n", note.numero, note.reference, note.noteCC, note.noteDS);
         } else {
-            fprintf(temp, "%d - %d - %d - %d\n", numero, reference, noteCC, noteDS);
+            fprintf(temp, "%d;%d;%d;%d\n", numero, reference, noteCC, noteDS);
         }
     }
 
@@ -291,7 +299,7 @@ int recherche_note_eleve_matiere(){
 
     printf("Voici les notes de %s %s en %s\n ", prenom, nom, libelle);
 
-    while (fscanf(fichier, "%d - %d - %d - %d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
+    while (fscanf(fichier, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
         if ((note.numero == numero) && (note.reference == reference)) {
             printf("note CC: %d \t note DS: %d\n", noteCC, noteDS);
             fclose(fichier);
@@ -363,7 +371,7 @@ int recherche_note_eleve(){
 
     printf("Voici les notes de %s %s :\n ", prenom, nom, libelle);
 
-    while (fscanf(fichier, "%d - %d - %d - %d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
+    while (fscanf(fichier, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
         if ((note.numero == numero)) {
             FILE *fichier_matiere = fopen("matiere.csv", "r");
             if (fichier_matiere == NULL) {
@@ -435,9 +443,9 @@ int supprimer_note(){
         return 1;
     }
 
-    while (fscanf(fichier, "%d - %d - %d - %d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
+    while (fscanf(fichier, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
         if ((note.numero != numero) || (note.reference != reference)) {
-            fprintf(temp, "%d - %d - %d - %d\n", numero, reference, noteCC, noteDS);
+            fprintf(temp, "%d;%d;%d;%d\n", numero, reference, noteCC, noteDS);
         } 
     }
 
@@ -507,7 +515,7 @@ int recherche_note_matiere(){
 
     printf("Voici les notes de %s\n ", libelle);
 
-    while (fscanf(fichier, "%d - %d - %d - %d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
+    while (fscanf(fichier, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
         if (note.reference == reference) {
             
             FILE *fichier_etudiants= fopen("etudiants.csv", "r");
