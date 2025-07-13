@@ -369,9 +369,6 @@ int rech_ref(int a){
     char ligne[100];
     char lib[15];
     int ref, coef;
-    printf("\t+-----------+-----------------+-------------+\n");
-    printf("\t| Référence |     Libellé     | Coefficient |\n");
-    printf("\t+-----------+-----------------+-------------+\n");
     while (fgets(ligne, sizeof(ligne), file)) {
             char copie[100];
             strcpy(copie, ligne);
@@ -406,9 +403,6 @@ int rech_lib(char a[15]){
     char ligne[100];
     char lib[15];
     int ref, coef;
-    printf("\t+-----------+-----------------+-------------+\n");
-    printf("\t| Référence |     Libellé     | Coefficient |\n");
-    printf("\t+-----------+-----------------+-------------+\n");
     while (fgets(ligne, sizeof(ligne), file)) {
             char copie[100];
             strcpy(copie, ligne);
@@ -443,9 +437,6 @@ int rech_coef(int a){
     char ligne[100];
     char lib[15];
     int ref, coef;
-    printf("\t+-----------+-----------------+-------------+\n");
-    printf("\t| Référence |     Libellé     | Coefficient |\n");
-    printf("\t+-----------+-----------------+-------------+\n");
     while (fgets(ligne, sizeof(ligne), file)) {
             char copie[100];
             strcpy(copie, ligne);
@@ -494,6 +485,9 @@ void menuRecherche_matiere(){
             system("cls");
             printf("Quelle référence voulez vous rechercher ?");
             a = saisie_entier();
+            printf("\t+-----------+-----------------+-------------+\n");
+            printf("\t| Référence |     Libellé     | Coefficient |\n");
+            printf("\t+-----------+-----------------+-------------+\n");
             rech_ref(a);
             system("pause");
             break;
@@ -503,6 +497,9 @@ void menuRecherche_matiere(){
             system("cls");
             printf("Quelle libellé voulez vous rechercher ? ");
             saisie_ligne(b,sizeof(b));
+            printf("\t+-----------+-----------------+-------------+\n");
+            printf("\t| Référence |     Libellé     | Coefficient |\n");
+            printf("\t+-----------+-----------------+-------------+\n");
             rech_lib(b);
             system("pause");
             break;
@@ -512,6 +509,9 @@ void menuRecherche_matiere(){
             system("cls");
             printf("Quelle coefficient voulez vous rechercher ? ");
             c = saisie_entier();
+            printf("\t+-----------+-----------------+-------------+\n");
+            printf("\t| Référence |     Libellé     | Coefficient |\n");
+            printf("\t+-----------+-----------------+-------------+\n");
             rech_coef(c);
             system("pause");
             break;
