@@ -507,7 +507,7 @@ int recherche_note_matiere(){
 
     printf("Voici les notes de %s\n ", libelle);
 
-    while (fscanf(fichier, "%d - %d - %d - %d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
+    while (fscanf(fichier, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
         if (note.reference == reference) {
             
             FILE *fichier_etudiants= fopen("etudiants.csv", "r");
