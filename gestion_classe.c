@@ -174,11 +174,10 @@ int retirer_matiere_classe(int r, int c) {
 
     while (fgets(ligne, sizeof(ligne), file)) {
         if (sscanf(ligne, "%d;%d", &ref, &code) == 2) {
-            // On ne copie que les lignes qui NE correspondent PAS à (r, c)
             if (ref != r || code != c) {
                 fprintf(temp, "%d;%d\n", ref, code);
             } else {
-                trouve = 1; // On a trouvé la ligne à supprimer
+                trouve = 1; 
             }
         }
     }
@@ -187,15 +186,13 @@ int retirer_matiere_classe(int r, int c) {
     fclose(temp);
 
     if (!trouve) {
-        // Rien trouvé à supprimer, on supprime juste le fichier temporaire
         remove("temp.csv");
-        return 2; // Pas trouvé
+        return 2;
     }
 
-    // Remplace l'ancien fichier par le nouveau
     remove("matiere-classe.csv");
     rename("temp.csv", "matiere-classe.csv");
-    return 0; // Suppression réussie
+    return 0;
 }
 
 void modifier_classe(int code_a_modifier) {
