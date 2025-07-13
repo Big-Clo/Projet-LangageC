@@ -489,7 +489,7 @@ int recherche_note_matiere(){
         return 1;
     }
     while (fgets(ligne, sizeof(ligne), fichier_matiere)) {
-        if (sscanf(ligne, "%d;%[^;];%d", &reference, libelle, &coefficient) == 3) {
+        if (sscanf(ligne, "%d;%14[^;];%d", &reference, libelle, &coefficient) == 3) {
             if (note.reference == reference) {
                 fclose(fichier_matiere);
                 
@@ -520,7 +520,7 @@ int recherche_note_matiere(){
 
             while (fgets(ligne, sizeof(ligne), fichier_etudiants)) {
                 
-                if (sscanf(ligne, "%d,%[^,],%[^,],%[^,],%[^,],%d", &numero, nom, prenom, email, date_str, &codeClasse) == 6) {
+                if (sscanf(ligne, "%d;%29[^;];%29[^;];%49[^;];%d", &numero, nom, prenom, email, date_str, &codeClasse) == 6) {
                     
                     sscanf(date_str, "%d/%d/%d", &date_naissance.jour, &date_naissance.mois, &date_naissance.annee);
 
