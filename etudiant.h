@@ -19,7 +19,13 @@ typedef struct {
 void ajouterEtudiant();
 void modifierEtudiant();
 void supprimerEtudiant();
-void rechercherEtudiant();
+void rech_num_etudiant();
+void rech_prenom_etudiant();
+void rech_nom_etudiant();
+void rech_mail_etudiant();
+void rech_date_etudiant();
+void rech_classe_etudiant();
+void menuRecherche_Etudiant();
 void afficherListeEtudiants();
 void menuEtudiant();
 

@@ -101,7 +101,7 @@ void afficherListeEtudiants() {
     }
 }
 
-void rechercherEtudiant() {
+void rech_num_etudiant() {
     int numero, trouve = 0;
     Etudiant tab[100];
     int n = chargerEtudiants(tab, 100);
@@ -128,7 +128,237 @@ void rechercherEtudiant() {
     }
 
     if (!trouve)
-        printf("Aucun étudiant avec ce numéro.\n");
+        printf("Aucun\n");
+}
+
+void rech_prenom_etudiant() {
+    int trouve = 0;
+    char prenom[30];
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    printf("Entrez le prénom à rechercher : ");
+    saisie_ligne(prenom,30);
+    int i;
+    
+    printf("Étudiants trouvés :\n");
+    for (i = 0; i < n; i++) {
+        if (strcmp(tab[i].prenom, prenom) == 0) {
+            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
+                   tab[i].numero,
+                   tab[i].prenom,
+                   tab[i].nom,
+                   tab[i].email,
+                   tab[i].date_naissance.jour,
+                   tab[i].date_naissance.mois,
+                   tab[i].date_naissance.annee,
+                   tab[i].codeClasse);
+            trouve = 1;
+        }
+    }
+
+    if (!trouve)
+        printf("Aucun\n");
+}
+
+void rech_nom_etudiant() {
+    int trouve = 0;
+    char nom[30];
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    printf("Entrez le nom à rechercher : ");
+    saisie_ligne(nom,30);
+    int i;
+
+    printf("Étudiants trouvés :\n");
+    for (i = 0; i < n; i++) {
+        if (strcmp(tab[i].nom,nom)==0) {
+            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
+                   tab[i].numero,
+                   tab[i].prenom,
+                   tab[i].nom,
+                   tab[i].email,
+                   tab[i].date_naissance.jour,
+                   tab[i].date_naissance.mois,
+                   tab[i].date_naissance.annee,
+                   tab[i].codeClasse);
+            trouve = 1;
+        }
+    }
+
+    if (!trouve)
+        printf("Aucun\n");
+}
+
+void rech_mail_etudiant() {
+    int trouve = 0;
+    char mail[50];
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    printf("Entrez le mail à rechercher : ");
+    saisie_ligne(mail,50);
+    int i;
+
+    printf("Étudiant trouvé :\n");
+    for (i = 0; i < n; i++) {
+        if (strcmp(tab[i].email,mail)==0) {
+            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
+                   tab[i].numero,
+                   tab[i].prenom,
+                   tab[i].nom,
+                   tab[i].email,
+                   tab[i].date_naissance.jour,
+                   tab[i].date_naissance.mois,
+                   tab[i].date_naissance.annee,
+                   tab[i].codeClasse);
+            trouve = 1;
+        }
+    }
+
+    if (!trouve)
+        printf("Aucun\n");
+}
+
+void rech_classe_etudiant() {
+    int Classe, trouve = 0;
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    printf("Entrez le code de la classe à rechercher : ");
+    Classe=saisie_entier();
+    int i;
+
+    printf("Étudiants trouvés :\n");
+    for (i = 0; i < n; i++) {
+        if (tab[i].codeClasse == Classe) {
+            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
+                   tab[i].numero,
+                   tab[i].prenom,
+                   tab[i].nom,
+                   tab[i].email,
+                   tab[i].date_naissance.jour,
+                   tab[i].date_naissance.mois,
+                   tab[i].date_naissance.annee,
+                   tab[i].codeClasse);
+            trouve = 1;
+        }
+    }
+
+    if (!trouve)
+        printf("Aucun\n");
+}
+
+void rech_date_etudiant() {
+    int trouve = 0;
+    Etudiant tab[100];
+    Date date;
+    int n = chargerEtudiants(tab, 100);
+
+    printf("Jour : ");
+    date.jour=saisie_entier();
+    printf("Mois : ");
+    date.mois=saisie_entier();
+    printf("Annee : ");
+    date.annee=saisie_entier();
+    int i;
+
+    printf("Étudiant trouvé :\n");
+    for (i = 0; i < n; i++) {
+        if (tab[i].date_naissance.jour == date.jour && tab[i].date_naissance.mois == date.mois &&tab[i].date_naissance.annee == date.annee  ) {
+            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
+                   tab[i].numero,
+                   tab[i].prenom,
+                   tab[i].nom,
+                   tab[i].email,
+                   tab[i].date_naissance.jour,
+                   tab[i].date_naissance.mois,
+                   tab[i].date_naissance.annee,
+                   tab[i].codeClasse);
+            trouve = 1;
+        }
+    }
+
+    if (!trouve)
+        printf("Aucun\n");
+}
+
+void menuRecherche_Etudiant(){
+    
+    int choix;
+    do
+    {   
+        system("cls");
+        printf("A partir de quel element voulez vous faire une recherche ? \n");
+        printf("1. Numéro\n");
+        printf("2. Nom\n");
+        printf("3. Prénom\n");
+        printf("4. Email\n");
+        printf("5. Date de naissance\n");
+        printf("6. Classe\n");
+        printf("0. Annuler\n\n");
+        printf("Veuillez renseigner votre choix : ");
+
+        choix=saisie_entier();
+
+        switch (choix)
+        {
+        case 1:
+            system("cls");
+            rech_num_etudiant();
+            printf("\n\n");
+            system("pause");
+            break;
+
+        case 2:
+            system("cls");
+            rech_nom_etudiant();
+            printf("\n\n");
+            system("pause");
+            break;
+
+        case 3:
+            system("cls");
+            rech_prenom_etudiant();
+            printf("\n\n");
+            system("pause");
+            break;
+
+        case 4:
+            system("cls");
+            rech_mail_etudiant();
+            printf("\n\n");
+            system("pause");
+            break;
+
+        case 5:
+            system("cls");
+            printf("Entrez la date à rechercher :\n\n");
+            rech_date_etudiant();
+            printf("\n\n");
+            system("pause");
+            break;
+
+        case 6:
+            system("cls");
+            rech_classe_etudiant();
+            printf("\n\n");
+            system("pause");
+            break;
+
+        case 0:
+            printf("\nMenu précédent");
+            printf("\n\n");
+            system("pause");
+            break;
+        
+        default:
+            printf("\nVeuillez entrer une option valide.\n\n");
+            system("pause");
+            break;
+        }
+    } while (choix!=0);
 }
 
 void modifierEtudiant() {
