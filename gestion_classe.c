@@ -82,8 +82,13 @@ void afficher_classe(){
     }
     int code;
     char nom[30], niveau[10];
+    printf("\t+-----------+-----------------+-------------+\n");
+    printf("\t| Reference |     libelle     | coefficient |\n");
+    printf("\t+-----------+-----------------+-------------+\n");
     while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
-        printf("code: %d, nom: %s, niveau: %s\n", code, nom, niveau);
+
+            printf("\t| %9d | %15s | %11s |\n", code,nom, niveau);
+            printf("\t+-----------+-----------------+-------------+\n");
     }
     fclose(fichier_classe);
 }
@@ -243,16 +248,19 @@ void modifier_classe(int code_a_modifier) {
     printf(" Classe modifiee avec succes.\n");
 }
 
-int afiicher_matiere_classe(){
+int afficher_matiere_classe(){
 
     char ligne[100];
     int ref, code_recherche=0;
     int trouve = 0;
+    char lignes[100];
+    char libe[15];
+    int refe, co;
 
-    printf("Veuillez saisir le code de la classe dont vous voulez afficher les matieres");
+    printf("Veuillez saisir le code de la classe dont vous voulez afficher les matieres: ");
     code_recherche=saisie_entier();
     while (!(code_existe(code_recherche)) && code_recherche != -1  ){
-        printf("Il n'y a pas de classe avec ce code. Veuillez ressaisir le code ou -1 pour annuler");
+        printf("Il n'y a pas de classe avec ce code. Veuillez ressaisir le code ou -1 pour annuler: ");
         code_recherche=saisie_entier();
     }
 
@@ -272,33 +280,30 @@ int afiicher_matiere_classe(){
         }
     }
     fclose(fichier_classe);
+
+    printf("\t+-------------+-----------------+-------------+\n");
+    printf("\t| Reference   |     libelle     | coefficient |\n");
+    printf("\t+-------------+-----------------+-------------+\n");
     FILE *fichier = fopen("matiere-classe.csv", "r");
     while (fgets(ligne, sizeof(ligne), fichier)) {
         if (sscanf(ligne, "%d;%d", &ref, &code) == 2) {
            
             FILE *file = fopen("matiere.csv", "r");
             if (file != NULL) {
-                char ligne[100];
-                char lib[15];
-                int ref, coef;
-                while (fgets(ligne, sizeof(ligne), file)) {
-                    ligne[strcspn(ligne, "\n")] = '\0'; 
 
-                    char *valeur = strtok(ligne, ";");
-                    
-                    ref = atoi(valeur);
-
-                    valeur = strtok(NULL, ";");
-                    
-                    strcpy(lib, valeur);
-
-                    valeur = strtok(NULL, ";");
-                    
-                    coef = atoi(valeur);
+               
 
                     
-                    printf("\t%s",lib);      
-                }
+             
+                    while (fgets(lignes, sizeof(lignes), file)) {
+                        if (sscanf(lignes, "%d;%29[^;];%d", &refe, libe, &co) == 3){
+                            if (ref == refe){
+                        printf("\t| %11d | %15s | %11d |\n", refe,libe, co);
+                        printf("\t+-------------+-----------------+-------------+\n");
+                            }
+                        }
+                    }
+                
 
                 
                 fclose(file);
@@ -319,8 +324,9 @@ void matiere_classe(){
         printf("Quelle action voulez vous effectuer ?\n");
         printf("1. Ajouter une matiere a une classe\n");
         printf("2. Retirer une matiere a une classe\n");
-        printf("3. Afficher les matieres d'une classe\n");
-        printf("4. Afficher les classes associees a une matiere\n");
+        printf("3. Afficher les classes associees a une matiere\n");
+        printf("4. Afficher les matieres d'une classe\n");
+
         printf("Renseignez votre choix : ");
         choix = saisie_entier();
 
@@ -411,11 +417,11 @@ void matiere_classe(){
                 }
                 
             }
-            fclose(file);
+            
             break;
 
         case 4 :
-            afiicher_matiere_classe();
+            afficher_matiere_classe();
             break;
 
         default:
