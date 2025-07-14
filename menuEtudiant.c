@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "etudiant.h"
+#include "general.h"
 
 void menuEtudiant() {
     int choix;
@@ -15,7 +16,7 @@ void menuEtudiant() {
         printf("\t5. Afficher tous les étudiants\n");
         printf("\t0. Quitter\n\n");
         printf("\tVeuillez renseigner votre choix : ");
-        scanf("%d", &choix);
+        choix=saisie_entier();
 
         switch (choix) {
             case 1:system("cls"); ajouterEtudiant(); system("pause");break;

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "etudiant.h"
+#include "general.h"
 
 int chargerEtudiants(Etudiant tab[], int max) {
     FILE *f = fopen("etudiants.csv", "r");
@@ -49,7 +50,7 @@ void ajouterEtudiant() {
     int n = chargerEtudiants(tab, 100);
 
     printf("Numéro étudiant : ");
-    scanf("%d", &e.numero);
+    e.numero=saisie_entier();
     int i;
 
     for (i = 0; i < n; i++) {
@@ -60,15 +61,15 @@ void ajouterEtudiant() {
     }
 
     printf("Nom : ");
-    scanf("%s", e.nom);
+    saisie_ligne(e.nom,sizeof(e.nom));
     printf("Prénom : ");
-    scanf("%s", e.prenom);
+    saisie_ligne(e.prenom,sizeof(e.prenom));
     printf("Email : ");
-    scanf("%s", e.email);
+    saisie_ligne(e.email,sizeof(e.email));
     printf("Date de naissance (JJ MM AAAA) : ");
-    scanf("%d %d %d", &e.date_naissance.jour, &e.date_naissance.mois, &e.date_naissance.annee);
+    e.date_naissance.jour=saisie_entier();e.date_naissance.mois=saisie_entier();e.date_naissance.annee=saisie_entier();
     printf("Code classe : ");
-    scanf("%d", &e.codeClasse);
+    e.codeClasse=saisie_entier();
 
     tab[n++] = e;
     if (sauvegarderEtudiants(tab, n))
@@ -106,7 +107,7 @@ void rechercherEtudiant() {
     int n = chargerEtudiants(tab, 100);
 
     printf("Entrez le numéro de l'étudiant à rechercher : ");
-    scanf("%d", &numero);
+    numero=saisie_entier();
     int i;
 
     for (i = 0; i < n; i++) {
@@ -136,25 +137,24 @@ void modifierEtudiant() {
     int n = chargerEtudiants(tab, 100);
 
     printf("Entrez le numéro de l'étudiant à modifier : ");
-    scanf("%d", &numero);
+    numero=saisie_entier();
     int i;
 
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
             printf("Nouvelle information pour l'étudiant %d :\n", numero);
             printf("Nom : ");
-            scanf("%s", tab[i].nom);
+            saisie_ligne(tab[i].nom,sizeof(tab[i].nom));
             printf("Prénom : ");
-            scanf("%s", tab[i].prenom);
+            saisie_ligne(tab[i].prenom,sizeof(tab[i].prenom));
             printf("Email : ");
-            scanf("%s", tab[i].email);
+            saisie_ligne(tab[i].email,sizeof(tab[i].email));
             printf("Date de naissance (JJ MM AAAA) : ");
-            scanf("%d %d %d",
-                  &tab[i].date_naissance.jour,
-                  &tab[i].date_naissance.mois,
-                  &tab[i].date_naissance.annee);
+            tab[i].date_naissance.jour=saisie_entier();
+            tab[i].date_naissance.mois=saisie_entier();
+            tab[i].date_naissance.annee=saisie_entier();
             printf("Code classe : ");
-            scanf("%d", &tab[i].codeClasse);
+            tab[i].codeClasse=saisie_entier();
 
             if (sauvegarderEtudiants(tab, n))
                 printf("Étudiant modifié avec succès.\n");
@@ -173,7 +173,7 @@ void supprimerEtudiant() {
     int n = chargerEtudiants(tab, 100);
 
     printf("Entrez le numéro de l'étudiant à supprimer : ");
-    scanf("%d", &numero);
+    numero=saisie_entier();
     int i;
     
     for (i = 0; i < n; i++) {

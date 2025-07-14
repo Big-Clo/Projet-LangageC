@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "general.h"
 
 
 int code_existe(int x){
@@ -26,11 +27,11 @@ int ajout_classe(){
     int level, existe;
     
     printf ("Ce programme vous permet d'ajouter une classe.\n Veuillez saisir:\n le code de la classe:\t");
-    scanf("%d", &classe.code);
+    classe.code=saisie_entier();
     existe = code_existe(classe.code);
     while(existe == 1 ){
         printf ("Le code que vous avez saisit est deja attribue a une classe veuillez saisir un autre code ou -1 si vous voulez annuler l'ajout:\t");
-        scanf("%d", &classe.code);
+        classe.code=saisie_entier();
         existe = code_existe(classe.code);
         if (classe.code == -1){
             break;
@@ -42,12 +43,12 @@ int ajout_classe(){
         return 1;
     }
     printf ("\n Le nom de la classe:\t\n");
-    scanf ("%s", classe.nom);
-    printf ("\nVeuillez tapez 1 si vous etes en license et 2 si vous etes en master:\t");
-    scanf("%d", &level);
+    saisie_ligne(classe.nom,sizeof(classe.nom));
+    printf ("\nVeuillez tapez 1 si c'est une classe de license et 2 si c'est une classe de master:\t");
+    level=saisie_entier();
     while (level != 1 && level != 2){
         printf("\nVous devez entrer 1 si vous etes en license et 2 si vous etes en master. Veuillez reessayer:\t");
-        scanf("%d", &level);
+        level=saisie_entier();
     }
     if (level == 1){
         classe.niveau = License;
@@ -216,12 +217,12 @@ void modifier_classe(int code_a_modifier) {
             int nouveau_niveau;
 
             printf("Nouveau nom : ");
-            scanf(" %s", nouveau_nom);
-            printf("Veuillez entrez 1 si tu etes en License et 2 si vous etes en Master : ");
-            scanf("%d", &nouveau_niveau);
+            saisie_ligne(nouveau_nom,sizeof(nouveau_nom));
+            printf("Veuillez entrez 1 si c'est un classe de License et 2 si c'est une classe de Master : ");
+            nouveau_niveau=saisie_entier();
             while (nouveau_niveau != 1 && nouveau_niveau !=2){
                 printf("Vous pouvez saisir que 1 pour License et 2 pour Master. Veuillez saisir");
-                scanf("%d", &nouveau_niveau);
+                nouveau_niveau=saisie_entier();
             }
             if (nouveau_niveau ==1)
             fprintf(temp, "%d;%s;License\n", code_a_modifier, nouveau_nom);
@@ -249,10 +250,10 @@ int afiicher_matiere_classe(){
     int trouve = 0;
 
     printf("Veuillez saisir le code de la classe dont vous voulez afficher les matieres");
-    scanf("%d", &code_recherche);
+    code_recherche=saisie_entier();
     while (!(code_existe(code_recherche)) && code_recherche != -1  ){
         printf("Il n'y a pas de classe avec ce code. Veuillez ressaisir le code ou -1 pour annuler");
-        scanf("%d", &code_recherche);
+        code_recherche=saisie_entier();
     }
 
 

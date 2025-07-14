@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "gestion_classe.h"
 #include <stdlib.h>
+#include "general.h"
 
 void menuClasse()
 {
@@ -16,7 +17,7 @@ void menuClasse()
     printf("\t6. Pour gerer les matieres des classe\n");
     printf("\t0. Pour quitter\n");
     printf("\tRenseigner votre choix: ");
-    scanf("%d", &choix);
+    choix=saisie_entier();
 
     switch (choix)
     {
@@ -38,14 +39,14 @@ void menuClasse()
     case 3:
         system("cls");
         printf("Veuillez saisir le code de la classe a rechercher\t");
-        scanf("%d", &a);
+        a=saisie_entier();
         recherche_classe(a);
         system("pause");
         break;
     case 4:
         system("cls");
         printf("Veuillez saisir le code de la classe a supprimer\t");
-        scanf("%d", &a);
+        a=saisie_entier();
         if (code_existe(a)){
             printf("Il n'y a pas de classe avec ce code");
             exit(1);
@@ -56,7 +57,7 @@ void menuClasse()
     case 5:
         system("cls");
         printf("Veuillez saisir le code de la classe a modifier\t");
-        scanf("%d", &a);
+        a=saisie_entier();
         if (!code_existe(a)){
             printf("Il n'y a pas de classe avec ce code");
             exit(1);

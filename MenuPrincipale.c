@@ -4,6 +4,7 @@
 #include "matiere.h"
 #include "gestion_classe.h"
 #include "gestion_note.h"
+#include "general.h"
 
 int main () {
     int menu;
@@ -16,7 +17,7 @@ int main () {
         printf("\t4. Gestion des Notes\n");
         printf("\t0. Quitter\n\n");
         printf("\tVeuillez renseigner votre choix : \n");
-        scanf("%d", &menu);
+        menu=saisie_entier();
 
         switch (menu) {
             case 1:system("cls"); menuEtudiant(); system("pause");break;

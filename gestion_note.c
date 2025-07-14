@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "gestion_note.h"
 #include "etudiant.h"
+#include "general.h"
 
 
 
@@ -20,7 +21,7 @@ int numero_existe(int x){
 
     while (fgets(ligne, sizeof(ligne), fichier_etudiants)) {
         
-        if (sscanf(ligne, "%d,%[^,],%[^,],%[^,],%[^,],%d", &numero, nom, prenom, email, date_str, &codeClasse) == 6) {
+        if (sscanf(ligne, "%d;%[^;];%[^;];%[^;];%[^;];%d", &numero, nom, prenom, email, date_str, &codeClasse) == 6) {
             
             sscanf(date_str, "%d/%d/%d", &date_naissance.jour, &date_naissance.mois, &date_naissance.annee);
 
@@ -82,13 +83,13 @@ int reference_existe(int x) {
 int ajout_note(){
     NOTE note;
     printf("Veuillez saisir le numero de l'etudiant: ");
-    scanf("%d", &note.numero);
+    note.numero=saisie_entier();
     if (!numero_existe(note.numero)){
         printf("Il n'existe pas d'etudiant avec ce numero");
         return 1;
     }
     printf("Veuillez saisir la reference de la matiere: ");
-    scanf ("%d", &note.reference);
+    note.reference=saisie_entier();
     if (!reference_existe(note.reference)){
         printf("Il n'existe pas de matiere avec cette reference\n");
         return 1;
@@ -98,16 +99,16 @@ int ajout_note(){
         return 1;
     }
     printf("Veuillez saisir la note de CC ");
-    scanf ("%d", &note.noteCC);
+    note.noteCC=saisie_entier();
     while(note.noteCC < 0 || note.noteCC > 20){
         printf("La note doit etre comprise entre 0 et 20. Veuillez ressaisir la note de CC");
-        scanf ("%d", &note.noteCC);
+        note.noteCC=saisie_entier();
     }
     printf("Veuillez saisir la note de DS ");
-    scanf ("%d", &note.noteDS);
+    note.noteDS=saisie_entier();
     while(note.noteDS < 0 || note.noteDS > 20){
         printf("La note doit etre comprise entre 0 et 20. Veuillez ressaisir la note de DS");
-        scanf ("%d", &note.noteDS);
+        note.noteDS=saisie_entier();
     }
 
     FILE *fichier_note = fopen("note.csv", "a");
@@ -128,10 +129,10 @@ int modifier_note() {
 
     do {
         printf("Veuillez saisir le numero de l'eleve dont vous voulez modifier les notes: ");
-        scanf("%d", &note.numero);
+        note.numero=saisie_entier();
         while (!numero_existe(note.numero) && note.numero != -1) {
             printf("Il n'y a pas d'etudiant avec ce numero. Veuillez ressaisir ou -1 pour annuler :\n");
-            scanf("%d", &note.numero);
+            note.numero=saisie_entier();
         }
         if (note.numero == -1) {
             printf("Annulation des modifications\n");
@@ -139,10 +140,10 @@ int modifier_note() {
         }
 
         printf("Veuillez saisir la reference de la matiere : ");
-        scanf("%d", &note.reference);
+        note.reference=saisie_entier();
         while (!reference_existe(note.reference) && note.reference != -1) {
             printf("Reference invalide. Ressaisir ou -1 pour annuler :\n");
-            scanf("%d", &note.reference);
+            note.reference=saisie_entier();
         }
         if (note.reference == -1) {
             printf("Annulation des modifications\n");
@@ -151,10 +152,10 @@ int modifier_note() {
 
         if (!numero_note_existe(note.numero, note.reference)) {
             printf("Cet eleve n'a pas de note dans cette matiere. 0 pour annuler, 1 pour ressaisir :\n");
-            scanf("%d", &quitter);
+            quitter=saisie_entier();
             while (quitter != 0 && quitter != 1) {
                 printf("Choix invalide. Entrez 0 ou 1 :\n");
-                scanf("%d", &quitter);
+                quitter=saisie_entier();
             }
         } else {
             quitter = 0;
@@ -173,9 +174,9 @@ int modifier_note() {
     while (fscanf(fichier, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
         if (note.numero == numero && note.reference == reference) {
             printf("Veuillez saisir la nouvelle note de CC: ");
-            scanf("%d", &note.noteCC);
+            note.noteCC=saisie_entier();
             printf("Veuillez saisir la nouvelle note de DS: ");
-            scanf("%d", &note.noteDS);
+            note.noteDS=saisie_entier();
             fprintf(temp, "%d;%d;%d;%d\n", note.numero, note.reference, note.noteCC, note.noteDS);
         } else {
             fprintf(temp, "%d;%d;%d;%d\n", numero, reference, noteCC, noteDS);
@@ -206,10 +207,10 @@ int recherche_note_eleve_matiere(){
     quitter = 0;
     do{
         printf("Veuillez saisir le saisir le numero de l' etudiant dont vous chercher la note: ");
-        scanf("%d", &note.numero);
+        note.numero=saisie_entier();
         while(!numero_existe(note.numero) && note.numero != -1){
             printf("Il n'y a pas d'etudiant avec ce numero. Veuillez ressaisir le numero de l'etudiant  ou -1 pour annuler la recherche.\n");
-            scanf("%d" ,&note.numero);
+            note.numero=saisie_entier();
         }
         if(note.numero == -1){
             printf("Annulation de la recherche");
@@ -219,10 +220,10 @@ int recherche_note_eleve_matiere(){
 
 
         printf("Veuillez saisir la reference de la matiere dont vous voulez rechercher les notes: ");
-        scanf("%d" ,&note.reference);
+        note.reference=saisie_entier();
         while (!reference_existe(note.reference) && note.reference != -1){
             printf("Il n'y a pas de matiere avec ce reference. Veuillez ressaisir la reference de la matiere ou -1 pour annuler la recherche.\n ");
-            scanf("%d" ,&note.reference);
+            note.reference=saisie_entier();
         }
         if(note.reference == -1){
             printf("Annulation de la recherche");
@@ -234,12 +235,12 @@ int recherche_note_eleve_matiere(){
 
         if (!numero_note_existe(note.numero, note.reference)){
             printf("Cette eleve n'a pas de notes dans cette matiere. Veuillez entre 0 pour annuler la modification et 1 pour rentrer les informations a nouveaux");
-            scanf("%d", &quitter);
+            quitter=saisie_entier();
 
         }
         while(quitter != 0 && quitter != 1){
             printf("Choix invalide. Veuillez entre 1 pour annuler la modification et 0 pour rentrer les informations a nouveaux: ");
-            scanf("%d", &quitter);
+            quitter=saisie_entier();
         }
     }while (!(numero_note_existe(note.numero, note.reference)) || (quitter == 1));
 
@@ -319,10 +320,10 @@ int recherche_note_eleve(){
 
     quitter = 0;
     printf("Veuillez saisir le saisir le numero de l' etudiant dont vous chercher la note: ");
-    scanf("%d", &note.numero);
+    note.numero=saisie_entier();
     while(!numero_existe(note.numero) && note.numero != -1){
         printf("Il n'y a pas d'etudiant avec ce numero. Veuillez ressaisir le numero de l'etudiant  ou -1 pour annuler la recherche.\n");
-        scanf("%d" ,&note.numero);
+        note.numero=saisie_entier();
     }
     if(note.numero == -1){
         printf("Annulation de la recherche");
@@ -344,7 +345,7 @@ int recherche_note_eleve(){
 
     while (fgets(ligne, sizeof(ligne), fichier_etudiants)) {
         
-        if (sscanf(ligne, "%d,%[^,],%[^,],%[^,],%[^,],%d", &num, nom, prenom, email, date_str, &codeClasse) == 6) {
+        if (sscanf(ligne, "%d;%[^;];%[^;];%[^;];%[^;];%d", &num, nom, prenom, email, date_str, &codeClasse) == 6) {
             
             sscanf(date_str, "%d/%d/%d", &date_naissance.jour, &date_naissance.mois, &date_naissance.annee);
 
@@ -401,10 +402,10 @@ int supprimer_note(){
 
     do {
         printf("Veuillez saisir le numero de l'eleve dont vous voulez supprimer les notes: ");
-        scanf("%d", &note.numero);
+        note.numero=saisie_entier();
         while (!numero_existe(note.numero) && note.numero != -1) {
             printf("Il n'y a pas d'etudiant avec ce numero. Veuillez ressaisir ou -1 pour annuler :\n");
-            scanf("%d", &note.numero);
+            note.numero=saisie_entier();
         }
         if (note.numero == -1) {
             printf("Annulation des suppressions\n");
@@ -412,10 +413,10 @@ int supprimer_note(){
         }
 
         printf("Veuillez saisir la reference de la matiere : ");
-        scanf("%d", &note.reference);
+        note.reference=saisie_entier();
         while (!reference_existe(note.reference) && note.reference != -1) {
             printf("Reference invalide. Ressaisir ou -1 pour annuler :\n");
-            scanf("%d", &note.reference);
+            note.reference=saisie_entier();
         }
         if (note.reference == -1) {
             printf("Annulation des suppressions\n");
@@ -424,10 +425,10 @@ int supprimer_note(){
 
         if (!numero_note_existe(note.numero, note.reference)) {
             printf("Cet eleve n'a pas de note dans cette matiere. 0 pour annuler, 1 pour ressaisir :\n");
-            scanf("%d", &quitter);
+            quitter=saisie_entier();
             while (quitter != 0 && quitter != 1) {
                 printf("Choix invalide. Entrez 0 ou 1 :\n");
-                scanf("%d", &quitter);
+                quitter=saisie_entier();
             }
         } else {
             quitter = 0;
@@ -469,10 +470,10 @@ int recherche_note_matiere(){
         
 
     printf("Veuillez saisir la reference de la matiere dont vous voulez rechercher les notes: ");
-    scanf("%d" ,&note.reference);
+    note.reference=saisie_entier();
     while (!reference_existe(note.reference) && note.reference != -1){
         printf("Il n'y a pas de matiere avec ce reference. Veuillez ressaisir la reference de la matiere ou -1 pour annuler la recherche.\n ");
-        scanf("%d" ,&note.reference);
+        note.reference=saisie_entier();
     }
     if(note.reference == -1){
         printf("Annulation de la recherche");

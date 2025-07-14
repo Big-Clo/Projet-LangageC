@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "etudiant.h"
 
 void saisie_ligne(char *dest, int taille) {
     while (1) {
