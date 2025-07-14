@@ -357,7 +357,6 @@ int rech_ref(int a){
             }
        
 }
-printf("\n\n");
 fclose(file);
 return 0;
 }

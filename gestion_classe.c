@@ -320,7 +320,7 @@ void matiere_classe(){
     int choix;
     do
     {
-        //system("cls");
+        system("cls");
         printf("Quelle action voulez vous effectuer ?\n");
         printf("1. Ajouter une matiere a une classe\n");
         printf("2. Retirer une matiere a une classe\n");
@@ -348,6 +348,7 @@ void matiere_classe(){
             
             if (ref == -1){
                 printf("L'operation a été annulé.");
+                system("pause");
                 break;
             }
 
@@ -363,9 +364,11 @@ void matiere_classe(){
             
             if (code == -1){
                 printf("L'operation a été annulé.");
+                system("pause");
                 break;
             }
             ajouter_matiere_classe(ref,code);
+            system("pause");
             break;
         
         case 2 :
@@ -381,6 +384,7 @@ void matiere_classe(){
 
             if (ref == -1){
                 printf("L'operation a été annulé.");
+                system("pause");
                 break;
             }
 
@@ -396,32 +400,20 @@ void matiere_classe(){
 
             if (code == -1){
                 printf("L'operation a été annulé.");
+                system("pause");
                 break;
             }
             retirer_matiere_classe(ref,code);
+            system("pause");
             break;
         
         case 3 :
-            printf("Quel est la classe dont vous voulez connaitre les matieres ? ");
-            existe=saisie_entier();
-            FILE*file=fopen("matiere-classe.csv","r");
-            printf("\t+-----------+-----------------+-------------+\n");
-            printf("\t| Référence |     Libellé     | Coefficient |\n");
-            printf("\t+-----------+-----------------+-------------+\n");
-            while(fgets(ligne,sizeof(ligne),file))
-            {
-                sscanf(ligne,"%d;%d",&ref,&code);
-                if (code == existe)
-                {
-                    rech_ref(ref);
-                }
-                
-            }
-            
+            system("pause");
             break;
 
         case 4 :
             afficher_matiere_classe();
+            system("pause");
             break;
 
         default:
