@@ -16,7 +16,7 @@ void menuClasse()
     printf("\t4. Pour supprimer une classe\n");
     printf("\t5. Pour modifier une classe\n");
     printf("\t6. Pour gerer les matieres des classe\n");
-    printf("\t0. Pour quitter\n");
+    printf("\t0. Pour quitter\n\n");
     printf("\tRenseigner votre choix: ");
     choix=saisie_entier();
     printf("\n\n");
