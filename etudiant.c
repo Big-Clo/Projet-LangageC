@@ -44,7 +44,6 @@ int sauvegarderEtudiants(Etudiant tab[], int n) {
 }
 
 void ajouterEtudiant() {
-    system("cls");
     Etudiant e;
     Etudiant tab[100];
     int n = chargerEtudiants(tab, 100);
