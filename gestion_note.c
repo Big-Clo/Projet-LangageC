@@ -370,7 +370,11 @@ int recherche_note_eleve(){
         return 1;
     }
 
-    printf("Voici les notes de %s %s :\n ", prenom, nom, libelle);
+    printf("Voici les notes de %s %s :\n ", prenom, nom);
+    printf("\t+-----------+----------------+-------------+\n");
+    printf("\t| Reference |     libelle    | coefficient |\n");
+    printf("\t+-----------+----------------+-------------+\n");
+
 
     while (fscanf(fichier, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
         if ((note.numero == numero)) {
@@ -382,7 +386,9 @@ int recherche_note_eleve(){
             while (fgets(ligne, sizeof(ligne), fichier_matiere)) {
                 if (sscanf(ligne, "%d;%[^;];%d", &ref, libelle, &coefficient) == 3) {
                     if (reference == ref) {
-                        printf("En %s:\n\tnote CC: %d \t note DS: %d\n",libelle, noteCC, noteDS); 
+                        //printf("En %s:\n\tnote CC: %d \t note DS: %d\n",libelle, noteCC, noteDS); 
+                        printf("\t| %9s | %14d | %11d |\n", libelle,noteCC, noteDS);
+                        printf("\t+-----------+----------------+-------------+\n");
                     }
                 }
             }
