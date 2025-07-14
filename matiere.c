@@ -3,42 +3,7 @@
 #include <string.h>
 #include "matiere.h"
 #include "gestion_note.h"
-
-void saisie_ligne(char *dest, int taille) {
-    while (1) {
-        if (fgets(dest, taille, stdin) != NULL) {
-            size_t len = strlen(dest);
-            if (len > 0 && dest[len - 1] == '\n') {
-                dest[len - 1] = '\0';
-            } else {
-                int c;
-                while ((c = getchar()) != '\n' && c != EOF);
-            }
-
-            if (strchr(dest, ';') != NULL) {
-                printf("Le caractère ';' est interdit. Veuillez ressaisir :\n");
-                continue;
-            }
-
-            break;
-        }
-    }
-}
-
-int saisie_entier() {
-    int valeur;
-    char buffer[100];
-
-    while (1) {
-        if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
-            if (sscanf(buffer, "%d", &valeur) == 1) {
-                return valeur;
-            } else {
-                printf("Entrée invalide. Veuillez saisir un entier valide : \n");
-            }
-        }
-    }
-}
+#include "general.h"
 
 char* chercher(int a, char *trouve) {
     FILE* file = fopen("matiere.csv", "r");
