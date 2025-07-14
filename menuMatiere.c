@@ -13,7 +13,7 @@ void menuMatiere()
 
     system("cls");
 
-    printf("\n\n\t\tMenu matière\n");
+    printf("\t\t\n===== MENU MATIÈRE =====\n\n");
     printf("1. Ajouter un matière\n");
     printf("2. Afficher la liste des matières\n");
     printf("3. Rechercher une matière\n");
@@ -72,7 +72,7 @@ void menuMatiere()
         menuModifier_matiere(a);
         system("pause");
         break;
-    case 0: printf("Menu précédent\n\n"); break; 
+    case 0: printf("Menu précédent\n\n");system("pause"); break; 
     
     default:
         printf("Cette option n'existe pas\n\n");

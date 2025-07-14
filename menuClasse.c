@@ -9,6 +9,7 @@ void menuClasse()
 
     do {
     system("cls");
+    printf("\t\t\n===== MENU CLASSE =====\n\n");
     printf("\t1. Pour ajouter une classe\n");
     printf("\t2. Pour afficher la liste des classes\n");
     printf("\t3. Pour rechercher une classe\n");
@@ -18,6 +19,7 @@ void menuClasse()
     printf("\t0. Pour quitter\n");
     printf("\tRenseigner votre choix: ");
     choix=saisie_entier();
+    printf("\n\n");
 
     switch (choix)
     {
@@ -71,7 +73,7 @@ void menuClasse()
         system("pause");
         break;
        
-    case 0: printf("Menu precedent\n");system("pause"); break; 
+    case 0: printf("Menu precedent\n\n");system("pause"); break; 
     
     default:
         printf("Nous ne pouvons pas encore gerer cette option\n");

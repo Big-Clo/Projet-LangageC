@@ -16,15 +16,16 @@ int main () {
         printf("\t3. Gestions des matieres\n");
         printf("\t4. Gestion des Notes\n");
         printf("\t0. Quitter\n\n");
-        printf("\tVeuillez renseigner votre choix : \n");
+        printf("\tVeuillez renseigner votre choix : ");
         menu=saisie_entier();
+        printf("\n\n");
 
         switch (menu) {
-            case 1:system("cls"); menuEtudiant(); system("pause");break;
-            case 2:system("cls"); menuClasse(); system("pause");break;
-            case 3:system("cls"); menuMatiere(); system("pause");break;
-            case 4:system("cls"); menuNotes(); system("pause");break;
-            case 0:printf("Au revoir!!!\n"); system("pause");break; 
+            case 1:system("cls"); menuEtudiant(); break;
+            case 2:system("cls"); menuClasse(); break;
+            case 3:system("cls"); menuMatiere(); break;
+            case 4:system("cls"); menuNotes(); break;
+            case 0:printf("Au revoir!!!\n\n");break; 
             default: printf("Choix Invalide");
         }
 

@@ -9,8 +9,11 @@ void menuNotes(){
     do{
         
         system("cls");
+        printf("\t\t\n===== MENU NOTES =====\n\n");
         printf("\n\nMenu de Notes\n 1. Ajouter les notes\n 2. Modifier les notes\n 3. RechercheR notes etudiant dans une matiere\n 4. Afficher toutes les notes d'un eleve\n 5. Afficher les notes dans un matiere\n 6. Supprimer les notes d'un eleves\n 0. Retourner au menu precedent\n");
+        printf("Renseigner votre choix : ");
         choix=saisie_entier();
+        printf("\n\n");
         switch (choix)
         {
         case 1:
@@ -90,7 +93,7 @@ void menuNotes(){
             break;
         
         case 0:
-            printf("Menu precedent\n");
+            printf("Menu precedent\n\n");
             system("pause");
             break;
         
