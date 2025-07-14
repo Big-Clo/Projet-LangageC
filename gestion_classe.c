@@ -242,11 +242,79 @@ void modifier_classe(int code_a_modifier) {
     printf(" Classe modifiee avec succes.\n");
 }
 
+int afiicher_matiere_classe(){
+
+    char ligne[100];
+    int ref, code_recherche=0;
+    int trouve = 0;
+
+    printf("Veuillez saisir le code de la classe dont vous voulez afficher les matieres");
+    scanf("%d", &code_recherche);
+    while (!(code_existe(code_recherche)) && code_recherche != -1  ){
+        printf("Il n'y a pas de classe avec ce code. Veuillez ressaisir le code ou -1 pour annuler");
+        scanf("%d", &code_recherche);
+    }
+
+
+    FILE *fichier_classe = fopen("classe.csv", "r");
+    if (fichier_classe == NULL){
+        printf("le fichier n' a pas pu etre ouvert");
+        fclose(fichier_classe);
+        exit(1);
+    }
+    int code;
+    char nom[30], niveau[10];
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+        if(code_recherche == code){
+        printf("Voici les matieres de la classe : %s\n", nom);
+        break;
+        }
+    }
+    fclose(fichier_classe);
+    FILE *fichier = fopen("matiere-classe.csv", "r");
+    while (fgets(ligne, sizeof(ligne), fichier)) {
+        if (sscanf(ligne, "%d;%d", &ref, &code) == 2) {
+           
+            FILE *file = fopen("matiere.csv", "r");
+            if (file != NULL) {
+                char ligne[100];
+                char lib[15];
+                int ref, coef;
+                while (fgets(ligne, sizeof(ligne), file)) {
+                    ligne[strcspn(ligne, "\n")] = '\0'; 
+
+                    char *valeur = strtok(ligne, ";");
+                    
+                    ref = atoi(valeur);
+
+                    valeur = strtok(NULL, ";");
+                    
+                    strcpy(lib, valeur);
+
+                    valeur = strtok(NULL, ";");
+                    
+                    coef = atoi(valeur);
+
+                    
+                    printf("\t%s",lib);      
+                }
+
+                
+                fclose(file);
+            } else {
+                printf("Le fichier n'a pas pu être ouvert");
+                return 1;
+            }
+
+        }
+    }
+}
+
 void matiere_classe(){
     int choix;
     do
     {
-        system("cls");
+        //system("cls");
         printf("Quelle action voulez vous effectuer ?\n");
         printf("1. Ajouter une matiere a une classe\n");
         printf("2. Retirer une matiere a une classe\n");
@@ -346,8 +414,7 @@ void matiere_classe(){
             break;
 
         case 4 :
-            printf("Quel est la matiere dont vous voulez connaitre les classes ? ");
-            existe=saisie_entier();
+            afiicher_matiere_classe();
             break;
 
         default:

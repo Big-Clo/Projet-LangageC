@@ -19,6 +19,7 @@ void menuClasse();
 int recherche_classe(int x);
 void modifier_classe(int code_a_modifier);
 void supprimer_classe(int code_a_supprimer);
+void matiere_classe();
 
 
 
