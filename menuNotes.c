@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "gestion_note.h"
 
 
@@ -6,7 +7,7 @@ void menuNotes(){
     int choix;
     do{
         
-        system("csl");
+        system("cls");
         printf("\n\nMenu de Notes\n 1. Ajouter les notes\n 2. Modifier les notes\n 3. RechercheR notes etudiant dans une matiere\n 4. Afficher toutes les notes d'un eleve\n 5. Afficher les notes dans un matiere\n 6. Supprimer les notes d'un eleves\n 0. Retourner au menu precedent\n");
         scanf("%d", &choix);
         switch (choix)
