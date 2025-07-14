@@ -39,4 +39,4 @@ int saisie_entier() {
 }
 
 
-// gcc etudiant.c gestion_classe.c gestion_note.c matiere.c menuEtudiant.c menuClasse.c menuNotes.c menuMatiere.c menuPrincipale.c -o b && b.exe
+// gcc etudiant.c gestion_classe.c gestion_note.c general.c matiere.c menuEtudiant.c menuClasse.c menuNotes.c menuMatiere.c menuPrincipale.c -o b && b.exe
