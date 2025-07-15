@@ -8,22 +8,6 @@
 #include "etudiant.h"
 
 
-int code_existe(int x){
-    char nom[30], niveau[10];
-    int code;
-    FILE  *fichier_classe = 
-    fopen ("classe.csv", "r");
-    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
-        if (x == code){
-            fclose(fichier_classe);
-            return 1;
-            
-        }
-    }
-    fclose(fichier_classe);
-    return 0;
-}
-
 int ajout_classe(){
     CLASSE classe;
     int level, existe;
@@ -85,13 +69,13 @@ void afficher_classe(){
     }
     int code;
     char nom[30], niveau[10];
-    printf("\t+-----------+-----------------+-------------+\n");
-    printf("\t| Reference |     libelle     | coefficient |\n");
-    printf("\t+-----------+-----------------+-------------+\n");
+    printf("\t+------------+-----------------+--------------+\n");
+    printf("\t|   Numéro   |       Nom       |    Niveau    |\n");
+    printf("\t+------------+-----------------+--------------+\n");
     while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
 
-            printf("\t| %9d | %15s | %11s |\n", code,nom, niveau);
-            printf("\t+-----------+-----------------+-------------+\n");
+            printf("\t| %-10d | %-15s | %-12s |\n", code,nom, niveau);
+            printf("\t+------------+-----------------+--------------+\n");
     }
     fclose(fichier_classe);
 }
@@ -154,7 +138,7 @@ void afficher_liste_eleve_classe(){
 }
 
 int rech_code_classe(int x){
-    int code;
+    int code,trouve=0;
     char nom[30], niveau[10];
     FILE *fichier_classe = fopen("classe.csv", "r");
     if (fichier_classe == NULL){
@@ -162,18 +146,29 @@ int rech_code_classe(int x){
         return 1;
     }
     while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+        if (x == code){trouve=1;}}
+    if (!trouve) {
+        printf("Aucun élément ne correspond à ce code\n\n");
+        fclose(fichier_classe);
+        return 1;
+    }
+    fclose(fichier_classe);
+    fichier_classe = fopen("classe.csv", "r");
+    printf("\t+------------+-----------------+--------------+\n");
+    printf("\t|   Numéro   |       Nom       |    Niveau    |\n");
+    printf("\t+------------+-----------------+--------------+\n");
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
         if (x == code){
-            printf("L'element est present.\n ");
-            printf("code: %d, nom: %s, niveau: %s\n", code, nom, niveau);
-            return 0;
+            printf("\t| %-10d | %-15s | %-12s |\n", code,nom, niveau);
+            printf("\t+------------+-----------------+--------------+\n");
         }
     }
-    printf ("L'element est absent\n\n");
-    return 1;
+    fclose(fichier_classe);
+    return 0;
 }
 
 int rech_nom_classe(char *x){
-    int code;
+    int code,trouve=0;
     char nom[30], niveau[10];
     FILE *fichier_classe = fopen("classe.csv", "r");
     if (fichier_classe == NULL){
@@ -181,14 +176,25 @@ int rech_nom_classe(char *x){
         return 1;
     }
     while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+        if (strcmp(x,nom)==0){trouve=1;}}
+    if (!trouve) {
+        printf("Aucun élément ne correspond à ce nom\n\n");
+        fclose(fichier_classe);
+        return 1;
+    }
+    fclose(fichier_classe);
+    fichier_classe = fopen("classe.csv", "r");
+    printf("\t+------------+-----------------+--------------+\n");
+    printf("\t|   Numéro   |       Nom       |    Niveau    |\n");
+    printf("\t+------------+-----------------+--------------+\n");
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
         if (strcmp(x,nom)==0){
-            printf("L'element est present.\n ");
-            printf("code: %d, nom: %s, niveau: %s\n", code, nom, niveau);
-            return 0;
+            printf("\t| %-10d | %-15s | %-12s |\n", code,nom, niveau);
+            printf("\t+------------+-----------------+--------------+\n");
         }
     }
-    printf ("L'element est absent\n\n");
-    return 1;
+    fclose(fichier_classe);
+    return 0;
 }
 
 int rech_niveau_classe(char *x) {
@@ -201,22 +207,30 @@ int rech_niveau_classe(char *x) {
         printf("Le fichier n'a pas pu être ouvert\n");
         return 1;
     }
-
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+        strcpy(maj, niveau);
+        Maj(maj);
+        if (strcmp(x, maj) == 0){trouve=1;}}
+    if (!trouve) {
+        printf("Aucun élément ne correspond à ce niveau\n\n");
+        fclose(fichier_classe);
+        return 1;
+    }
+    fclose(fichier_classe);
+    fichier_classe = fopen("classe.csv", "r");
+    printf("\t+------------+-----------------+--------------+\n");
+    printf("\t|   Numéro   |       Nom       |    Niveau    |\n");
+    printf("\t+------------+-----------------+--------------+\n");
     while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3) {
         strcpy(maj, niveau);
         Maj(maj);
         if (strcmp(x, maj) == 0) {
-            printf("code: %d, nom: %s, niveau: %s\n", code, nom, niveau);
-            trouve = 1;
+            printf("\t| %-10d | %-15s | %-12s |\n", code,nom, niveau);
+            printf("\t+------------+-----------------+--------------+\n");
         }
     }
 
     fclose(fichier_classe);
-
-    if (!trouve) {
-        printf("Ce niveau n'est pas présent\n\n");
-        return 1;
-    }
     return 0;
 }
 
@@ -241,7 +255,8 @@ void menuRecherche_Classe(){
             printf("Veuillez saisir le code de la classe a rechercher : ");
             int a=saisie_entier();
             rech_code_classe(a);
-            system("pause");printf("\n");
+            printf("\n");
+            system("pause");
             break;
         case 2:
             char nom[30];
@@ -250,7 +265,8 @@ void menuRecherche_Classe(){
             saisie_ligne(nom,30);
             Maj(nom);
             rech_nom_classe(nom);
-            system("pause");printf("\n");
+            printf("\n");
+            system("pause");
             break;
         case 3:
             system("cls");
@@ -273,8 +289,8 @@ void menuRecherche_Classe(){
                 rech_niveau_classe(cls);
                 break;
             }
-            system("pause");
             printf("\n");
+            system("pause");
             break;
 
         case 0:

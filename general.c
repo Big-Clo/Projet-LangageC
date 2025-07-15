@@ -3,6 +3,23 @@
 #include <string.h>
 #include <ctype.h>
 
+int code_existe(int x){
+    char nom[30], niveau[10];
+    int code;
+    FILE  *fichier_classe = 
+    fopen ("classe.csv", "r");
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+        if (x == code){
+            fclose(fichier_classe);
+            return 1;
+            
+        }
+    }
+    fclose(fichier_classe);
+    return 0;
+}
+
+
 void saisie_ligne(char *dest, int taille) {
     while (1) {
         if (fgets(dest, taille, stdin) != NULL) {

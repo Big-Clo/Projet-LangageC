@@ -35,8 +35,9 @@ void menuClasse()
             break;
     case 2:
         system("cls");
-        printf("Voici la liste des classes\n");
+        printf("Voici la liste des classes : \n");
         afficher_classe();
+        printf("\n\n");
         system("pause");
         break;
     case 3:
