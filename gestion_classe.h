@@ -24,6 +24,7 @@ int rech_nom_classe(char *x);
 int rech_niveau_classe(char *x);
 void menuRecherche_Classe();
 void afficher_liste_eleve_classe();
+int afficher_classe_matiere();
 
 
 

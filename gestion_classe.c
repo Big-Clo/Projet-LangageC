@@ -485,11 +485,79 @@ int afficher_matiere_classe(){
                 fclose(file);
             } else {
                 printf("Le fichier n'a pas pu être ouvert");
+                fclose(file);
                 return 1;
             }
 
         }
     }
+}
+
+int afficher_classe_matiere(){
+
+    char ligne[100];
+    int ref, ref_cherche=0;
+    int trouve = 0;
+    char lignes[100];
+    char nom[15], niv[15];
+    int cod, code;
+
+    printf("Veuillez saisir le reference de la classe dont vous voulez afficher les matieres: ");
+    ref_cherche=saisie_entier();
+    while (!(reference_existe(ref_cherche)) && ref_cherche != -1  ){
+        printf("Il n'y a pas de matiere avec cette matiere. Veuillez ressaisir le code ou -1 pour annuler: ");
+        ref_cherche=saisie_entier();
+    }
+
+
+    FILE *fichier_matiere = fopen("matiere.csv", "r");
+    if (fichier_matiere == NULL){
+        printf("le fichier n' a pas pu etre ouvert");
+        fclose(fichier_matiere);
+        exit(1);
+    }
+    int reference, coef;
+    char libelle[30];
+    while (fscanf(fichier_matiere, "%d;%29[^;];%29[^\n]\n", &reference, libelle, &coef) == 3){
+        if(ref_cherche == reference){
+        printf("Voici les classes faisant la matiere : %s\n", libelle);
+        break;
+        }
+    }
+    fclose(fichier_matiere);
+
+    printf("\t+-------------+-----------------+-------------+\n");
+    printf("\t|    Code     |       Nom       |   Niveau    |\n");
+    printf("\t+-------------+-----------------+-------------+\n");
+    FILE *fichier = fopen("matiere-classe.csv", "r");
+    while (fgets(ligne, sizeof(ligne), fichier)) {
+        if (sscanf(ligne, "%d;%d", &ref, &code) == 2) {
+           
+            FILE *file = fopen("classe.csv", "r");
+            if (file != NULL) {
+                    while (fgets(lignes, sizeof(lignes), file)) {
+                        if (sscanf(lignes, "%d;%29[^;];%s", &cod, nom, &niv) == 3){
+                            if (ref == cod){
+                            printf("\t| %11d | %15s | %11s |\n", cod,nom, niv);
+                            printf("\t+-------------+-----------------+-------------+\n");
+                            }
+                        }
+                    }
+                
+
+                
+                fclose(file);
+            } 
+            else {
+                printf("Le fichier n'a pas pu être ouvert");
+                fclose(file);
+                return 1;
+            }
+
+        }
+    }
+
+
 }
 
 void matiere_classe(){
@@ -584,6 +652,7 @@ void matiere_classe(){
             break;
         
         case 3 :
+            afficher_classe_matiere();
             system("pause");
             break;
 
