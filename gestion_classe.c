@@ -139,15 +139,7 @@ void afficher_liste_eleve_classe(){
     printf("\t| Numero     |     Nom      | Prenom       |          Email           |  date de naissance |\n");
     printf("\t+------------+--------------+--------------+--------------------------+--------------------+\n");
 
-    // while (fscanf(fichier_etudiant, "%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d",&etudiant.numero, etudiant.nom, etudiant.prenom, etudiant.email, &etudiant.date_naissance.jour, &etudiant.date_naissance.mois, &etudiant.date_naissance.annee,&etudiant.codeClasse) == 8){       
-    //     if(code == etudiant.codeClasse){
-    //         printf("\t| %10d | %11s  | %11s  | %14s  | %23s |      %3d/%3d/%5d    |\n", etudiant.numero, etudiant.nom, etudiant.prenom, etudiant.email, etudiant.date_naissance.jour, etudiant.date_naissance.mois, etudiant.date_naissance.annee);
-    //     }
-
-    // }
-    // 
-    int nb_lus;
-    while ((nb_lus = fscanf(fichier_etudiant, "%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d", &etudiant.numero, etudiant.nom, etudiant.prenom, etudiant.email, &etudiant.date_naissance.jour, &etudiant.date_naissance.mois, &etudiant.date_naissance.annee, &etudiant.codeClasse)) != EOF)
+    while ((fscanf(fichier_etudiant, "%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d", &etudiant.numero, etudiant.nom, etudiant.prenom, etudiant.email, &etudiant.date_naissance.jour, &etudiant.date_naissance.mois, &etudiant.date_naissance.annee, &etudiant.codeClasse)) != EOF)
     {
 
         if (code == etudiant.codeClasse) {
