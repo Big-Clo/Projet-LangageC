@@ -20,7 +20,7 @@ void menuEtudiant() {
 
         switch (choix) {
             case 1:system("cls"); ajouterEtudiant(); system("pause");break;
-            case 2:system("cls"); modifierEtudiant(); system("pause");break;
+            case 2:system("cls");printf("Entrez le numéro de l'étudiant à modifier : ");int numero=saisie_entier(); menuModifier_Etudiant(numero);break;
             case 3:system("cls"); menuRecherche_Etudiant();break;
             case 4:system("cls"); supprimerEtudiant(); system("pause");break;
             case 5:system("cls"); afficherListeEtudiants(); system("pause");break;

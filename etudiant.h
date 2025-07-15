@@ -17,7 +17,6 @@ typedef struct {
 } Etudiant;
 
 void ajouterEtudiant();
-void modifierEtudiant();
 void supprimerEtudiant();
 void rech_num_etudiant();
 void rech_prenom_etudiant();
@@ -28,6 +27,15 @@ void rech_classe_etudiant();
 void menuRecherche_Etudiant();
 void afficherListeEtudiants();
 void menuEtudiant();
+void modif_num_Etudiant(int numero);
+void modif_nom_Etudiant(int numero);
+void modif_prenom_Etudiant(int numero);
+void modif_mail_Etudiant(int numero);
+void modif_Date_Etudiant(int numero);
+void modif_classe_Etudiant(int numero);
+void modifier_Etudiant(int numero);
+void menuModifier_Etudiant(int numero);
+
 
 int chargerEtudiants(Etudiant tab[], int max);
 int sauvegarderEtudiants(Etudiant tab[], int n);

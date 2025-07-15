@@ -38,5 +38,12 @@ int saisie_entier() {
     }
 }
 
+int confirmer_modification() {
+    char confirm;
+    printf("Confirmer la modification ? (o/n) : ");
+    scanf(" %c", &confirm);
+    while (getchar() != '\n'); // Vider le buffer
+    return (confirm == 'o' || confirm == 'O');
+}
 
 // gcc etudiant.c gestion_classe.c gestion_note.c general.c matiere.c menuEtudiant.c menuClasse.c menuNotes.c menuMatiere.c menuPrincipale.c -o b && b.exe

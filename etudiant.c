@@ -99,6 +99,7 @@ void afficherListeEtudiants() {
                tab[i].date_naissance.annee,
                tab[i].codeClasse);
     }
+    printf("\n");
 }
 
 void rech_num_etudiant() {
@@ -361,42 +362,6 @@ void menuRecherche_Etudiant(){
     } while (choix!=0);
 }
 
-void modifierEtudiant() {
-    int numero;
-    Etudiant tab[100];
-    int n = chargerEtudiants(tab, 100);
-
-    printf("Entrez le numéro de l'étudiant à modifier : ");
-    numero=saisie_entier();
-    int i;
-
-    for (i = 0; i < n; i++) {
-        if (tab[i].numero == numero) {
-            printf("Nouvelle information pour l'étudiant %d :\n", numero);
-            printf("Nom : ");
-            saisie_ligne(tab[i].nom,sizeof(tab[i].nom));
-            printf("Prénom : ");
-            saisie_ligne(tab[i].prenom,sizeof(tab[i].prenom));
-            printf("Email : ");
-            saisie_ligne(tab[i].email,sizeof(tab[i].email));
-            printf("Date de naissance (JJ MM AAAA) : ");
-            tab[i].date_naissance.jour=saisie_entier();
-            tab[i].date_naissance.mois=saisie_entier();
-            tab[i].date_naissance.annee=saisie_entier();
-            printf("Code classe : ");
-            tab[i].codeClasse=saisie_entier();
-
-            if (sauvegarderEtudiants(tab, n))
-                printf("Étudiant modifié avec succès.\n");
-            else
-                printf("Erreur de sauvegarde.\n");
-            return;
-        }
-    }
-
-    printf("Étudiant non trouvé.\n");
-}
-
 void supprimerEtudiant() {
     int numero, index = -1;
     Etudiant tab[100];
@@ -425,4 +390,289 @@ void supprimerEtudiant() {
         printf("Étudiant supprimé avec succès.\n");
     else
         printf("Erreur de sauvegarde.\n");
+}
+
+void modif_num_Etudiant(int numero) {
+    int num;
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    int i;
+
+    for (i = 0; i < n; i++) {
+        if (tab[i].numero == numero) {
+        printf("Veuillez saisir le nouveau numero : ");
+        num=saisie_entier();
+        int j;
+        for (j = 0; j < n; j++) {
+        if (tab[j].numero == num) {
+            printf("Ce numéro existe déjà.\n\n");
+            return;
+            }
+        }
+
+        if (!confirmer_modification()) {
+            printf("Modification annulée.\n\n");
+            return;
+        }
+
+
+        tab[i].numero=num;
+
+        if (sauvegarderEtudiants(tab, n))
+            printf("Étudiant modifié avec succès.\n\n");
+        else
+            printf("Erreur de sauvegarde.\n\n");
+        return;
+        }
+    }
+
+    printf("Étudiant non trouvé.\n\n");
+}
+
+void modif_nom_Etudiant(int numero) {
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    int i;
+
+    for (i = 0; i < n; i++) {
+        if (tab[i].numero == numero) {
+            printf("Veuillez saisir le nouveau nom : ");
+            saisie_ligne(tab[i].nom,sizeof(tab[i].nom));
+
+            if (!confirmer_modification()) {
+            printf("Modification annulée.\n\n");
+                return;
+            }
+
+
+            if (sauvegarderEtudiants(tab, n))
+                printf("Étudiant modifié avec succès.\n\n");
+            else
+                printf("Erreur de sauvegarde.\n\n");
+            return;
+        }
+    }
+
+    printf("Étudiant non trouvé.\n\n");
+}
+
+void modif_prenom_Etudiant(int numero) {
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    int i;
+
+    for (i = 0; i < n; i++) {
+        if (tab[i].numero == numero) {
+            
+            printf("Veuillez saisir le nouveau prénom : ");
+            saisie_ligne(tab[i].prenom,sizeof(tab[i].prenom));
+            
+            if (!confirmer_modification()) {
+            printf("Modification annulée.\n\n");
+                return;
+            }
+
+
+            if (sauvegarderEtudiants(tab, n))
+                printf("Étudiant modifié avec succès.\n\n");
+            else
+                printf("Erreur de sauvegarde.\n\n");
+            return;
+        }
+    }
+
+    printf("Étudiant non trouvé.\n\n");
+}
+
+void modif_mail_Etudiant(int numero) {
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    int i;
+
+    for (i = 0; i < n; i++) {
+        if (tab[i].numero == numero) {
+            printf("Veuillez saisir le nouvel Email : ");
+            saisie_ligne(tab[i].email,sizeof(tab[i].email));
+
+            if (!confirmer_modification()) {
+            printf("Modification annulée.\n\n");
+                return;
+            }
+
+
+            if (sauvegarderEtudiants(tab, n))
+                printf("Étudiant modifié avec succès.\n\n");
+            else
+                printf("Erreur de sauvegarde.\n\n");
+            return;
+        }
+    }
+
+    printf("Étudiant non trouvé.\n\n");
+}
+
+void modif_Date_Etudiant(int numero) {
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    int i;
+
+    for (i = 0; i < n; i++) {
+        if (tab[i].numero == numero) {
+            printf("Veuillez saisir la nouvelle date de naissance \n");
+            printf("Jour : ");tab[i].date_naissance.jour=saisie_entier();
+            printf("Mois : ");tab[i].date_naissance.mois=saisie_entier();
+            printf("Annee : ");tab[i].date_naissance.annee=saisie_entier();
+
+            if (!confirmer_modification()) {
+                printf("Modification annulée.\n\n");
+                return;
+            }
+
+            
+            if (sauvegarderEtudiants(tab, n))
+                printf("Étudiant modifié avec succès.\n\n");
+            else
+                printf("Erreur de sauvegarde.\n\n");
+            return;
+        }
+    }
+
+    printf("Étudiant non trouvé.\n\n");
+}
+
+void modif_classe_Etudiant(int numero) {
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    int i;
+
+    for (i = 0; i < n; i++) {
+        if (tab[i].numero == numero) {
+            printf("Veuillez saisir le nouveau code de classe : ");
+            tab[i].codeClasse=saisie_entier();
+
+            if (!confirmer_modification()) {
+                printf("Modification annulée.\n\n");
+                return;
+            }
+
+
+            if (sauvegarderEtudiants(tab, n))
+                printf("Étudiant modifié avec succès.\n\n");
+            else
+                printf("Erreur de sauvegarde.\n\n");
+            return;
+        }
+    }
+
+    printf("Étudiant non trouvé.\n\n");
+}
+
+void modifier_Etudiant(int numero) {
+    Etudiant tab[100];
+    int n = chargerEtudiants(tab, 100);
+
+    int i;
+
+    for (i = 0; i < n; i++) {
+        if (tab[i].numero == numero) {
+            printf("Nouvelle information pour l'étudiant %d :\n", numero);
+            printf("Nom : ");
+            saisie_ligne(tab[i].nom,sizeof(tab[i].nom));
+            printf("Prénom : ");
+            saisie_ligne(tab[i].prenom,sizeof(tab[i].prenom));
+            printf("Email : ");
+            saisie_ligne(tab[i].email,sizeof(tab[i].email));
+            printf("Date de naissance (JJ MM AAAA) : ");
+            tab[i].date_naissance.jour=saisie_entier();
+            tab[i].date_naissance.mois=saisie_entier();
+            tab[i].date_naissance.annee=saisie_entier();
+            printf("Code classe : ");
+            tab[i].codeClasse=saisie_entier();
+
+            if (!confirmer_modification()) {
+                printf("Modification annulée.\n\n");
+                return;
+            }
+
+
+            if (sauvegarderEtudiants(tab, n))
+                printf("Étudiant modifié avec succès.\n\n");
+            else
+                printf("Erreur de sauvegarde.\n\n");
+            return;
+        }
+    }
+
+    printf("Étudiant non trouvé.\n\n");
+}
+
+void menuModifier_Etudiant(int numero){
+    int choix;
+    system("cls");
+    printf("A partir de quel element voulez vous faire une recherche ? \n");
+    printf("1. Numéro\n");
+    printf("2. Nom\n");
+    printf("3. Prénom\n");
+    printf("4. Email\n");
+    printf("5. Date de naissance\n");
+    printf("6. Classe\n");
+    printf("7. Tout\n");
+    printf("0. Annuler\n\n");
+    printf("Veuillez renseigner votre choix : ");
+    printf("\n\n");
+
+    choix=saisie_entier();
+    
+    switch (choix)
+    {
+    case 1:
+        system("cls");
+        modif_num_Etudiant(numero);
+        system("pause");
+        break;
+    case 2:
+        system("cls");
+        modif_nom_Etudiant(numero);
+        system("pause");
+        break;
+    case 3:
+        system("cls");
+        modif_prenom_Etudiant(numero);
+        system("pause");
+        break;
+    case 4:
+        system("cls");
+        modif_mail_Etudiant(numero);
+        system("pause");
+        break;
+    case 5:
+        system("cls");
+        modif_Date_Etudiant(numero);
+        system("pause");
+        break;
+    case 6:
+        system("cls");
+        modif_classe_Etudiant(numero);
+        system("pause");
+        break;
+    case 7:
+        system("cls");
+        modifier_Etudiant(numero);
+        system("pause");
+        break;
+    case 0:
+        printf("Menu précédent\n\n");
+        system("pause");
+        break;
+    default:
+        printf("Cette option n'est pas prise en charge\n\n");
+        system("pause");
+        break;
+    }
 }

@@ -297,23 +297,26 @@ void menuModifier_matiere(int a)
         printf("Renseignez votre choix : ");
         choix = saisie_entier();
         printf("\n\n");
-        system("cls");
 
         switch (choix)
         {
-        case 1 :
+        case 1 :    
+            system("cls");
             chercher(a,ligne_modif);
             modifier_ref(ligne_modif); 
             break;
         case  2 :
+            system("cls");
             chercher(a,ligne_modif);
             modifier_lib(ligne_modif); 
             break;
         case 3 :
+            system("cls");
             chercher(a,ligne_modif);
             modifier_coef(ligne_modif); 
             break;
         case 4 :
+            system("cls");
             chercher(a,ligne_modif);
             modifier_matiere(ligne_modif); 
             break;
