@@ -40,10 +40,7 @@ void menuClasse()
         break;
     case 3:
         system("cls");
-        printf("Veuillez saisir le code de la classe a rechercher\t");
-        a=saisie_entier();
-        recherche_classe(a);
-        system("pause");
+        menuRecherche_Classe();
         break;
     case 4:
         system("cls");

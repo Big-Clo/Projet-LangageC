@@ -16,12 +16,13 @@ int ajout_classe();
 int code_existe(int x);
 void afficher_classe();
 void menuClasse();
-int recherche_classe(int x);
 void modifier_classe(int code_a_modifier);
 void supprimer_classe(int code_a_supprimer);
 void matiere_classe();
-
-
+int rech_code_classe(int x);
+int rech_nom_classe(char *x);
+int rech_niveau_classe(char *x);
+void menuRecherche_Classe();
 
 
 

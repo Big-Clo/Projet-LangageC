@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 void saisie_ligne(char *dest, int taille) {
     while (1) {
@@ -46,4 +47,10 @@ int confirmer_modification() {
     return (confirm == 'o' || confirm == 'O');
 }
 
+void Maj(char *str) {
+    while (*str) {
+        *str = toupper(*str);
+        str++;
+    }
+}
 // gcc etudiant.c gestion_classe.c gestion_note.c general.c matiere.c menuEtudiant.c menuClasse.c menuNotes.c menuMatiere.c menuPrincipale.c -o b && b.exe

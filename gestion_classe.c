@@ -2,6 +2,7 @@
 #include "matiere.h"
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include "general.h"
 
@@ -44,6 +45,7 @@ int ajout_classe(){
     }
     printf ("\n Le nom de la classe:\t\n");
     saisie_ligne(classe.nom,sizeof(classe.nom));
+    Maj(classe.nom);
     printf ("\nVeuillez tapez 1 si c'est une classe de license et 2 si c'est une classe de master:\t");
     level=saisie_entier();
     while (level != 1 && level != 2){
@@ -93,13 +95,12 @@ void afficher_classe(){
     fclose(fichier_classe);
 }
 
-int recherche_classe(int x){
+int rech_code_classe(int x){
     int code;
     char nom[30], niveau[10];
     FILE *fichier_classe = fopen("classe.csv", "r");
     if (fichier_classe == NULL){
         printf("le fichier n' a pas pu etre ouvert");
-        fclose(fichier_classe);
         return 1;
     }
     while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
@@ -109,10 +110,127 @@ int recherche_classe(int x){
             return 0;
         }
     }
-    printf ("L'element est absent");
+    printf ("L'element est absent\n\n");
     return 1;
 }
 
+int rech_nom_classe(char *x){
+    int code;
+    char nom[30], niveau[10];
+    FILE *fichier_classe = fopen("classe.csv", "r");
+    if (fichier_classe == NULL){
+        printf("le fichier n' a pas pu etre ouvert");
+        return 1;
+    }
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+        if (strcmp(x,nom)==0){
+            printf("L'element est present.\n ");
+            printf("code: %d, nom: %s, niveau: %s\n", code, nom, niveau);
+            return 0;
+        }
+    }
+    printf ("L'element est absent\n\n");
+    return 1;
+}
+
+int rech_niveau_classe(char *x) {
+    int code;
+    char maj[10], nom[30], niveau[10];
+    int trouve = 0;
+
+    FILE *fichier_classe = fopen("classe.csv", "r");
+    if (fichier_classe == NULL){
+        printf("Le fichier n'a pas pu être ouvert\n");
+        return 1;
+    }
+
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3) {
+        strcpy(maj, niveau);
+        Maj(maj);
+        if (strcmp(x, maj) == 0) {
+            printf("code: %d, nom: %s, niveau: %s\n", code, nom, niveau);
+            trouve = 1;
+        }
+    }
+
+    fclose(fichier_classe);
+
+    if (!trouve) {
+        printf("Ce niveau n'est pas présent\n\n");
+        return 1;
+    }
+    return 0;
+}
+
+void menuRecherche_Classe(){
+    int choix;
+    do
+    {
+        system("cls");
+        printf("A partir de quel element voulez vous faire une recherche?\n\n\n");
+        printf("1. Code\n");
+        printf("2. Nom\n");
+        printf("3. Niveau\n");
+        printf("0. Quitter\n\n");
+        printf("Renseignez votre choix : ");
+        choix = saisie_entier();
+        printf("\n\n");
+
+        switch (choix)
+        {
+        case 1:
+            system("cls");
+            printf("Veuillez saisir le code de la classe a rechercher : ");
+            int a=saisie_entier();
+            rech_code_classe(a);
+            system("pause");printf("\n");
+            break;
+        case 2:
+            char nom[30];
+            system("cls");
+            printf("Veuillez saisir le nom à rechercher : ");
+            saisie_ligne(nom,30);
+            Maj(nom);
+            rech_nom_classe(nom);
+            system("pause");printf("\n");
+            break;
+        case 3:
+            system("cls");
+            char cls[10];
+            while (1) {
+                printf("Veuillez saisir le niveau à rechercher (MASTER ou LICENSE, q pour annuler) : ");
+                saisie_ligne(cls, 10);
+                Maj(cls);
+
+                if (strcmp(cls, "Q") == 0) {
+                    printf("Opération annulée\n\n");
+                    break;
+                }
+
+                if (strcmp(cls, "MASTER") != 0 && strcmp(cls, "LICENSE") != 0) {
+                    printf("Ce niveau n'existe pas.\n\n");
+                    continue;
+                }
+
+                rech_niveau_classe(cls);
+                break;
+            }
+            system("pause");
+            printf("\n");
+            break;
+
+        case 0:
+            printf("Menu precedent\n\n");
+            system("pause");
+            break;
+        default:
+            printf("Renseignez une option valide\n");
+            system("pause");
+            break;
+        }
+    } while (choix!=0);
+    
+}
 
 void supprimer_classe(int code_a_supprimer) {
     FILE *fichier = fopen("classe.csv", "r");
@@ -226,7 +344,7 @@ void modifier_classe(int code_a_modifier) {
             printf("Veuillez entrez 1 si c'est un classe de License et 2 si c'est une classe de Master : ");
             nouveau_niveau=saisie_entier();
             while (nouveau_niveau != 1 && nouveau_niveau !=2){
-                printf("Vous pouvez saisir que 1 pour License et 2 pour Master. Veuillez saisir");
+                printf("Vous ne pouvez saisir que 1 pour License et 2 pour Master. Veuillez saisir");
                 nouveau_niveau=saisie_entier();
             }
             if (nouveau_niveau ==1)

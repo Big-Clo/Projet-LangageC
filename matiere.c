@@ -484,7 +484,7 @@ void menuRecherche_matiere(){
             break;
         
         case 0:
-            printf("Menu précédent\n\n");
+            printf("\nMenu précédent\n\n");
             break;
         default:
             printf("Nous ne pouvons pas encore gérer cette option\n");
