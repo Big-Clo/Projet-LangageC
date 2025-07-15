@@ -87,17 +87,38 @@ void afficherListeEtudiants() {
     }
     int i;
 
-    printf("\n=== Liste des étudiants (%d) ===\n", n);
+    printf("\n====== Liste des étudiants (%d) ======\n", n);
+    printf("-----------------------------------------------------------------------------------------\n");
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+    printf("\t| Numero     |     Nom      | Prenom       |    classe       |          Email          |      date de naissance|\n");
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+
+    int code, nom, niveau;
+
     for (i = 0; i < n; i++) {
-        printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
+        FILE *fichier_classe = fopen("classe.csv", "r");
+        if (fichier_classe == NULL){
+            printf("le fichier n' a pas pu etre ouvert");
+            fclose(fichier_classe);
+            exit(1);
+        }
+        int code;
+        char nom[30], niveau[10];
+        while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+            if(tab[i].codeClasse == code){;
+            fclose (fichier_classe);
+            break;
+            }
+        }
+        printf("\t| %10d | %11s  | %11s  | %14s  | %23s |      %3d/%3d/%5d    |\n",
                tab[i].numero,
-               tab[i].prenom,
                tab[i].nom,
+               tab[i].prenom,
+               nom,
                tab[i].email,
                tab[i].date_naissance.jour,
                tab[i].date_naissance.mois,
-               tab[i].date_naissance.annee,
-               tab[i].codeClasse);
+               tab[i].date_naissance.annee);
     }
     printf("\n");
 }

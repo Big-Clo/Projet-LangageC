@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include "general.h"
+#include "etudiant.h"
 
 
 int code_existe(int x){
@@ -93,6 +94,71 @@ void afficher_classe(){
             printf("\t+-----------+-----------------+-------------+\n");
     }
     fclose(fichier_classe);
+}
+
+void afficher_liste_eleve_classe(){
+    Etudiant etudiant;
+    int code, quitter = -1;
+    int code_classe;
+    char nom_classe[30], niveau_classe[10];
+    FILE *fichier_etudiant = fopen("etudiants.csv", "r");
+    if (fichier_etudiant == NULL){
+        printf("Impossible d'ouvrir le fichier des etudiants");
+        exit(1);
+    }
+    printf("Veuillez saisir le code de la classe dont vous voulez la liste: ");
+    code = saisie_entier();
+    while (!code_existe(code)){
+        printf("Il n'y a pas de classe avec ce code. Voulez vous ressaisir si non tapez 1 sinon tapez un autre entier : ");
+        quitter = saisie_entier();
+        if (quitter == 1){
+            ("Annulation de la recherche");
+            exit(1);
+        }
+        printf("Veuillez saisir un autre code");
+        code = saisie_entier();
+        
+    }
+
+    FILE *fichier_classe = fopen("classe.csv", "r");
+    if (fichier_classe== NULL){
+        printf("Impossible d'ouvrir le fichier des classes");
+        exit(1);
+    }
+    while (fscanf(fichier_classe, "%d;%29[^;];%s\n", &code_classe, nom_classe, niveau_classe ) == 3){
+        if(code == code_classe){
+            break;
+        }
+
+    }
+    fclose(fichier_classe);
+
+    printf("\n===== LISTE DES ÉTUDIANTS EN %s =====\n", nom_classe);
+    printf("-----------------------------------------------------------------------------------------\n");
+    printf("\t+------------+--------------+--------------+--------------------------+--------------------+\n");
+    printf("\t| Numero     |     Nom      | Prenom       |          Email           |  date de naissance |\n");
+    printf("\t+------------+--------------+--------------+--------------------------+--------------------+\n");
+
+    // while (fscanf(fichier_etudiant, "%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d",&etudiant.numero, etudiant.nom, etudiant.prenom, etudiant.email, &etudiant.date_naissance.jour, &etudiant.date_naissance.mois, &etudiant.date_naissance.annee,&etudiant.codeClasse) == 8){       
+    //     if(code == etudiant.codeClasse){
+    //         printf("\t| %10d | %11s  | %11s  | %14s  | %23s |      %3d/%3d/%5d    |\n", etudiant.numero, etudiant.nom, etudiant.prenom, etudiant.email, etudiant.date_naissance.jour, etudiant.date_naissance.mois, etudiant.date_naissance.annee);
+    //     }
+
+    // }
+    // 
+    int nb_lus;
+    while ((nb_lus = fscanf(fichier_etudiant, "%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d", &etudiant.numero, etudiant.nom, etudiant.prenom, etudiant.email, &etudiant.date_naissance.jour, &etudiant.date_naissance.mois, &etudiant.date_naissance.annee, &etudiant.codeClasse)) != EOF)
+    {
+
+        if (code == etudiant.codeClasse) {
+            printf("\t| %10d | %11s  | %11s  | %23s  |      %02d/%02d/%4d    |\n", etudiant.numero, etudiant.nom, etudiant.prenom, etudiant.email, etudiant.date_naissance.jour, etudiant.date_naissance.mois, etudiant.date_naissance.annee);
+            printf("\t+------------+--------------+--------------+--------------------------+--------------------+\n");
+
+        }
+    }
+    fclose(fichier_etudiant);
+
+
 }
 
 int rech_code_classe(int x){

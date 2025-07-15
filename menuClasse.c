@@ -15,7 +15,8 @@ void menuClasse()
     printf("\t3. Pour rechercher une classe\n");
     printf("\t4. Pour supprimer une classe\n");
     printf("\t5. Pour modifier une classe\n");
-    printf("\t6. Pour gerer les matieres des classe\n");
+    printf("\t6. Pour afficher la liste d'une classe\n");
+    printf("\t7. Pour gerer les matieres des classe\n");
     printf("\t0. Pour quitter\n\n");
     printf("\tRenseigner votre choix: ");
     choix=saisie_entier();
@@ -65,6 +66,12 @@ void menuClasse()
         system("pause");
         break;
     case 6:
+        system("cls");
+        afficher_liste_eleve_classe();
+        system("pause");
+        break;
+        
+    case 7:
         system("cls");
         matiere_classe();
         system("pause");
