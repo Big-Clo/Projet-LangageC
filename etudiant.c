@@ -90,7 +90,7 @@ void afficherListeEtudiants() {
     printf("\n====== Liste des étudiants (%d) ======\n", n);
     printf("-----------------------------------------------------------------------------------------\n");
     printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
-    printf("\t| Numero     |     Nom      | Prenom       |    classe       |          Email          |      date de naissance|\n");
+    printf("\t|   Numero   |     Nom      | Prenom       |     Classe      |          Email          |   Date de naissance   |\n");
     printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
 
     int code, nom, niveau;
@@ -99,7 +99,6 @@ void afficherListeEtudiants() {
         FILE *fichier_classe = fopen("classe.csv", "r");
         if (fichier_classe == NULL){
             printf("le fichier n' a pas pu etre ouvert");
-            fclose(fichier_classe);
             exit(1);
         }
         int code;
@@ -422,6 +421,7 @@ void modif_num_Etudiant(int numero) {
 
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
+        printf("Voici l'ancien numero : %d\n\n",numero);
         printf("Veuillez saisir le nouveau numero : ");
         num=saisie_entier();
         int j;
@@ -459,6 +459,7 @@ void modif_nom_Etudiant(int numero) {
 
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
+            printf("Voici l'ancien nom : %s\n\n",tab[i].nom);
             printf("Veuillez saisir le nouveau nom : ");
             saisie_ligne(tab[i].nom,sizeof(tab[i].nom));
 
@@ -487,7 +488,8 @@ void modif_prenom_Etudiant(int numero) {
 
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
-            
+
+            printf("Voici l'ancien prenom : %s\n\n",tab[i].prenom);
             printf("Veuillez saisir le nouveau prénom : ");
             saisie_ligne(tab[i].prenom,sizeof(tab[i].prenom));
             
@@ -516,6 +518,7 @@ void modif_mail_Etudiant(int numero) {
 
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
+            printf("Voici l'ancien mail : %s\n\n",tab[i].email);
             printf("Veuillez saisir le nouvel Email : ");
             saisie_ligne(tab[i].email,sizeof(tab[i].email));
 
@@ -544,6 +547,7 @@ void modif_Date_Etudiant(int numero) {
 
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
+            printf("Voici l'ancienne date de naissance : %d/%d/%d\n\n",tab[i].date_naissance.jour,tab[i].date_naissance.mois,tab[i].date_naissance.annee);
             printf("Veuillez saisir la nouvelle date de naissance \n");
             printf("Jour : ");tab[i].date_naissance.jour=saisie_entier();
             printf("Mois : ");tab[i].date_naissance.mois=saisie_entier();
@@ -574,7 +578,22 @@ void modif_classe_Etudiant(int numero) {
 
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
-            printf("Veuillez saisir le nouveau code de classe : ");
+
+            FILE *fichier_classe = fopen("classe.csv", "r");
+            if (fichier_classe == NULL){
+                printf("le fichier n' a pas pu etre ouvert");
+                exit(1);
+            }
+            int code;
+            char nom[30], niveau[10];
+            while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+                if(tab[i].codeClasse == code){;
+                fclose (fichier_classe);
+                break;
+                }
+            }
+            printf("Voici l'ancien l'ancienne classe de l'élève : %s\n\n",nom);
+            printf("Veuillez saisir le code de la nouvelle classe : ");
             tab[i].codeClasse=saisie_entier();
 
             if (!confirmer_modification()) {
@@ -602,7 +621,29 @@ void modifier_Etudiant(int numero) {
 
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
-            printf("Nouvelle information pour l'étudiant %d :\n", numero);
+            FILE *fichier_classe = fopen("classe.csv", "r");
+            if (fichier_classe == NULL){
+                printf("le fichier n' a pas pu etre ouvert");
+                exit(1);
+            }
+            int code;
+            char nom[30], niveau[10];
+            while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+                if(tab[i].codeClasse == code){;
+                fclose (fichier_classe);
+                break;
+                }
+            }
+            printf("Voici les anciennes informations :\nNuméro : %d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %s\n\n",
+               tab[i].numero,
+               tab[i].prenom,
+               tab[i].nom,
+               tab[i].email,
+               tab[i].date_naissance.jour,
+               tab[i].date_naissance.mois,
+               tab[i].date_naissance.annee,
+               nom);
+            printf("Veuillez saisir les nouvelles information pour l'étudiant %d :\n", numero);
             printf("Nom : ");
             saisie_ligne(tab[i].nom,sizeof(tab[i].nom));
             printf("Prénom : ");
@@ -636,7 +677,7 @@ void modifier_Etudiant(int numero) {
 void menuModifier_Etudiant(int numero){
     int choix;
     system("cls");
-    printf("A partir de quel element voulez vous faire une recherche ? \n");
+    printf("Quel element voulez vous modifier ? \n");
     printf("1. Numéro\n");
     printf("2. Nom\n");
     printf("3. Prénom\n");
