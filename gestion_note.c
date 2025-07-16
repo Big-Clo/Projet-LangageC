@@ -17,7 +17,7 @@ int numero_note_existe(int x, int y){
         return 1;
     }
 
-   while (fscanf(fichier_note, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1){
+   while (fscanf(fichier_note, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) == 4){
         if ((x == numero) && (y == reference))    {
             fclose(fichier_note);
             return 1;
