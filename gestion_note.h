@@ -10,8 +10,6 @@ typedef struct{
 
 
 int ajout_note();
-int numero_existe(int x);
-int reference_existe(int x);
 void menuNotes();
 int modifier_note();
 int recherche_note_eleve_matiere();

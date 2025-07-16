@@ -24,6 +24,7 @@ void menuNotes(){
                 
             else{
                 printf("Erreur d'ajout des notes\n");
+                system("pause");
                 return;
             }
             
@@ -46,7 +47,7 @@ void menuNotes(){
         case 3:
             system("cls");
             if(!recherche_note_eleve_matiere()){
-                printf("Recherche effectuee avec succees\n");
+                printf("\n\n");
                 system("pause");
                 break;
                 
@@ -61,10 +62,10 @@ void menuNotes(){
         case 4:
             system("cls");
             if(!recherche_note_eleve()){
-                printf("Recherche effectuee avec succees\n");
+                printf("\n\n");
             }
             else{
-                printf("Erreur dans la recherche");
+                printf("Erreur dans la recherche\n\n");
             }
             system("pause");
             break;
@@ -72,7 +73,7 @@ void menuNotes(){
         case 5:
             system("cls");
             if(!recherche_note_matiere()){
-                printf("Recherche effectuee avec succees\n");
+                printf("\n\n");
             }
             else{
                 printf("Erreur dans la recherche");
@@ -83,10 +84,10 @@ void menuNotes(){
         case 6:
             system("cls");
             if(!supprimer_note()){
-                printf("Suppression effectuee avec succes");
+                printf("\nSuppression effectuee avec succes\n\n");
             }
             else{
-                printf("Erreur dans la suppression");
+                printf("\nErreur dans la suppression\n\n");
             }
             system("pause");
             break;

@@ -90,7 +90,7 @@ void afficherListeEtudiants() {
     printf("\n\t\t\t\t\t     ====== Liste des étudiants (%d) ======\n", n);
     printf("\t----------------------------------------------------------------------------------------------------------------\n");
     printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
-    printf("\t|   Numero   |     Nom      | Prenom       |     Classe      |          Email          |   Date de naissance   |\n");
+    printf("\t|   Numéro   |     Nom      | Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
     printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
 
     int code, nom, niveau;
@@ -98,7 +98,7 @@ void afficherListeEtudiants() {
     for (i = 0; i < n; i++) {
         FILE *fichier_classe = fopen("classe.csv", "r");
         if (fichier_classe == NULL){
-            printf("le fichier n' a pas pu etre ouvert");
+            printf("le fichier n'a pas pu être ouvert");
             exit(1);
         }
         int code;
@@ -109,7 +109,7 @@ void afficherListeEtudiants() {
             break;
             }
         }
-        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |      %3d/%3d/%5d    |\n",
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
                tab[i].numero,
                tab[i].nom,
                tab[i].prenom,
@@ -132,25 +132,41 @@ void rech_num_etudiant() {
     numero=saisie_entier();
     int i;
 
-    for (i = 0; i < n; i++) {
-        if (tab[i].numero == numero) {
-            printf("Étudiant trouvé :\n");
-            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
-                   tab[i].numero,
-                   tab[i].prenom,
-                   tab[i].nom,
-                   tab[i].email,
-                   tab[i].date_naissance.jour,
-                   tab[i].date_naissance.mois,
-                   tab[i].date_naissance.annee,
-                   tab[i].codeClasse);
-            trouve = 1;
-            break;
-        }
-    }
+    for (i = 0; i < n; i++){if (numero==tab[i].numero)
+    {trouve=1;}}
 
     if (!trouve)
-        printf("Aucun\n");
+            {printf("Aucun etudiant ne correspond à ce numero\n");return;}
+
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+    printf("\t|   Numéro   |     Nom      | Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");   
+    for (i = 0; i < n; i++) {
+        FILE *fichier_classe = fopen("classe.csv", "r");
+        if (fichier_classe == NULL){
+            printf("le fichier n'a pas pu être ouvert");
+            exit(1);
+        }
+        int code;
+        char nom[30], niveau[10];
+        while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+            if(tab[i].codeClasse == code){;
+            fclose (fichier_classe);
+            break;
+            }
+        }if(numero==tab[i].numero){
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+               tab[i].numero,
+               tab[i].nom,
+               tab[i].prenom,
+               nom,
+               tab[i].email,
+               tab[i].date_naissance.jour,
+               tab[i].date_naissance.mois,
+               tab[i].date_naissance.annee);}
+    }
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+    
 }
 
 void rech_prenom_etudiant() {
@@ -163,24 +179,40 @@ void rech_prenom_etudiant() {
     saisie_ligne(prenom,30);
     int i;
     
-    printf("Étudiants trouvés :\n");
-    for (i = 0; i < n; i++) {
-        if (strcmp(tab[i].prenom, prenom) == 0) {
-            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
-                   tab[i].numero,
-                   tab[i].prenom,
-                   tab[i].nom,
-                   tab[i].email,
-                   tab[i].date_naissance.jour,
-                   tab[i].date_naissance.mois,
-                   tab[i].date_naissance.annee,
-                   tab[i].codeClasse);
-            trouve = 1;
-        }
-    }
+    for (i = 0; i < n; i++){if (strcmp(prenom,tab[i].prenom)==0)
+    {trouve=1;}}
 
     if (!trouve)
-        printf("Aucun\n");
+            {printf("Aucun étudiant ne correspond à ce prénom\n");return;}
+
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+    printf("\t|   Numéro   |     Nom      | Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");   
+    for (i = 0; i < n; i++) {
+        FILE *fichier_classe = fopen("classe.csv", "r");
+        if (fichier_classe == NULL){
+            printf("le fichier n'a pas pu être ouvert");
+            exit(1);
+        }
+        int code;
+        char nom[30], niveau[10];
+        while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+            if(tab[i].codeClasse == code){;
+            fclose (fichier_classe);
+            break;
+            }
+        }if(strcmp(prenom,tab[i].prenom)==0){
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+               tab[i].numero,
+               tab[i].nom,
+               tab[i].prenom,
+               nom,
+               tab[i].email,
+               tab[i].date_naissance.jour,
+               tab[i].date_naissance.mois,
+               tab[i].date_naissance.annee);}
+    }
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
 }
 
 void rech_nom_etudiant() {
@@ -193,24 +225,40 @@ void rech_nom_etudiant() {
     saisie_ligne(nom,30);
     int i;
 
-    printf("Étudiants trouvés :\n");
-    for (i = 0; i < n; i++) {
-        if (strcmp(tab[i].nom,nom)==0) {
-            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
-                   tab[i].numero,
-                   tab[i].prenom,
-                   tab[i].nom,
-                   tab[i].email,
-                   tab[i].date_naissance.jour,
-                   tab[i].date_naissance.mois,
-                   tab[i].date_naissance.annee,
-                   tab[i].codeClasse);
-            trouve = 1;
-        }
-    }
+    for (i = 0; i < n; i++){if (strcmp(nom,tab[i].nom)==0)
+    {trouve=1;}}
 
     if (!trouve)
-        printf("Aucun\n");
+            {printf("Aucun étudiant ne correspond à ce nom\n");return;}
+
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+    printf("\t|   Numéro   |     Nom      | Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");   
+    for (i = 0; i < n; i++) {
+        FILE *fichier_classe = fopen("classe.csv", "r");
+        if (fichier_classe == NULL){
+            printf("le fichier n'a pas pu être ouvert");
+            exit(1);
+        }
+        int code;
+        char nomc[30], niveau[10];
+        while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nomc, niveau) == 3){
+            if(tab[i].codeClasse == code){;
+            fclose (fichier_classe);
+            break;
+            }
+        }if(strcmp(nom,tab[i].nom)==0){
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+               tab[i].numero,
+               tab[i].nom,
+               tab[i].prenom,
+               nomc,
+               tab[i].email,
+               tab[i].date_naissance.jour,
+               tab[i].date_naissance.mois,
+               tab[i].date_naissance.annee);}
+    }
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
 }
 
 void rech_mail_etudiant() {
@@ -223,53 +271,104 @@ void rech_mail_etudiant() {
     saisie_ligne(mail,50);
     int i;
 
-    printf("Étudiant trouvé :\n");
-    for (i = 0; i < n; i++) {
-        if (strcmp(tab[i].email,mail)==0) {
-            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
-                   tab[i].numero,
-                   tab[i].prenom,
-                   tab[i].nom,
-                   tab[i].email,
-                   tab[i].date_naissance.jour,
-                   tab[i].date_naissance.mois,
-                   tab[i].date_naissance.annee,
-                   tab[i].codeClasse);
-            trouve = 1;
-        }
-    }
+    for (i = 0; i < n; i++){if (strcmp(mail,tab[i].email)==0)
+    {trouve=1;}}
 
     if (!trouve)
-        printf("Aucun\n");
+            {printf("Aucun étudiant ne correspond à ce mail\n");return;}
+
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+    printf("\t|   Numéro   |     Nom      | Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");   
+    for (i = 0; i < n; i++) {
+        FILE *fichier_classe = fopen("classe.csv", "r");
+        if (fichier_classe == NULL){
+            printf("le fichier n'a pas pu être ouvert");
+            exit(1);
+        }
+        int code;
+        char nom[30], niveau[10];
+        while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+            if(tab[i].codeClasse == code){;
+            fclose (fichier_classe);
+            break;
+            }
+        }if(strcmp(mail,tab[i].email)==0){
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+               tab[i].numero,
+               tab[i].nom,
+               tab[i].prenom,
+               nom,
+               tab[i].email,
+               tab[i].date_naissance.jour,
+               tab[i].date_naissance.mois,
+               tab[i].date_naissance.annee);}
+    }
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
 }
 
 void rech_classe_etudiant() {
-    int Classe, trouve = 0;
     Etudiant tab[100];
-    int n = chargerEtudiants(tab, 100);
+    int n = chargerEtudiants(tab, 100), trouve = 0;
+    char classe[30]; 
+    int codeRecherche = -1;
+    char nom[30], niveau[10];
 
-    printf("Entrez le code de la classe à rechercher : ");
-    Classe=saisie_entier();
-    int i;
+    printf("Entrez le nom de la classe à rechercher : ");
+    saisie_ligne(classe, 30);
+    Maj(classe);
 
-    printf("Étudiants trouvés :\n");
-    for (i = 0; i < n; i++) {
-        if (tab[i].codeClasse == Classe) {
-            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
-                   tab[i].numero,
-                   tab[i].prenom,
-                   tab[i].nom,
-                   tab[i].email,
-                   tab[i].date_naissance.jour,
-                   tab[i].date_naissance.mois,
-                   tab[i].date_naissance.annee,
-                   tab[i].codeClasse);
+    FILE *fichier_classe = fopen("classe.csv", "r");
+    if (fichier_classe == NULL) {
+        printf("Le fichier classe.csv n'a pas pu être ouvert\n");
+        return;
+    }
+
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &codeRecherche, nom, niveau) == 3) {
+        Maj(nom);
+        if (strcmp(classe, nom) == 0) {
+            break;
+        }
+        codeRecherche = -1;
+    }
+    fclose(fichier_classe);
+
+    if (codeRecherche == -1) {
+        printf("Classe non trouvée\n");
+        return;
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (tab[i].codeClasse == codeRecherche) {
             trouve = 1;
+            break;
         }
     }
 
-    if (!trouve)
-        printf("Aucun\n");
+    if (!trouve) {
+        printf("Aucun étudiant n'est dans cette classe\n");
+        return;
+    }
+
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+    printf("\t|   Numéro   |     Nom      | Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+
+    for (int i = 0; i < n; i++) {
+        if (tab[i].codeClasse == codeRecherche) {
+            printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+                   tab[i].numero,
+                   tab[i].nom,
+                   tab[i].prenom,
+                   classe,
+                   tab[i].email,
+                   tab[i].date_naissance.jour,
+                   tab[i].date_naissance.mois,
+                   tab[i].date_naissance.annee);
+        }
+    }
+
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
 }
 
 void rech_date_etudiant() {
@@ -286,24 +385,40 @@ void rech_date_etudiant() {
     date.annee=saisie_entier();
     int i;
 
-    printf("Étudiant trouvé :\n");
-    for (i = 0; i < n; i++) {
-        if (tab[i].date_naissance.jour == date.jour && tab[i].date_naissance.mois == date.mois &&tab[i].date_naissance.annee == date.annee  ) {
-            printf("%d - %s %s | Email: %s | Né le %02d/%02d/%04d | Classe: %d\n",
-                   tab[i].numero,
-                   tab[i].prenom,
-                   tab[i].nom,
-                   tab[i].email,
-                   tab[i].date_naissance.jour,
-                   tab[i].date_naissance.mois,
-                   tab[i].date_naissance.annee,
-                   tab[i].codeClasse);
-            trouve = 1;
-        }
-    }
+    for (i = 0; i < n; i++){if (tab[i].date_naissance.jour == date.jour && tab[i].date_naissance.mois == date.mois && tab[i].date_naissance.annee == date.annee)
+    {trouve=1;}}
 
     if (!trouve)
-        printf("Aucun\n");
+            {printf("Aucun etudiant ne correspond à ce numero\n");return;}
+
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+    printf("\t|   Numéro   |     Nom      | Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");   
+    for (i = 0; i < n; i++) {
+        FILE *fichier_classe = fopen("classe.csv", "r");
+        if (fichier_classe == NULL){
+            printf("le fichier n'a pas pu être ouvert");
+            exit(1);
+        }
+        int code;
+        char nom[30], niveau[10];
+        while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
+            if(tab[i].codeClasse == code){;
+            fclose (fichier_classe);
+            break;
+            }
+        }if(tab[i].date_naissance.jour == date.jour && tab[i].date_naissance.mois == date.mois && tab[i].date_naissance.annee == date.annee){
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+               tab[i].numero,
+               tab[i].nom,
+               tab[i].prenom,
+               nom,
+               tab[i].email,
+               tab[i].date_naissance.jour,
+               tab[i].date_naissance.mois,
+               tab[i].date_naissance.annee);}
+    }
+    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
 }
 
 void menuRecherche_Etudiant(){
