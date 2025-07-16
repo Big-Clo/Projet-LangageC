@@ -9,7 +9,7 @@ void menuNotes(){
     do{
         
         system("cls");
-        printf("\t\t\n===== MENU NOTES =====\n\n 1. Ajouter les notes\n 2. Modifier les notes\n 3. Rechercher notes etudiant dans une matiere\n 4. Afficher toutes les notes d'un eleve\n 5. Afficher les notes dans un matiere\n 6. Supprimer les notes d'un eleves\n 0. Retourner au menu precedent\n\n");
+        printf("\t\t\n===== MENU NOTES =====\n\n 1. Ajouter les notes\n 2. Modifier les notes\n 3. Rechercher notes etudiant dans une matiere\n 4. Afficher toutes les notes d'un eleve\n 5. Afficher les notes dans un matiere\n 6. Afficher notes dans une classe\n 7. Supprimer les notes d'un eleves\n 0. Retourner au menu precedent\n\n");
         printf("Renseigner votre choix : ");
         choix=saisie_entier();
         printf("\n\n");
@@ -81,7 +81,7 @@ void menuNotes(){
             system("pause");
             break;
 
-        case 6:
+        case 7:
             system("cls");
             if(!supprimer_note()){
                 printf("\nSuppression effectuee avec succes\n\n");
@@ -92,6 +92,17 @@ void menuNotes(){
             system("pause");
             break;
         
+        case 6:
+            system("cls");
+            if(!recherche_note_classe()){
+                printf("\n\n");
+            }
+            else{
+                printf("Erreur dans la recherche");
+            }
+            system("pause");
+            break;
+
         case 0:
             printf("Menu precedent\n\n");
             system("pause");
