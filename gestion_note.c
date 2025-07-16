@@ -6,36 +6,6 @@
 
 
 
-
-int numero_existe(int x){
-    char ligne[200];
-    char nom[30], prenom[30], email[50], date_str[15];
-    int numero, codeClasse;
-    Date date_naissance;
-
-    FILE *fichier_etudiants= fopen("etudiants.csv", "r");
-    if (fichier_etudiants== NULL){
-        printf("Erreur : impossible d’ouvrir etudiants.csv\n");
-        return 0;
-    }
-
-    while (fgets(ligne, sizeof(ligne), fichier_etudiants)) {
-        
-        if (sscanf(ligne, "%d;%[^;];%[^;];%[^;];%[^;];%d", &numero, nom, prenom, email, date_str, &codeClasse) == 6) {
-            
-            sscanf(date_str, "%d/%d/%d", &date_naissance.jour, &date_naissance.mois, &date_naissance.annee);
-
-            if (x == numero) {
-                fclose(fichier_etudiants);
-                return 1;
-            }
-        }
-    }
-
-    fclose(fichier_etudiants);
-    return 0;
-}
-
 int numero_note_existe(int x, int y){
     int numero, reference, noteCC, noteDS;
 
@@ -53,28 +23,6 @@ int numero_note_existe(int x, int y){
     }
 
     fclose(fichier_note);
-    return 0;
-}
-
-int reference_existe(int x) {
-    char ligne[100];
-    char libelle[30];
-    int reference, coefficient;
-
-    FILE *fichier_matiere = fopen("matiere.csv", "r");
-    if (fichier_matiere == NULL) {
-        printf("Erreur : impossible d’ouvrir matiere.csv\n");
-        return 0;
-    }
-    while (fgets(ligne, sizeof(ligne), fichier_matiere)) {
-        if (sscanf(ligne, "%d;%[^;];%d", &reference, libelle, &coefficient) == 3) {
-            if (x == reference) {
-                fclose(fichier_matiere);
-                return 1;
-            }
-        }
-    }
-    fclose(fichier_matiere);
     return 0;
 }
 
@@ -371,9 +319,9 @@ int recherche_note_eleve(){
     }
 
     printf("Voici les notes de %s %s :\n ", prenom, nom);
-    printf("\t+-----------+----------------+-------------+\n");
-    printf("\t| Reference |     libelle    | coefficient |\n");
-    printf("\t+-----------+----------------+-------------+\n");
+    printf("\t+-----------------+----------------+----------------+\n");
+    printf("\t|     Matière     |    Note CC     |    Note CC     |\n");
+    printf("\t+-----------------+----------------+----------------+\n");
 
 
     while (fscanf(fichier, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1) {
@@ -387,8 +335,8 @@ int recherche_note_eleve(){
                 if (sscanf(ligne, "%d;%[^;];%d", &ref, libelle, &coefficient) == 3) {
                     if (reference == ref) {
                         //printf("En %s:\n\tnote CC: %d \t note DS: %d\n",libelle, noteCC, noteDS); 
-                        printf("\t| %9s | %14d | %11d |\n", libelle,noteCC, noteDS);
-                        printf("\t+-----------+----------------+-------------+\n");
+                        printf("\t| %-15s |       %-2d       |       %-2d       |\n", libelle,noteCC, noteDS);
+                        printf("\t+-----------------+----------------+----------------+\n");
                     }
                 }
             }

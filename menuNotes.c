@@ -24,6 +24,7 @@ void menuNotes(){
                 
             else{
                 printf("Erreur d'ajout des notes\n");
+                system("pause");
                 return;
             }
             
@@ -61,10 +62,10 @@ void menuNotes(){
         case 4:
             system("cls");
             if(!recherche_note_eleve()){
-                printf("Recherche effectuee avec succees\n");
+                printf("\n\n");
             }
             else{
-                printf("Erreur dans la recherche");
+                printf("Erreur dans la recherche\n\n");
             }
             system("pause");
             break;

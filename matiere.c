@@ -133,6 +133,24 @@ int lister_matiere() {
 
 int modifier_matiere(char line_modif[100]){
     supprimer_matiere(line_modif);
+    char lib[15];
+    int ref,coef;
+    line_modif[strcspn(line_modif, "\n")] = '\0'; 
+
+    char *valeur = strtok(line_modif, ";");
+    
+    ref = atoi(valeur);
+
+    valeur = strtok(NULL, ";");
+    
+    strcpy(lib, valeur);
+
+    valeur = strtok(NULL, ";");
+    
+    coef = atoi(valeur);
+
+    printf("Voici les anciennes informations de la matière :\nRéférence : %d Libellé : %s Coefficient : %d",ref,lib,coef);
+
     int a;
     matiere mat;
     printf("Veuillez saisir la nouvelle référence de la matière : ");
@@ -150,6 +168,11 @@ int modifier_matiere(char line_modif[100]){
 
     printf("Veuillez saisir le nouveau coefficient de la matière : ");
     mat.coefficient = saisie_entier();
+
+    if (!confirmer_modification()) {
+            printf("Modification annulée.\n\n");
+            return 1;
+        }
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
@@ -171,6 +194,7 @@ int modifier_ref(char ligne_modif[100]){
     char *valeur = strtok(ligne_modif, ";");
     
     ref = atoi(valeur);
+    printf("Voici l'ancienne référence de la matière : %d", ref);
 
     valeur = strtok(NULL, ";");
     
@@ -194,6 +218,11 @@ int modifier_ref(char ligne_modif[100]){
     
     strcpy(mat.libelle,lib);
     mat.coefficient = coef;
+
+    if (!confirmer_modification()) {
+            printf("Modification annulée.\n\n");
+            return 1;
+        }
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
@@ -220,6 +249,8 @@ int modifier_lib(char ligne_modif[100]){
     
     strcpy(lib, valeur);
 
+    printf("Voici l'ancien libellé de la matière : %s",lib);
+
     valeur = strtok(NULL, ";");
     
     coef = atoi(valeur);
@@ -229,10 +260,15 @@ int modifier_lib(char ligne_modif[100]){
 
     mat.reference = ref;    
     
-    printf("Veuillez saisir le nouveau libellé de la matiere : ");
+    printf("\nVeuillez saisir le nouveau libellé de la matiere : ");
     saisie_ligne(mat.libelle,sizeof(mat.libelle));
 
     mat.coefficient = coef;
+
+    if (!confirmer_modification()) {
+            printf("Modification annulée.\n\n");
+            return 1;
+        }
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){
@@ -262,7 +298,8 @@ int modifier_coef(char ligne_modif[100]){
     valeur = strtok(NULL, ";");
     
     coef = atoi(valeur);
-    
+    printf("Voici l'ancien coefficient de la matiere : %d",coef);
+
     int a;
     matiere mat;
 
@@ -270,8 +307,13 @@ int modifier_coef(char ligne_modif[100]){
 
     strcpy(mat.libelle,lib);
 
-    printf("Veuillez saisir le nouveau coefficient de la matière : ");
+    printf("\nVeuillez saisir le nouveau coefficient de la matière : ");
     mat.coefficient = saisie_entier(); 
+
+    if (!confirmer_modification()) {
+            printf("Modification annulée.\n\n");
+            return 1;
+        }
 
     FILE *file=fopen("matiere.csv","a");
     if(file==NULL){

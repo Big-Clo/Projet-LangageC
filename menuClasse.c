@@ -46,11 +46,12 @@ void menuClasse()
         break;
     case 4:
         system("cls");
-        printf("Veuillez saisir le code de la classe a supprimer\t");
+        printf("Veuillez saisir le code de la classe a supprimer : ");
         a=saisie_entier();
-        if (code_existe(a)){
+        if (!code_existe(a)){
             printf("Il n'y a pas de classe avec ce code");
-            exit(1);
+            system("pause");
+            break;
         }
         supprimer_classe(a);
         system("pause");

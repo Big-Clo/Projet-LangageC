@@ -12,7 +12,7 @@ int ajout_classe(){
     CLASSE classe;
     int level, existe;
     
-    printf ("Ce programme vous permet d'ajouter une classe.\n Veuillez saisir:\n le code de la classe:\t");
+    printf ("Ce programme vous permet d'ajouter une classe.\n Veuillez saisir:\n le code de la classe : ");
     classe.code=saisie_entier();
     existe = code_existe(classe.code);
     while(existe == 1 ){
@@ -28,13 +28,28 @@ int ajout_classe(){
         printf("L'ajout a ete annule");
         return 1;
     }
-    printf ("\n Le nom de la classe:\t\n");
+    printf ("\n Le nom de la classe : ");
     saisie_ligne(classe.nom,sizeof(classe.nom));
     Maj(classe.nom);
-    printf ("\nVeuillez tapez 1 si c'est une classe de license et 2 si c'est une classe de master:\t");
+    existe=classe_existe(classe.nom);
+    while(existe == 1 ){
+        printf ("Le nom que vous avez saisit est deja attribue a une classe veuillez saisir un autre nom ou q si vous voulez annuler l'ajout : ");
+        saisie_ligne(classe.nom,sizeof(classe.nom));
+        Maj(classe.nom);
+        existe = classe_existe(classe.nom);
+        if (strcmp(classe.nom,"Q")==0){
+            break;
+        }
+    }
+    if (strcmp(classe.nom,"Q")==0){
+        printf("L'ajout a ete annule");
+        return 1;
+    }
+
+    printf ("\nVeuillez tapez 1 si c'est une classe de license et 2 si c'est une classe de master : ");
     level=saisie_entier();
     while (level != 1 && level != 2){
-        printf("\nVous devez entrer 1 si vous etes en license et 2 si vous etes en master. Veuillez reessayer:\t");
+        printf("\nVous devez entrer 1 si vous etes en license et 2 si vous etes en master. Veuillez reessayer : ");
         level=saisie_entier();
     }
     if (level == 1){
@@ -408,18 +423,38 @@ void modifier_classe(int code_a_modifier) {
 
     while (fscanf(fichier, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3) {
         if (code == code_a_modifier) {
-            printf("Entrez les nouvelles informations.\n");
+            printf("Voici les anciennes informations de la classe :\nNom : %s, Niveau : %s",nom,niveau);
+            printf("\nEntrez les nouvelles informations.\n");
 
             char nouveau_nom[30];
-            int nouveau_niveau;
+            int nouveau_niveau,existe;
 
             printf("Nouveau nom : ");
             saisie_ligne(nouveau_nom,sizeof(nouveau_nom));
+            Maj(nouveau_nom);
+            existe=classe_existe(nouveau_nom);
+            while(existe == 1 ){
+                printf ("Le nom que vous avez saisit est deja attribue a une classe veuillez saisir un autre nom ou q si vous voulez annuler la modification : ");
+                saisie_ligne(nouveau_nom,sizeof(nouveau_nom));
+                Maj(nouveau_nom);
+                existe = classe_existe(nouveau_nom);
+                if (strcmp(nouveau_nom,"Q")==0){
+                    break;
+                }
+            }
+            if (strcmp(nouveau_nom,"Q")==0){
+                printf("L'ajout a ete annule");
+                return ;
+            }
             printf("Veuillez entrez 1 si c'est un classe de License et 2 si c'est une classe de Master : ");
             nouveau_niveau=saisie_entier();
             while (nouveau_niveau != 1 && nouveau_niveau !=2){
                 printf("Vous ne pouvez saisir que 1 pour License et 2 pour Master. Veuillez saisir");
                 nouveau_niveau=saisie_entier();
+            }
+            if (!confirmer_modification()) {
+                printf("Modification annulée.\n\n");
+                return;
             }
             if (nouveau_niveau ==1)
             fprintf(temp, "%d;%s;License\n", code_a_modifier, nouveau_nom);
@@ -437,7 +472,7 @@ void modifier_classe(int code_a_modifier) {
     remove("classe.csv");
     rename("temp.csv", "classe.csv");
 
-    printf(" Classe modifiee avec succes.\n");
+    printf("\nClasse modifiee avec succes.\n");
 }
 
 int afficher_matiere_classe(){
@@ -490,7 +525,7 @@ int afficher_matiere_classe(){
                     while (fgets(lignes, sizeof(lignes), file)) {
                         if (sscanf(lignes, "%d;%29[^;];%d", &refe, libe, &co) == 3){
                             if (ref == refe){
-                        printf("\t| %11d | %15s | %11d |\n", refe,libe, co);
+                        printf("\t| %-11d | %-15s | %-11d |\n", refe,libe, co);
                         printf("\t+-------------+-----------------+-------------+\n");
                             }
                         }
@@ -554,7 +589,7 @@ int afficher_classe_matiere(){
                     while (fgets(lignes, sizeof(lignes), file)) {
                         if (sscanf(lignes, "%d;%29[^;];%s", &cod, nom, &niv) == 3){
                             if (ref == cod){
-                            printf("\t| %11d | %15s | %11s |\n", cod,nom, niv);
+                            printf("\t| %-11d | %-15s | %-11s |\n", cod,nom, niv);
                             printf("\t+-------------+-----------------+-------------+\n");
                             }
                         }

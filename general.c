@@ -3,6 +3,14 @@
 #include <string.h>
 #include <ctype.h>
 
+
+void Maj(char *str) {
+    while (*str) {
+        *str = toupper(*str);
+        str++;
+    }
+}
+
 int code_existe(int x){
     char nom[30], niveau[10];
     int code;
@@ -19,6 +27,29 @@ int code_existe(int x){
     return 0;
 }
 
+int classe_existe(char x[30]) {
+    char nom[30], niveau[10];
+    int code;
+    FILE *fichier_classe = fopen("classe.csv", "r");
+
+    if (fichier_classe == NULL) {
+        printf("Erreur lors de l'ouverture du fichier classe.csv\n");
+        return 0;
+    }
+
+    Maj(x); // pour rendre la recherche insensible à la casse
+
+    while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3) {
+        Maj(nom); // homogénéiser les comparaisons
+        if (strcmp(x, nom) == 0) {
+            fclose(fichier_classe);
+            return 1; // la classe existe
+        }
+    }
+
+    fclose(fichier_classe);
+    return 0; // non trouvée
+}
 
 void saisie_ligne(char *dest, int taille) {
     while (1) {
@@ -64,10 +95,56 @@ int confirmer_modification() {
     return (confirm == 'o' || confirm == 'O');
 }
 
-void Maj(char *str) {
-    while (*str) {
-        *str = toupper(*str);
-        str++;
+int numero_existe(int x){
+    char ligne[200];
+    char nom[30], prenom[30], email[50], date_str[15];
+    int numero, codeClasse;
+    int jour,mois,annee;
+
+    FILE *fichier_etudiants= fopen("etudiants.csv", "r");
+    if (fichier_etudiants== NULL){
+        printf("Erreur : impossible d’ouvrir etudiants.csv\n");
+        return 0;
     }
+
+    while (fgets(ligne, sizeof(ligne), fichier_etudiants)) {
+        
+        if (sscanf(ligne, "%d;%[^;];%[^;];%[^;];%[^;];%d", &numero, nom, prenom, email, date_str, &codeClasse) == 6) {
+            
+            sscanf(date_str, "%d/%d/%d", &jour, &mois, &annee);
+
+            if (x == numero) {
+                fclose(fichier_etudiants);
+                return 1;
+            }
+        }
+    }
+
+    fclose(fichier_etudiants);
+    return 0;
 }
+
+int reference_existe(int x) {
+    char ligne[100];
+    char libelle[30];
+    int reference, coefficient;
+
+    FILE *fichier_matiere = fopen("matiere.csv", "r");
+    if (fichier_matiere == NULL) {
+        printf("Erreur : impossible d’ouvrir matiere.csv\n");
+        return 0;
+    }
+    while (fgets(ligne, sizeof(ligne), fichier_matiere)) {
+        if (sscanf(ligne, "%d;%[^;];%d", &reference, libelle, &coefficient) == 3) {
+            if (x == reference) {
+                fclose(fichier_matiere);
+                return 1;
+            }
+        }
+    }
+    fclose(fichier_matiere);
+    return 0;
+}
+
+
 // gcc etudiant.c gestion_classe.c gestion_note.c general.c matiere.c menuEtudiant.c menuClasse.c menuNotes.c menuMatiere.c menuPrincipale.c -o b && b.exe
