@@ -18,6 +18,7 @@ int recherche_note_eleve_matiere();
 int recherche_note_eleve();
 int supprimer_note();
 int recherche_note_matiere();
+int classe_matiere_existe(int x, int y);
 
 
 
