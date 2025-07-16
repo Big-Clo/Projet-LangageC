@@ -24,7 +24,7 @@ void menuEtudiant() {
             case 3:system("cls"); menuRecherche_Etudiant();break;
             case 4:system("cls"); supprimerEtudiant(); system("pause");break;
             case 5:system("cls"); afficherListeEtudiants(); system("pause");break;
-            case 0:printf("Menu précédent\n\n"); system("pause");break;
+            case 0:printf("Menu précédent\n\n"); system("pause"); return; break;
             default: printf("Choix invalide.\n");
         }
 

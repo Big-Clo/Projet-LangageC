@@ -26,26 +26,118 @@ int numero_note_existe(int x, int y){
     return 0;
 }
 
+int reference_existe(int x) {
+    char ligne[100];
+    char libelle[30];
+    int reference, coefficient;
 
+    FILE *fichier_matiere = fopen("matiere.csv", "r");
+    if (fichier_matiere == NULL) {
+        printf("Erreur : impossible d’ouvrir matiere.csv\n");
+        return 0;
+    }
+    while (fgets(ligne, sizeof(ligne), fichier_matiere)) {
+        if (sscanf(ligne, "%d;%[^;];%d", &reference, libelle, &coefficient) == 3) {
+            if (x == reference) {
+                fclose(fichier_matiere);
+                return 1;
+            }
+        }
+    }
+    fclose(fichier_matiere);
+    return 0;
+}
+
+int classe_matiere_existe(int x, int y){
+
+    char ligne[100];
+    int reference, code;
+
+    FILE *fichier_matiere_classe = fopen("matiere-classe.csv", "r");
+    if (fichier_matiere_classe == NULL) {
+        printf("Erreur : impossible d’ouvrir matiere.csv\n");
+        return 0;
+    }
+    while (fgets(ligne, sizeof(ligne), fichier_matiere_classe)) {
+        if (sscanf(ligne, "%d;%d", &reference, &code) == 2) {
+            if ((x == reference) && (y == code)) {
+                fclose(fichier_matiere_classe);
+                return 1;
+            }
+        }
+    }
+    fclose(fichier_matiere_classe);
+    return 0;
+
+}
 
 int ajout_note(){
     NOTE note;
-    printf("Veuillez saisir le numero de l'etudiant: ");
-    note.numero=saisie_entier();
-    if (!numero_existe(note.numero)){
-        printf("Il n'existe pas d'etudiant avec ce numero");
+    Etudiant etudiant;
+    int quitter=1;
+    do{
+            printf("Veuillez saisir le numero de l'etudiant: ");
+            note.numero=saisie_entier();
+            while (!numero_existe(note.numero)){
+                printf("Il n'existe pas d'etudiant avec ce numero. Veuillez saisir un nouveau numero d'etudiant ou 0 pour annuler l'ajout: ");
+                note.numero=saisie_entier();
+                if (note.numero == 0){
+                    printf("Annulation de l'ajout\n");
+                    return 1;
+                }
+                
+            }
+            FILE *fichier_etudiant = fopen("etudiants.csv", "r");
+
+            while ((fscanf(fichier_etudiant, "%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d", &etudiant.numero, etudiant.nom, etudiant.prenom, etudiant.email, &etudiant.date_naissance.jour, &etudiant.date_naissance.mois, &etudiant.date_naissance.annee, &etudiant.codeClasse)) != EOF)
+            {
+
+                if (note.numero == etudiant.numero) {
+                    break;
+                }
+            }
+            fclose(fichier_etudiant);
+            printf("Veuillez saisir la reference de la matiere: ");
+            note.reference=saisie_entier();
+            while (!reference_existe(note.reference)){
+                printf("Il n'existe pas de matiere avec cette reference.\n Veuillez saisir une nouvelle reference de matiere ou 0 pour annuler l'ajout: ");
+                note.reference=saisie_entier();
+                if (note.numero == 0){
+                    printf("Annulation de l'ajout\n");
+                    return 1;
+                }
+            }
+            if (numero_note_existe(note.numero, note.reference)){
+                printf("Cette eleve a deja des notes dans cette matiere.\n Veuillez entrez 0 pour annuler l'ajout ou un autre chiffre pour rerentrer les informations: \n");
+                quitter = saisie_entier();
+                if (quitter == 0){
+
+                    printf ("Annulation de l'ajout");
+                    return 1;
+                }
+                else{
+                    continue;
+                }
+
+            }
+
+    quitter = 1;
+    if (!(classe_matiere_existe(note.reference, etudiant.codeClasse))){
+        printf("La classe dans laquelle est cette eleve ne fait pas cette matiere.\n Veuillez entrez 0 pour annuler l'ajout ou un autre chiffre pour rerentrer les informations: ");
+        quitter = saisie_entier();
+
+    }
+    if (quitter == 0){
+
+        printf ("Annulation de l'ajout");
         return 1;
     }
-    printf("Veuillez saisir la reference de la matiere: ");
-    note.reference=saisie_entier();
-    if (!reference_existe(note.reference)){
-        printf("Il n'existe pas de matiere avec cette reference\n");
-        return 1;
+    else{
+        continue;
     }
-    if (numero_note_existe(note.numero, note.reference)){
-        printf("Cette eleve a deja des notes dans cette matiere vous pouvez les modifier\n");
-        return 1;
-    }
+    
+    }while(classe_matiere_existe(note.reference, etudiant.codeClasse));
+
     printf("Veuillez saisir la note de CC ");
     note.noteCC=saisie_entier();
     while(note.noteCC < 0 || note.noteCC > 20){
