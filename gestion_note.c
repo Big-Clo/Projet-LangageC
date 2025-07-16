@@ -46,7 +46,7 @@ int numero_note_existe(int x, int y){
     }
 
    while (fscanf(fichier_note, "%d;%d;%d;%d\n", &numero, &reference, &noteCC, &noteDS) != -1){
-        if ((x == numero) && (y = reference))    {
+        if ((x == numero) && (y == reference))    {
             fclose(fichier_note);
             return 1;
         }
@@ -132,7 +132,7 @@ int ajout_note(){
             while (!reference_existe(note.reference)){
                 printf("Il n'existe pas de matiere avec cette reference.\n Veuillez saisir une nouvelle reference de matiere ou 0 pour annuler l'ajout: ");
                 note.reference=saisie_entier();
-                if (note.numero == 0){
+                if (note.reference == 0){
                     printf("Annulation de l'ajout\n");
                     return 1;
                 }
@@ -166,7 +166,7 @@ int ajout_note(){
         continue;
     }
     
-    }while(classe_matiere_existe(note.reference, etudiant.codeClasse));
+    }while(!classe_matiere_existe(note.reference, etudiant.codeClasse));
 
     printf("Veuillez saisir la note de CC ");
     note.noteCC=saisie_entier();
