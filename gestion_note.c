@@ -490,17 +490,17 @@ int recherche_note_eleve(){
 
 int recherche_note_matiere(){
     NOTE note;
-    int reference, noteCC, noteDS, quitter;
+    int reference, noteCC, noteDS;
 
-    quitter = 0;
         
 
     printf("Veuillez saisir la reference de la matiere dont vous voulez rechercher les notes: ");
     note.reference=saisie_entier();
     while (!reference_existe(note.reference) && note.reference != -1){
-        printf("Il n'y a pas de matiere avec ce reference. Veuillez ressaisir la reference de la matiere ou -1 pour annuler la recherche.\n ");
+        printf("Il n'y a pas de matiere avec cette reference. Veuillez ressaisir la reference de la matiere ou -1 pour annuler la recherche.\n ");
         note.reference=saisie_entier();
     }
+    
     if(note.reference == -1){
         printf("Annulation de la recherche");
             
@@ -581,3 +581,76 @@ int recherche_note_matiere(){
     fclose(fichier_note);
     return 0;
 }
+
+int recherche_note_classe() {
+    int code;
+    printf("Veuillez saisir le code de la classe dont vous voulez connaitre les notes : ");
+    code = saisie_entier();
+
+    while (!code_existe(code) && code != -1) {
+        printf("Le code que vous avez saisi n'est attribué à aucune classe. Veuillez entrer un code valide ou -1 pour annuler la recherche : ");
+        code = saisie_entier();
+    }
+    if (code == -1) {
+        printf("Recherche annulée.\n");
+        return 1;
+    }
+
+    NOTE n;
+    FILE* fichier_note = fopen("note.csv", "r");
+    if (!fichier_note) {
+        printf("Erreur ouverture note.csv\n");
+        return 1;
+    }
+
+    printf("\t+----------------+-------------+-------------+----------------+----------------+\n");
+    printf("\t|    Matière     |     Nom     |   Prénom    |    Note CC     |    Note DS     |\n");
+    printf("\t+----------------+-------------+-------------+----------------+----------------+\n");
+
+    while (fscanf(fichier_note, "%d;%d;%d;%d\n", &n.numero, &n.reference, &n.noteCC, &n.noteDS) == 4) {
+        FILE* fichier_matiere_classe = fopen("matiere-classe.csv", "r");
+        if (!fichier_matiere_classe) continue;
+
+        int mc_ref, mc_code;
+        while (fscanf(fichier_matiere_classe, "%d;%d\n", &mc_ref, &mc_code) == 2) {
+            if (mc_ref != n.reference || mc_code != code) continue;
+
+            // Lecture matière
+            matiere m;
+            FILE* fichier_matiere = fopen("matiere.csv", "r");
+            if (!fichier_matiere) break;
+
+            while (fscanf(fichier_matiere, "%d;%15[^;];%d\n", &m.reference, m.libelle, &m.coefficient) == 3) {
+                if (m.reference == mc_ref) break;
+            }
+            fclose(fichier_matiere);
+
+            // Lecture étudiant
+            Etudiant e;
+            FILE* fichier_eleve = fopen("etudiants.csv", "r");
+            if (!fichier_eleve) break;
+
+            while (fscanf(fichier_eleve, "%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d\n",
+                          &e.numero, e.nom, e.prenom, e.email,
+                          &e.date_naissance.jour, &e.date_naissance.mois, &e.date_naissance.annee,
+                          &e.codeClasse) == 8) {
+                if (e.numero == n.numero && e.codeClasse == code) break;
+            }
+            fclose(fichier_eleve);
+
+            // Affichage
+            printf("\t| %-14s | %-11s | %-11s |       %2d       |       %2d       |\n",
+                   m.libelle, e.nom, e.prenom, n.noteCC, n.noteDS);
+            printf("\t+----------------+-------------+-------------+----------------+----------------+\n");
+        }
+
+        fclose(fichier_matiere_classe);
+    }
+
+    fclose(fichier_note);
+    return 0;
+}
+
+/*
+Matiere Nom Prenom CC DS
+*/
