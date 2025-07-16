@@ -516,46 +516,68 @@ int recherche_note_matiere(){
     FILE*fichier_note=fopen("note.csv","r");
     
     
+    printf("\t+----------------+-------------+-------------+----------------+----------------+\n");
+    printf("\t|     Classe     |     Nom     |   Prénom    |    Note CC     |    Note CC     |\n");
+    printf("\t+----------------+-------------+-------------+----------------+----------------+\n");
     
     
-    
-    while(fscanf(fichier_note,"%d;%d;%d;%d\n",&n.numero,&n.reference,&n.noteCC,&n.noteDS)==4)
-    {
-        if(note.reference==n.reference){FILE*fichier_matiere_classe=fopen("matiere-classe.csv","r");
-        while (fscanf(fichier_matiere_classe,"%d;%d\n",&mc_ref,&mc_code)==2)
-        {
-            FILE*fichier_matiere=fopen("matiere.csv","r");while (fscanf(fichier_matiere,"%d;%15[^;];%d\n",&matiere.reference,matiere.libelle,&matiere.coefficient)==3)
-            {
-                if(matiere.reference==mc_ref){break;}
-            }
-    fclose(fichier_matiere);
-            FILE*fichier_eleve=fopen("etudiants.csv","r");while (fscanf(fichier_eleve,"%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d\n",&e.numero,e.nom,e.prenom,e.email,&e.date_naissance.jour,&e.date_naissance.mois,&e.date_naissance.annee,&e.codeClasse)==8)
-            {
-                if(n.numero==e.numero){break;}
-            }fclose(fichier_eleve);
-            FILE*fichier_classe=fopen("classe.csv","r");while (fscanf(fichier_classe,"%d;%29[^;];%29[^\n]\n",&classe.code,classe.nom,niveau)==3)
-            {
-                if(classe.code==mc_code){break;}
-            }
-    fclose(fichier_classe);
-            
-            
-            }
-    fclose(fichier_matiere_classe);
-        printf("\t| %14s | %11s | %11s |       %-2d       |       %-2d       |\n",classe.nom,e.nom,e.prenom,n.noteCC,n.noteDS);
-        printf("\t+-----------------+--------------+--------------+----------------+----------------+\n"); 
+    while (fscanf(fichier_note, "%d;%d;%d;%d\n", &n.numero, &n.reference, &n.noteCC, &n.noteDS) == 4) {
+    if (note.reference == n.reference) {
+        FILE *fichier_matiere_classe = fopen("matiere-classe.csv", "r");
+        if (!fichier_matiere_classe) {
+            printf("Erreur lors de l'ouverture de matiere-classe.csv\n");
+            continue;
         }
+
+        while (fscanf(fichier_matiere_classe, "%d;%d\n", &mc_ref, &mc_code) == 2) {
+            if (mc_ref != n.reference) continue;
+
+            FILE *fichier_matiere = fopen("matiere.csv", "r");
+            if (!fichier_matiere) {
+                printf("Erreur ouverture matiere.csv\n");
+                break;
+            }
+
+            while (fscanf(fichier_matiere, "%d;%15[^;];%d\n", &matiere.reference, matiere.libelle, &matiere.coefficient) == 3) {
+                if (matiere.reference == mc_ref) break;
+            }
+            fclose(fichier_matiere);
+
+            FILE *fichier_eleve = fopen("etudiants.csv", "r");
+            if (!fichier_eleve) {
+                printf("Erreur ouverture etudiants.csv\n");
+                break;
+            }
+
+            while (fscanf(fichier_eleve, "%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d\n",
+                          &e.numero, e.nom, e.prenom, e.email,
+                          &e.date_naissance.jour, &e.date_naissance.mois, &e.date_naissance.annee,
+                          &e.codeClasse) == 8) {
+                if (n.numero == e.numero) break;
+            }
+            fclose(fichier_eleve);
+
+            FILE *fichier_classe = fopen("classe.csv", "r");
+            if (!fichier_classe) {
+                printf("Erreur ouverture classe.csv\n");
+                break;
+            }
+
+            while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &classe.code, classe.nom, niveau) == 3) {
+                if (classe.code == mc_code) break;
+            }
+            fclose(fichier_classe);
+
+            printf("\t| %-14s | %-11s | %-11s |       %2d       |       %2d       |\n",
+                   classe.nom, e.nom, e.prenom, n.noteCC, n.noteDS);
+            printf("\t+----------------+-------------+-------------+----------------+----------------+\n");
+        }
+
+        fclose(fichier_matiere_classe);
     }
+}
+
     
     fclose(fichier_note);
     return 0;
 }
-
-/*
-printf("\t+-----------------+--------------+--------------+----------------+----------------+\n");
-printf("\t|     Classe      |     Nom      | Prénom       |    Note CC     |    Note CC     |\n");                 
-printf("\t+-----------------+--------------+--------------+----------------+----------------+\n");
-
-printf("| %14s | %11s | %11s |       %-2d       |       %-2d       |",classe.nom,e.nom,e.prenom,n.noteCC,n.noteDS);
-printf("\t+-----------------+--------------+--------------+----------------+----------------+\n");
-*/
