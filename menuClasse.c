@@ -85,7 +85,6 @@ void menuClasse()
         printf("Veuillez saisir une option valide\n\n");
         
     }
-    system("pause");
     
     } while (choix !=0);
 
