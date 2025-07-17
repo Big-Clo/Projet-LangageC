@@ -72,8 +72,16 @@ void ajouterEtudiant() {
     saisie_ligne(e.email,sizeof(e.email));
     printf("Jour de naissance  : ");
     e.date_naissance.jour=saisie_entier();
+    while((e.date_naissance.jour > 31) || (e.date_naissance.jour < 0)){
+        printf("Le jour ne peut pas etre negatif ou superieur a 31. Veuillez ressaisir le jour de naissance: ");
+        e.date_naissance.jour=saisie_entier();
+    }
     printf("Mois de naissance  : ");
     e.date_naissance.mois=saisie_entier();
+    while((e.date_naissance.mois > 31) || (e.date_naissance.mois < 0)){
+        printf("Le mois ne peut pas etre negatif ou superieur 12. Veuillez ressaisir le mois de naissance: ");
+        e.date_naissance.mois=saisie_entier();
+    }
     printf("Annee de naissance  : ");
     e.date_naissance.annee=saisie_entier();
     printf("Code classe : ");
