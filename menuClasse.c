@@ -10,15 +10,15 @@ void menuClasse()
     do {
     system("cls");
     printf("\t\t\n===== MENU CLASSE =====\n\n");
-    printf("\t1. Pour ajouter une classe\n");
-    printf("\t2. Pour afficher la liste des classes\n");
-    printf("\t3. Pour rechercher une classe\n");
-    printf("\t4. Pour supprimer une classe\n");
-    printf("\t5. Pour modifier une classe\n");
-    printf("\t6. Pour afficher la liste d'une classe\n");
-    printf("\t7. Pour gerer les matieres des classe\n");
-    printf("\t0. Pour quitter\n\n");
-    printf("\tRenseigner votre choix: ");
+    printf("1. Pour ajouter une classe\n");
+    printf("2. Pour afficher la liste des classes\n");
+    printf("3. Pour rechercher une classe\n");
+    printf("4. Pour supprimer une classe\n");
+    printf("5. Pour modifier une classe\n");
+    printf("6. Pour afficher la liste d'une classe\n");
+    printf("7. Pour gerer les matieres des classe\n");
+    printf("0. Pour quitter\n\n");
+    printf("Renseigner votre choix: ");
     choix=saisie_entier();
     printf("\n\n");
 

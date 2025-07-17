@@ -8,13 +8,13 @@ void menuEtudiant() {
     do {
         system("cls");
         printf("\t\t\n===== MENU ÉTUDIANTS =====\n\n");
-        printf("\t1. Ajouter un étudiant\n");
-        printf("\t2. Modifier un étudiant\n");
-        printf("\t3. Rechercher un étudiant\n");
-        printf("\t4. Supprimer un étudiant\n");
-        printf("\t5. Afficher tous les étudiants\n");
-        printf("\t0. Menu Precedent\n\n");
-        printf("\tVeuillez renseigner votre choix : ");
+        printf("1. Ajouter un étudiant\n");
+        printf("2. Modifier un étudiant\n");
+        printf("3. Rechercher un étudiant\n");
+        printf("4. Supprimer un étudiant\n");
+        printf("5. Afficher tous les étudiants\n");
+        printf("0. Menu Precedent\n\n");
+        printf("Veuillez renseigner votre choix : ");
         choix=saisie_entier();
         printf("\n\n");
 

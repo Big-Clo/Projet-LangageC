@@ -10,13 +10,13 @@ int main () {
     int menu;
     do {
         system("cls");
-        printf("MINI-LOGIECIEL DE GESTION DES NOTES\n");
-        printf("\t1. Gestion des Etudiants\n");
-        printf("\t2. Gestions des Classes\n");
-        printf("\t3. Gestions des matieres\n");
-        printf("\t4. Gestion des Notes\n");
-        printf("\t0. Quitter\n\n");
-        printf("\tVeuillez renseigner votre choix : ");
+        printf("MINI-LOGIECIEL DE GESTION DES NOTES\n\n\n");
+        printf("1. Gestion des Etudiants\n");
+        printf("2. Gestions des Classes\n");
+        printf("3. Gestions des matieres\n");
+        printf("4. Gestion des Notes\n");
+        printf("0. Quitter\n\n");
+        printf("Veuillez renseigner votre choix : ");
         menu=saisie_entier();
         printf("\n\n");
 
