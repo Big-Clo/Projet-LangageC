@@ -512,36 +512,36 @@ int afficher_matiere_classe(){
     printf("\t| Reference   |     libelle     | coefficient |\n");
     printf("\t+-------------+-----------------+-------------+\n");
     FILE *fichier = fopen("matiere-classe.csv", "r");
+    
     while (fgets(ligne, sizeof(ligne), fichier)) {
         if (sscanf(ligne, "%d;%d", &ref, &code) == 2) {
-           
-            FILE *file = fopen("matiere.csv", "r");
-            if (file != NULL) {
-
-               
-
-                    
-             
-                    while (fgets(lignes, sizeof(lignes), file)) {
-                        if (sscanf(lignes, "%d;%29[^;];%d", &refe, libe, &co) == 3){
-                            if (ref == refe){
-                        printf("\t| %-11d | %-15s | %-11d |\n", refe,libe, co);
-                        printf("\t+-------------+-----------------+-------------+\n");
+           if (code == code_recherche){
+                FILE *file = fopen("matiere.csv", "r");
+                if (file != NULL) {
+                        while (fgets(lignes, sizeof(lignes), file)) {
+                            if (sscanf(lignes, "%d;%29[^;];%d", &refe, libe, &co) == 3){
+                                if (ref == refe){
+                                printf("\t| %-11d | %-15s | %-11d |\n", refe,libe, co);
+                                printf("\t+-------------+-----------------+-------------+\n");
+                                    }
                             }
                         }
-                    }
-                
+                    
 
-                
+                    
+                    
+                } else {
+                    printf("Le fichier n'a pas pu être ouvert");
+                    fclose(file);
+                    fclose(fichier);
+                    return 1;
+                }
                 fclose(file);
-            } else {
-                printf("Le fichier n'a pas pu être ouvert");
-                fclose(file);
-                return 1;
-            }
-
+           }
         }
     }
+    
+    fclose(fichier);
 }
 
 int afficher_classe_matiere(){
@@ -553,10 +553,10 @@ int afficher_classe_matiere(){
     char nom[15], niv[15];
     int cod, code;
 
-    printf("Veuillez saisir le reference de la classe dont vous voulez afficher les matieres: ");
+    printf("Veuillez saisir le reference de la matiere dont vous voulez afficher les classes associees: ");
     ref_cherche=saisie_entier();
     while (!(reference_existe(ref_cherche)) && ref_cherche != -1  ){
-        printf("Il n'y a pas de matiere avec cette matiere. Veuillez ressaisir le code ou -1 pour annuler: ");
+        printf("Il n'y a pas de matiere avec cette reference. Veuillez ressaisir le reference ou -1 pour annuler: ");
         ref_cherche=saisie_entier();
     }
 
@@ -581,19 +581,20 @@ int afficher_classe_matiere(){
     printf("\t|    Code     |       Nom       |   Niveau    |\n");
     printf("\t+-------------+-----------------+-------------+\n");
     FILE *fichier = fopen("matiere-classe.csv", "r");
+    FILE *file = fopen("classe.csv", "r");
     while (fgets(ligne, sizeof(ligne), fichier)) {
         if (sscanf(ligne, "%d;%d", &ref, &code) == 2) {
-           
-            FILE *file = fopen("classe.csv", "r");
-            if (file != NULL) {
-                    while (fgets(lignes, sizeof(lignes), file)) {
-                        if (sscanf(lignes, "%d;%29[^;];%s", &cod, nom, &niv) == 3){
-                            if (ref == cod){
-                            printf("\t| %-11d | %-15s | %-11s |\n", cod,nom, niv);
-                            printf("\t+-------------+-----------------+-------------+\n");
+            if (ref == ref_cherche){
+                
+                if (file != NULL) {
+                        while (fgets(lignes, sizeof(lignes), file)) {
+                            if (sscanf(lignes, "%d;%29[^;];%s", &cod, nom, &niv) == 3){
+                                if (code == cod){
+                                printf("\t| %-11d | %-15s | %-11s |\n", cod,nom, niv);
+                                printf("\t+-------------+-----------------+-------------+\n");}
+                                }
                             }
                         }
-                    }
                 
 
                 
@@ -621,6 +622,7 @@ void matiere_classe(){
         printf("2. Retirer une matiere a une classe\n");
         printf("3. Afficher les classes associees a une matiere\n");
         printf("4. Afficher les matieres d'une classe\n");
+        printf("0. Menu precedent\n");
 
         printf("Renseignez votre choix : ");
         choix = saisie_entier();
@@ -631,6 +633,7 @@ void matiere_classe(){
         switch (choix)
         {
         case 1 :
+            system("cls");
             printf("Quel est la référence de la matière que vous voulez ajouter ? ");
             ref = saisie_entier();
             existe = reference_existe(ref);
@@ -667,6 +670,7 @@ void matiere_classe(){
             break;
         
         case 2 :
+            system("cls");
             printf("Quel est la référence de la matière que vous voulez retirer ? ");
             ref = saisie_entier();
             existe = reference_existe(ref);
@@ -703,11 +707,13 @@ void matiere_classe(){
             break;
         
         case 3 :
+            system("cls");
             afficher_classe_matiere();
             system("pause");
             break;
 
         case 4 :
+            system("cls");
             afficher_matiere_classe();
             system("pause");
             break;

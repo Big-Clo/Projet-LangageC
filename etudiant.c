@@ -54,9 +54,13 @@ void ajouterEtudiant() {
     int i;
 
     for (i = 0; i < n; i++) {
-        if (tab[i].numero == e.numero) {
-            printf("Ce numéro existe déjà.\n");
-            return;
+        while (tab[i].numero == e.numero) {
+            printf("Ce numéro existe déjà. Veuillez saisir un autre numero ou -1 pour quitter\n");
+            e.numero=saisie_entier();
+            if(e.numero == -1){
+                printf("\tAnnulation\n");
+                return;
+            }
         }
     }
 
@@ -66,8 +70,12 @@ void ajouterEtudiant() {
     saisie_ligne(e.prenom,sizeof(e.prenom));
     printf("Email : ");
     saisie_ligne(e.email,sizeof(e.email));
-    printf("Date de naissance (JJ MM AAAA) : ");
-    e.date_naissance.jour=saisie_entier();e.date_naissance.mois=saisie_entier();e.date_naissance.annee=saisie_entier();
+    printf("Jour de naissance  : ");
+    e.date_naissance.jour=saisie_entier();
+    printf("Mois de naissance  : ");
+    e.date_naissance.mois=saisie_entier();
+    printf("Annee de naissance  : ");
+    e.date_naissance.annee=saisie_entier();
     printf("Code classe : ");
     e.codeClasse=saisie_entier();
 
@@ -89,9 +97,9 @@ void afficherListeEtudiants() {
 
     printf("\n\t\t\t\t\t     ====== Liste des étudiants (%d) ======\n", n);
     printf("\t----------------------------------------------------------------------------------------------------------------\n");
-    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
-    printf("\t|   Numéro   |     Nom      | Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
-    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+    printf("\t+------------+--------------+------------------+-----------------+-------------------------+-----------------------+\n");
+    printf("\t|   Numéro   |     Nom      |     Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
+    printf("\t+------------+--------------+------------------+-----------------+-------------------------+-----------------------+\n");
 
     int code, nom, niveau;
 
@@ -109,7 +117,7 @@ void afficherListeEtudiants() {
             break;
             }
         }
-        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+        printf("\t| %-10d | %-11s  | %-15s  | %-14s  | %-23s |       %02d/%02d/%0004d      |\n",
                tab[i].numero,
                tab[i].nom,
                tab[i].prenom,
@@ -119,7 +127,7 @@ void afficherListeEtudiants() {
                tab[i].date_naissance.mois,
                tab[i].date_naissance.annee);
     }
-    printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
+    printf("\t+------------+--------------+------------------+-----------------+-------------------------+-----------------------+\n");
     printf("\n");
 }
 
@@ -155,7 +163,7 @@ void rech_num_etudiant() {
             break;
             }
         }if(numero==tab[i].numero){
-        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %02d/%02d/%0004d      |\n",
                tab[i].numero,
                tab[i].nom,
                tab[i].prenom,
@@ -202,7 +210,7 @@ void rech_prenom_etudiant() {
             break;
             }
         }if(strcmp(prenom,tab[i].prenom)==0){
-        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %02d/%02d/%0004d      |\n",
                tab[i].numero,
                tab[i].nom,
                tab[i].prenom,
@@ -248,7 +256,7 @@ void rech_nom_etudiant() {
             break;
             }
         }if(strcmp(nom,tab[i].nom)==0){
-        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %02d/%02d/%0004d      |\n",
                tab[i].numero,
                tab[i].nom,
                tab[i].prenom,
@@ -294,7 +302,7 @@ void rech_mail_etudiant() {
             break;
             }
         }if(strcmp(mail,tab[i].email)==0){
-        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %02d/%02d/%0004d      |\n",
                tab[i].numero,
                tab[i].nom,
                tab[i].prenom,
@@ -356,7 +364,7 @@ void rech_classe_etudiant() {
 
     for (int i = 0; i < n; i++) {
         if (tab[i].codeClasse == codeRecherche) {
-            printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+            printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %02d/%02d/%0004d      |\n",
                    tab[i].numero,
                    tab[i].nom,
                    tab[i].prenom,
@@ -408,7 +416,7 @@ void rech_date_etudiant() {
             break;
             }
         }if(tab[i].date_naissance.jour == date.jour && tab[i].date_naissance.mois == date.mois && tab[i].date_naissance.annee == date.annee){
-        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %2d/%2d/%4d      |\n",
+        printf("\t| %-10d | %-11s  | %-11s  | %-14s  | %-23s |       %02d/%02d/%0004d      |\n",
                tab[i].numero,
                tab[i].nom,
                tab[i].prenom,

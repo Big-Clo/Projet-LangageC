@@ -13,7 +13,7 @@ void menuEtudiant() {
         printf("\t3. Rechercher un étudiant\n");
         printf("\t4. Supprimer un étudiant\n");
         printf("\t5. Afficher tous les étudiants\n");
-        printf("\t0. Quitter\n\n");
+        printf("\t0. Menu Precedent\n\n");
         printf("\tVeuillez renseigner votre choix : ");
         choix=saisie_entier();
         printf("\n\n");
