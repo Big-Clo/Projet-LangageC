@@ -16,7 +16,7 @@ int ajout_classe(){
     classe.code=saisie_entier();
     existe = code_existe(classe.code);
     while(existe == 1 ){
-        printf ("Le code que vous avez saisit est deja attribue a une classe veuillez saisir un autre code ou -1 si vous voulez annuler l'ajout:\t");
+        printf ("Le code que vous avez saisi est déjà attribué à une classe veuillez saisir un autre code ou -1 si vous voulez annuler l'ajout:\t");
         classe.code=saisie_entier();
         existe = code_existe(classe.code);
         if (classe.code == -1){
@@ -33,7 +33,7 @@ int ajout_classe(){
     Maj(classe.nom);
     existe=classe_existe(classe.nom);
     while(existe == 1 ){
-        printf ("Le nom que vous avez saisit est deja attribue a une classe veuillez saisir un autre nom ou q si vous voulez annuler l'ajout : ");
+        printf ("Le nom que vous avez saisi est déjà attribué à une classe veuillez saisir un autre nom ou q si vous voulez annuler l'ajout : ");
         saisie_ligne(classe.nom,sizeof(classe.nom));
         Maj(classe.nom);
         existe = classe_existe(classe.nom);
@@ -42,14 +42,14 @@ int ajout_classe(){
         }
     }
     if (strcmp(classe.nom,"Q")==0){
-        printf("L'ajout a ete annule");
+        printf("L'ajout a ete annulé");
         return 1;
     }
 
-    printf ("\nVeuillez tapez 1 si c'est une classe de license et 2 si c'est une classe de master : ");
+    printf ("\nVeuillez saisir 1 si c'est une classe de license ou 2 si c'est une classe de master : ");
     level=saisie_entier();
     while (level != 1 && level != 2){
-        printf("\nVous devez entrer 1 si vous etes en license et 2 si vous etes en master. Veuillez reessayer : ");
+        printf("\nVous devez saisir 1 si vous etes en license et 2 si vous etes en master. Veuillez reessayer : ");
         level=saisie_entier();
     }
     if (level == 1){
@@ -61,7 +61,7 @@ int ajout_classe(){
 
     FILE  *fichier_classe = fopen ("classe.csv", "a");
     if (fichier_classe == NULL){
-        printf("le fichier n' a pas pu etre ouvert");
+        printf("le fichier n'a pas pu être ouvert");
        
         return 1;
     }
@@ -78,7 +78,7 @@ int ajout_classe(){
 void afficher_classe(){
     FILE *fichier_classe = fopen("classe.csv", "r");
     if (fichier_classe == NULL){
-        printf("le fichier n' a pas pu etre ouvert");
+        printf("le fichier n'a pas pu être ouvert");
         fclose(fichier_classe);
         exit(1);
     }
@@ -102,13 +102,13 @@ void afficher_liste_eleve_classe(){
     char nom_classe[30], niveau_classe[10];
     FILE *fichier_etudiant = fopen("etudiants.csv", "r");
     if (fichier_etudiant == NULL){
-        printf("Impossible d'ouvrir le fichier des etudiants");
+        printf("Impossible d'ouvrir le fichier des étudiants");
         exit(1);
     }
     printf("Veuillez saisir le code de la classe dont vous voulez la liste: ");
     code = saisie_entier();
     while (!code_existe(code)){
-        printf("Il n'y a pas de classe avec ce code. Voulez vous ressaisir si non tapez 1 sinon tapez un autre entier : ");
+        printf("Il n'y a pas de classe avec ce code. Voulez vous ressaisir ? Si non tapez 1 sinon tapez un autre entier : ");
         quitter = saisie_entier();
         if (quitter == 1){
             ("Annulation de la recherche");
@@ -135,7 +135,7 @@ void afficher_liste_eleve_classe(){
     printf("\n===== LISTE DES ÉTUDIANTS EN %s =====\n", nom_classe);
     printf("-----------------------------------------------------------------------------------------\n");
     printf("\t+------------+--------------+--------------+--------------------------+--------------------+\n");
-    printf("\t| Numero     |     Nom      | Prenom       |          Email           |  date de naissance |\n");
+    printf("\t| Numéro     |     Nom      | Prénom       |          Email           |  date de naissance |\n");
     printf("\t+------------+--------------+--------------+--------------------------+--------------------+\n");
 
     while ((fscanf(fichier_etudiant, "%d;%29[^;];%29[^;];%49[^;];%d/%d/%d;%d", &etudiant.numero, etudiant.nom, etudiant.prenom, etudiant.email, &etudiant.date_naissance.jour, &etudiant.date_naissance.mois, &etudiant.date_naissance.annee, &etudiant.codeClasse)) != EOF)
@@ -157,7 +157,7 @@ int rech_code_classe(int x){
     char nom[30], niveau[10];
     FILE *fichier_classe = fopen("classe.csv", "r");
     if (fichier_classe == NULL){
-        printf("le fichier n' a pas pu etre ouvert");
+        printf("le fichier n'a pas pu être ouvert");
         return 1;
     }
     while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
@@ -187,7 +187,7 @@ int rech_nom_classe(char *x){
     char nom[30], niveau[10];
     FILE *fichier_classe = fopen("classe.csv", "r");
     if (fichier_classe == NULL){
-        printf("le fichier n' a pas pu etre ouvert");
+        printf("le fichier n'a pas pu être ouvert");
         return 1;
     }
     while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
@@ -254,7 +254,7 @@ void menuRecherche_Classe(){
     do
     {
         system("cls");
-        printf("A partir de quel element voulez vous faire une recherche?\n\n\n");
+        printf("A partir de quel element voulez vous faire une recherche?\n\n");
         printf("1. Code\n");
         printf("2. Nom\n");
         printf("3. Niveau\n");
@@ -267,7 +267,7 @@ void menuRecherche_Classe(){
         {
         case 1:
             system("cls");
-            printf("Veuillez saisir le code de la classe a rechercher : ");
+            printf("Veuillez saisir le code de la classe à rechercher : ");
             int a=saisie_entier();
             rech_code_classe(a);
             printf("\n");
@@ -309,7 +309,7 @@ void menuRecherche_Classe(){
             break;
 
         case 0:
-            printf("Menu precedent\n\n");
+            printf("Menu précédent\n\n");
             system("pause");
             break;
         default:
@@ -325,7 +325,7 @@ void supprimer_classe(int code_a_supprimer) {
     FILE *fichier = fopen("classe.csv", "r");
     FILE *temp = fopen("temp.csv", "w");
     if (fichier == NULL || temp == NULL) {
-        printf("Le fichier n' a pas pu etre ouvert,\n");
+        printf("Le fichier n'a pas pu être ouvert,\n");
         exit(1);
     }
 
@@ -443,13 +443,13 @@ void modifier_classe(int code_a_modifier) {
                 }
             }
             if (strcmp(nouveau_nom,"Q")==0){
-                printf("L'ajout a ete annule");
+                printf("La modification à été annulé");
                 return ;
             }
-            printf("Veuillez entrez 1 si c'est un classe de License et 2 si c'est une classe de Master : ");
+            printf("Veuillez saisir 1 si c'est un classe de License ou 2 si c'est une classe de Master : ");
             nouveau_niveau=saisie_entier();
             while (nouveau_niveau != 1 && nouveau_niveau !=2){
-                printf("Vous ne pouvez saisir que 1 pour License et 2 pour Master. Veuillez saisir");
+                printf("Vous ne pouvez saisir que 1 pour License ou 2 pour Master. Veuillez saisir");
                 nouveau_niveau=saisie_entier();
             }
             if (!confirmer_modification()) {
@@ -472,7 +472,7 @@ void modifier_classe(int code_a_modifier) {
     remove("classe.csv");
     rename("temp.csv", "classe.csv");
 
-    printf("\nClasse modifiee avec succes.\n");
+    printf("\nClasse modifiée avec succes.\n");
 }
 
 int afficher_matiere_classe(){
@@ -484,7 +484,7 @@ int afficher_matiere_classe(){
     char libe[15];
     int refe, co;
 
-    printf("Veuillez saisir le code de la classe dont vous voulez afficher les matieres: ");
+    printf("Veuillez saisir le code de la classe dont vous voulez afficher les matières: ");
     code_recherche=saisie_entier();
     while (!(code_existe(code_recherche)) && code_recherche != -1  ){
         printf("Il n'y a pas de classe avec ce code. Veuillez ressaisir le code ou -1 pour annuler: ");
@@ -494,7 +494,7 @@ int afficher_matiere_classe(){
 
     FILE *fichier_classe = fopen("classe.csv", "r");
     if (fichier_classe == NULL){
-        printf("le fichier n' a pas pu etre ouvert");
+        printf("le fichier n'a pas pu être ouvert");
         fclose(fichier_classe);
         exit(1);
     }
@@ -502,14 +502,14 @@ int afficher_matiere_classe(){
     char nom[30], niveau[10];
     while (fscanf(fichier_classe, "%d;%29[^;];%29[^\n]\n", &code, nom, niveau) == 3){
         if(code_recherche == code){
-        printf("Voici les matieres de la classe : %s\n", nom);
+        printf("Voici les matières de la classe : %s\n", nom);
         break;
         }
     }
     fclose(fichier_classe);
 
     printf("\t+-------------+-----------------+-------------+\n");
-    printf("\t| Reference   |     libelle     | coefficient |\n");
+    printf("\t| Référence   |     Libellé     | Coefficient |\n");
     printf("\t+-------------+-----------------+-------------+\n");
     FILE *fichier = fopen("matiere-classe.csv", "r");
     
@@ -553,17 +553,17 @@ int afficher_classe_matiere(){
     char nom[15], niv[15];
     int cod, code;
 
-    printf("Veuillez saisir le reference de la matiere dont vous voulez afficher les classes associees: ");
+    printf("Veuillez saisir la référence de la matière dont vous voulez afficher les classes associées: ");
     ref_cherche=saisie_entier();
     while (!(reference_existe(ref_cherche)) && ref_cherche != -1  ){
-        printf("Il n'y a pas de matiere avec cette reference. Veuillez ressaisir le reference ou -1 pour annuler: ");
+        printf("Il n'y a pas de matière avec cette référence. Veuillez ressaisir la référence ou -1 pour annuler: ");
         ref_cherche=saisie_entier();
     }
 
 
     FILE *fichier_matiere = fopen("matiere.csv", "r");
     if (fichier_matiere == NULL){
-        printf("le fichier n' a pas pu etre ouvert");
+        printf("le fichier n'a pas pu être ouvert");
         fclose(fichier_matiere);
         exit(1);
     }
@@ -571,7 +571,7 @@ int afficher_classe_matiere(){
     char libelle[30];
     while (fscanf(fichier_matiere, "%d;%29[^;];%29[^\n]\n", &reference, libelle, &coef) == 3){
         if(ref_cherche == reference){
-        printf("Voici les classes faisant la matiere : %s\n", libelle);
+        printf("Voici les classes faisant la matière : %s\n", libelle);
         break;
         }
     }
@@ -617,12 +617,12 @@ void matiere_classe(){
     do
     {
         system("cls");
-        printf("Quelle action voulez vous effectuer ?\n");
-        printf("1. Ajouter une matiere a une classe\n");
-        printf("2. Retirer une matiere a une classe\n");
-        printf("3. Afficher les classes associees a une matiere\n");
-        printf("4. Afficher les matieres d'une classe\n");
-        printf("0. Menu precedent\n");
+        printf("Quelle action voulez vous effectuer ?\n\n");
+        printf("1. Ajouter une matière à une classe\n");
+        printf("2. Retirer une matière à une classe\n");
+        printf("3. Afficher les classes associées à une matiere\n");
+        printf("4. Afficher les matières d'une classe\n");
+        printf("0. Menu précédent\n");
 
         printf("Renseignez votre choix : ");
         choix = saisie_entier();
@@ -645,12 +645,12 @@ void matiere_classe(){
             }
             
             if (ref == -1){
-                printf("L'operation a été annulé.");
+                printf("L'operation à été annulé.");
                 system("pause");
                 break;
             }
 
-            printf("Entrez le code de la classe a laquelle vous voulez ajouter la matiere : ");
+            printf("Entrez le code de la classe a laquelle vous voulez ajouter la matière : ");
             code = saisie_entier();
             existe = code_existe(code);
             while(existe == 0){
@@ -661,7 +661,7 @@ void matiere_classe(){
             }
             
             if (code == -1){
-                printf("L'operation a été annulé.");
+                printf("L'operation à été annulé.");
                 system("pause");
                 break;
             }
@@ -682,12 +682,12 @@ void matiere_classe(){
             }
 
             if (ref == -1){
-                printf("L'operation a été annulé.");
+                printf("L'operation à été annulé.");
                 system("pause");
                 break;
             }
 
-            printf("Entrez le code de la classe a laquelle vous voulez retirer la matiere : ");
+            printf("Entrez le code de la classe a laquelle vous voulez retirer la matière : ");
             code = saisie_entier();
             existe = code_existe(code);
             while(existe == 0){
@@ -698,7 +698,7 @@ void matiere_classe(){
             }
 
             if (code == -1){
-                printf("L'operation a été annulé.");
+                printf("L'operation à été annulé.");
                 system("pause");
                 break;
             }

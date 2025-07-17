@@ -19,7 +19,7 @@ void menuMatiere()
     printf("3. Rechercher une matière\n");
     printf("4. Supprimer une matière\n");
     printf("5. Modifier une matière\n");
-    printf("0. Quitter\n\n");
+    printf("0. Menu précédent\n\n");
     printf("Renseigner votre choix : ");
     choix = saisie_entier();
     printf("\n\n");
@@ -57,7 +57,7 @@ void menuMatiere()
         }
         chercher(a,tab);
         supprimer_matiere(tab);
-        printf("La matière a été supprimé avec succès\n\n");
+        printf("La matière a été supprimée avec succès\n\n");
         system("pause");
         break;
     case 5:
@@ -75,7 +75,7 @@ void menuMatiere()
     case 0: printf("Menu précédent\n\n");system("pause"); break; 
     
     default:
-        printf("Cette option n'existe pas\n\n");
+        printf("Veuillez saisir une option valide\n\n");
         system("pause");
         break;
     }

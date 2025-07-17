@@ -260,7 +260,7 @@ int modifier_lib(char ligne_modif[100]){
 
     mat.reference = ref;    
     
-    printf("\nVeuillez saisir le nouveau libellé de la matiere : ");
+    printf("\nVeuillez saisir le nouveau libellé de la matière : ");
     saisie_ligne(mat.libelle,sizeof(mat.libelle));
 
     mat.coefficient = coef;
@@ -298,7 +298,7 @@ int modifier_coef(char ligne_modif[100]){
     valeur = strtok(NULL, ";");
     
     coef = atoi(valeur);
-    printf("Voici l'ancien coefficient de la matiere : %d",coef);
+    printf("Voici l'ancien coefficient de la matière : %d",coef);
 
     int a;
     matiere mat;
@@ -330,7 +330,7 @@ void menuModifier_matiere(int a)
     
         char ligne_modif[100];
         system("cls");
-        printf("Quel élément voulez vous modifier ?\n\n\n");
+        printf("Quel élément voulez vous modifier ?\n\n");
         printf("1. Référence\n");
         printf("2. Libellé\n");
         printf("3. Coefficient\n");
@@ -366,7 +366,7 @@ void menuModifier_matiere(int a)
             printf("Menu précédent\n\n");
             break;
         default:
-            printf("Nous ne pouvons pas encore gérer cette option\n"); 
+            printf("Veuillez entrer une option valide\n"); 
             break;
         }
         printf("\n\n");
@@ -479,11 +479,11 @@ void menuRecherche_matiere(){
     do
     {
         system("cls");
-        printf("A partir de quel element voulez vous faire une recherche?\n\n\n");
+        printf("A partir de quel element voulez vous faire une recherche?\n\n");
         printf("1. Référence\n");
         printf("2. Libellé\n");
         printf("3. Coefficient\n");
-        printf("0. Quitter\n\n");
+        printf("0. Annuler\n\n");
         printf("Renseignez votre choix : ");
         option = saisie_entier();
         printf("\n");
@@ -529,7 +529,7 @@ void menuRecherche_matiere(){
             printf("\nMenu précédent\n\n");
             break;
         default:
-            printf("Nous ne pouvons pas encore gérer cette option\n");
+            printf("Veuillez entrer une option valide\n\n");
             system("pause");
             break;
         }
