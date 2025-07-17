@@ -9,7 +9,7 @@ void menuNotes(){
     do{
         
         system("cls");
-        printf("\t\t\n===== MENU NOTES =====\n\n 1. Ajouter les notes\n 2. Modifier les notes\n 3. Rechercher notes etudiant dans une matiere\n 4. Afficher toutes les notes d'un eleve\n 5. Afficher les notes dans un matiere\n 6. Afficher notes dans une classe\n 7. Supprimer les notes d'un eleve\n 0. Retourner au menu precedent\n\n");
+        printf("\t\t\n===== MENU NOTES =====\n\n 1. Ajouter les notes\n 2. Modifier les notes\n 3. Rechercher les notes d'un étudiant dans une matière\n 4. Afficher toutes les notes d'un étudiant\n 5. Afficher les notes dans un matière\n 6. Afficher les notes d'une classe\n 7. Supprimer les notes d'un étudiant\n 0. Menu précédent\n\n");
         printf("Renseigner votre choix : ");
         choix=saisie_entier();
         printf("\n\n");
@@ -18,7 +18,7 @@ void menuNotes(){
         case 1:
             system("cls");
             if(!ajout_note())
-                printf ("Notes ajoutes avec succes\n");
+                printf ("Notes ajoutées avec succés\n");
                 
                 
                 
@@ -35,7 +35,7 @@ void menuNotes(){
         case 2:
             system("cls");
             if(!modifier_note())
-                printf("Notes modifiees avec succes\n");
+                printf("Notes modifiées avec succés\n");
                 
             else{
                 printf("Erreur dans la modification des notes\n");
@@ -84,7 +84,7 @@ void menuNotes(){
         case 7:
             system("cls");
             if(!supprimer_note()){
-                printf("\nSuppression effectuee avec succes\n\n");
+                printf("\nSuppression effectuée avec succés\n\n");
             }
             else{
                 printf("\nErreur dans la suppression\n\n");
@@ -104,12 +104,12 @@ void menuNotes(){
             break;
 
         case 0:
-            printf("Menu precedent\n\n");
+            printf("Menu précédent\n\n");
             system("pause");
             break;
         
         default:
-            printf("Nous ne pouvons pas encore faire cette option\n");
+            printf("Veuillez saisir une option valide\n\n");
         }
     
     }while (choix != 0);

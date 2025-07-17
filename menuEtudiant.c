@@ -12,8 +12,8 @@ void menuEtudiant() {
         printf("2. Modifier un étudiant\n");
         printf("3. Rechercher un étudiant\n");
         printf("4. Supprimer un étudiant\n");
-        printf("5. Afficher tous les étudiants\n");
-        printf("0. Menu Precedent\n\n");
+        printf("5. Afficher tout les étudiants\n");
+        printf("0. Menu Précédent\n\n");
         printf("Veuillez renseigner votre choix : ");
         choix=saisie_entier();
         printf("\n\n");
@@ -25,7 +25,7 @@ void menuEtudiant() {
             case 4:system("cls"); supprimerEtudiant(); system("pause");break;
             case 5:system("cls"); afficherListeEtudiants(); system("pause");break;
             case 0:printf("Menu précédent\n\n"); system("pause"); return; break;
-            default: printf("Choix invalide.\n");
+            default: printf("Veuillez saisir une option valide\n\n");system("pause");
         }
 
     } while (choix != 0);

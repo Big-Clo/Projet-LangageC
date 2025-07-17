@@ -11,9 +11,9 @@ int main () {
     do {
         system("cls");
         printf("MINI-LOGIECIEL DE GESTION DES NOTES\n\n\n");
-        printf("1. Gestion des Etudiants\n");
+        printf("1. Gestion des Étudiants\n");
         printf("2. Gestions des Classes\n");
-        printf("3. Gestions des matieres\n");
+        printf("3. Gestions des Matières\n");
         printf("4. Gestion des Notes\n");
         printf("0. Quitter\n\n");
         printf("Veuillez renseigner votre choix : ");
@@ -26,7 +26,7 @@ int main () {
             case 3:system("cls"); menuMatiere(); break;
             case 4:system("cls"); menuNotes(); break;
             case 0:printf("Au revoir!!!\n\n");break; 
-            default: printf("Choix Invalide");
+            default: printf("Veuillez saisir une option valide\n\n");system("pause");
         }
 
 

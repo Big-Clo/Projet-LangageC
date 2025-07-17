@@ -55,7 +55,7 @@ void ajouterEtudiant() {
 
     for (i = 0; i < n; i++) {
         while (tab[i].numero == e.numero) {
-            printf("Ce numéro existe déjà. Veuillez saisir un autre numero ou -1 pour quitter\n");
+            printf("Ce numéro existe déjà. Veuillez saisir un autre numéro ou -1 pour quitter\n");
             e.numero=saisie_entier();
             if(e.numero == -1){
                 printf("\tAnnulation\n");
@@ -74,7 +74,7 @@ void ajouterEtudiant() {
     e.date_naissance.jour=saisie_entier();
     printf("Mois de naissance  : ");
     e.date_naissance.mois=saisie_entier();
-    printf("Annee de naissance  : ");
+    printf("Année de naissance  : ");
     e.date_naissance.annee=saisie_entier();
     printf("Code classe : ");
     e.codeClasse=saisie_entier();
@@ -144,7 +144,7 @@ void rech_num_etudiant() {
     {trouve=1;}}
 
     if (!trouve)
-            {printf("Aucun etudiant ne correspond à ce numero\n");return;}
+            {printf("Aucun étudiant né correspond à ce numéro\n");return;}
 
     printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
     printf("\t|   Numéro   |     Nom      | Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
@@ -389,7 +389,7 @@ void rech_date_etudiant() {
     date.jour=saisie_entier();
     printf("Mois : ");
     date.mois=saisie_entier();
-    printf("Annee : ");
+    printf("Année : ");
     date.annee=saisie_entier();
     int i;
 
@@ -397,7 +397,7 @@ void rech_date_etudiant() {
     {trouve=1;}}
 
     if (!trouve)
-            {printf("Aucun etudiant ne correspond à ce numero\n");return;}
+            {printf("Aucun étudiant né correspond à ce numéro\n");return;}
 
     printf("\t+------------+--------------+--------------+-----------------+-------------------------+-----------------------+\n");
     printf("\t|   Numéro   |     Nom      | Prénom       |     Classe      |          Email          |   Date de naissance   |\n");
@@ -435,7 +435,7 @@ void menuRecherche_Etudiant(){
     do
     {   
         system("cls");
-        printf("A partir de quel element voulez vous faire une recherche ? \n");
+        printf("A partir de quel element voulez vous faire une recherche ? \n\n");
         printf("1. Numéro\n");
         printf("2. Nom\n");
         printf("3. Prénom\n");
@@ -545,8 +545,8 @@ void modif_num_Etudiant(int numero) {
 
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
-        printf("Voici l'ancien numero : %d\n\n",numero);
-        printf("Veuillez saisir le nouveau numero : ");
+        printf("Voici l'ancien numéro : %d\n\n",numero);
+        printf("Veuillez saisir le nouveau numéro : ");
         num=saisie_entier();
         int j;
         for (j = 0; j < n; j++) {
@@ -613,7 +613,7 @@ void modif_prenom_Etudiant(int numero) {
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
 
-            printf("Voici l'ancien prenom : %s\n\n",tab[i].prenom);
+            printf("Voici l'ancien prénom : %s\n\n",tab[i].prenom);
             printf("Veuillez saisir le nouveau prénom : ");
             saisie_ligne(tab[i].prenom,sizeof(tab[i].prenom));
             
@@ -672,10 +672,10 @@ void modif_Date_Etudiant(int numero) {
     for (i = 0; i < n; i++) {
         if (tab[i].numero == numero) {
             printf("Voici l'ancienne date de naissance : %d/%d/%d\n\n",tab[i].date_naissance.jour,tab[i].date_naissance.mois,tab[i].date_naissance.annee);
-            printf("Veuillez saisir la nouvelle date de naissance \n");
+            printf("Veuillez saisir la nouvelle date de naissance \n\n");
             printf("Jour : ");tab[i].date_naissance.jour=saisie_entier();
             printf("Mois : ");tab[i].date_naissance.mois=saisie_entier();
-            printf("Annee : ");tab[i].date_naissance.annee=saisie_entier();
+            printf("Année : ");tab[i].date_naissance.annee=saisie_entier();
 
             if (!confirmer_modification()) {
                 printf("Modification annulée.\n\n");
@@ -705,7 +705,7 @@ void modif_classe_Etudiant(int numero) {
 
             FILE *fichier_classe = fopen("classe.csv", "r");
             if (fichier_classe == NULL){
-                printf("le fichier n' a pas pu etre ouvert");
+                printf("le fichier n'a pas pu être ouvert");
                 exit(1);
             }
             int code;
@@ -716,7 +716,7 @@ void modif_classe_Etudiant(int numero) {
                 break;
                 }
             }
-            printf("Voici l'ancien l'ancienne classe de l'élève : %s\n\n",nom);
+            printf("Voici l'ancienne classe de l'élève : %s\n\n",nom);
             printf("Veuillez saisir le code de la nouvelle classe : ");
             tab[i].codeClasse=saisie_entier();
 
@@ -747,7 +747,7 @@ void modifier_Etudiant(int numero) {
         if (tab[i].numero == numero) {
             FILE *fichier_classe = fopen("classe.csv", "r");
             if (fichier_classe == NULL){
-                printf("le fichier n' a pas pu etre ouvert");
+                printf("le fichier n'a pas pu être ouvert");
                 exit(1);
             }
             int code;
@@ -801,7 +801,7 @@ void modifier_Etudiant(int numero) {
 void menuModifier_Etudiant(int numero){
     int choix;
     system("cls");
-    printf("Quel element voulez vous modifier ? \n");
+    printf("Quel element voulez vous modifier ? \n\n");
     printf("1. Numéro\n");
     printf("2. Nom\n");
     printf("3. Prénom\n");

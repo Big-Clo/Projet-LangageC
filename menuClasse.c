@@ -10,14 +10,14 @@ void menuClasse()
     do {
     system("cls");
     printf("\t\t\n===== MENU CLASSE =====\n\n");
-    printf("1. Pour ajouter une classe\n");
-    printf("2. Pour afficher la liste des classes\n");
-    printf("3. Pour rechercher une classe\n");
-    printf("4. Pour supprimer une classe\n");
-    printf("5. Pour modifier une classe\n");
-    printf("6. Pour afficher la liste d'une classe\n");
-    printf("7. Pour gerer les matieres des classe\n");
-    printf("0. Pour quitter\n\n");
+    printf("1. Ajouter une classe\n");
+    printf("2. Afficher la liste des classes\n");
+    printf("3. Rechercher une classe\n");
+    printf("4. Supprimer une classe\n");
+    printf("5. Modifier une classe\n");
+    printf("6. Afficher la liste d'une classe\n");
+    printf("7. Gérer les matières des classes\n");
+    printf("0. Menu précédent\n\n");
     printf("Renseigner votre choix: ");
     choix=saisie_entier();
     printf("\n\n");
@@ -82,10 +82,10 @@ void menuClasse()
     case 0: printf("Menu precedent\n\n");system("pause"); break; 
     
     default:
-        printf("Nous ne pouvons pas encore gerer cette option\n");
+        printf("Veuillez saisir une option valide\n\n");
         
     }
-    
+    system("pause");
     
     } while (choix !=0);
 
