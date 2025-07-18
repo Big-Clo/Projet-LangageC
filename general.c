@@ -91,7 +91,7 @@ int confirmer_modification() {
     char confirm;
     printf("Confirmer la modification ? (o/n) : ");
     scanf(" %c", &confirm);
-    while (getchar() != '\n'); // Vider le buffer
+    while (getchar() != '\n'); 
     return (confirm == 'o' || confirm == 'O');
 }
 
@@ -147,4 +147,3 @@ int reference_existe(int x) {
 }
 
 
-// gcc etudiant.c gestion_classe.c gestion_note.c general.c matiere.c menuEtudiant.c menuClasse.c menuNotes.c menuMatiere.c menuPrincipale.c -o b && b.exe

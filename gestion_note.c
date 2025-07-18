@@ -658,6 +658,3 @@ int recherche_note_classe() {
     return 0;
 }
 
-/*
-Matiere Nom Prenom CC DS
-*/
