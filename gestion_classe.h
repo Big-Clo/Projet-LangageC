@@ -13,7 +13,6 @@ typedef struct {
 } CLASSE;
 
 int ajout_classe();
-int code_existe(int x);
 void afficher_classe();
 void menuClasse();
 void modifier_classe(int code_a_modifier);
